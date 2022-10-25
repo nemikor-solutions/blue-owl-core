@@ -1,9 +1,23 @@
+import type {
+    Config
+} from './config';
+
 import Controller from './controller';
 import Owlcms from './owlcms';
 import parseConfig from './config';
 
 (async () => {
-    const { platform, referees, url } = parseConfig();
+    let config: Config;
+
+    try {
+        config = parseConfig();
+    } catch (error) {
+        console.error(error);
+        process.exitCode = 1;
+        return;
+    }
+
+    const { platform, referees, url } = config;
     const owlcms = new Owlcms({
         url,
     });

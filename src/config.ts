@@ -21,27 +21,69 @@ export type Config =
         | 'referees'
     >;
 
+type RefereeConfig = Config['referees'][0];
+
 export default function parseConfig(): Config {
     dotenv.config();
 
+    const platform = process.env['PLATFORM'] || 'A';
+    const url = process.env['MQTT_URL'] || 'mqtt://127.0.0.1:1883';
+
+    let referees: RefereeConfig[] = [];
+    const referee1 = parseReferee(1);
+    const referee2 = parseReferee(2);
+    const referee3 = parseReferee(3);
+
+    if (referee1) {
+        // Single referee mode
+        if (!referee2 && !referee3) {
+            referees = [
+                referee1,
+                { ...referee1, number: 2 },
+                { ...referee1, number: 3 },
+            ];
+        // Standard referee mode
+        } else {
+            if (!referee2) {
+                throw new Error('Missing configuration for referee 2');
+            }
+
+            if (!referee3) {
+                throw new Error('Missing configuration for referee 3');
+            }
+
+            referees = [
+                referee1,
+                referee2,
+                referee3,
+            ];
+        }
+    }
+
     return {
-        platform: process.env.PLATFORM || 'A',
-        referees: [
-            parseReferee(1),
-            parseReferee(2),
-            parseReferee(3),
-        ],
-        url: process.env.MQTT_URL || 'mqtt://127.0.0.1:1883',
+        platform,
+        referees,
+        url,
     };
 }
 
-function parseReferee(number: RefereeNumber): Config['referees'][0] {
+function parseReferee(number: RefereeNumber): RefereeConfig | null {
+    const badLiftButton = process.env[`REFEREE${number}_BAD_LIFT_BUTTON`] || '';
+    const badLiftLed = process.env[`REFEREE${number}_BAD_LIFT_LED`] || null;
+    const goodLiftButton = process.env[`REFEREE${number}_GOOD_LIFT_BUTTON`] || '';
+    const goodLiftLed = process.env[`REFEREE${number}_GOOD_LIFT_LED`] || null;
+    const vibrationMotor = process.env[`REFEREE${number}_VIBRATION_MOTOR`] || null;
+
+    if (!badLiftButton && !goodLiftButton) {
+        return null;
+    }
+
     return {
-        badLiftButton: process.env[`REFEREE${number}_BAD_LIFT_BUTTON`],
-        badLiftLed: process.env[`REFEREE${number}_BAD_LIFT_LED`],
-        goodLiftButton: process.env[`REFEREE${number}_GOOD_LIFT_BUTTON`],
-        goodLiftLed: process.env[`REFEREE${number}_GOOD_LIFT_LED`],
+        badLiftButton,
+        badLiftLed,
+        goodLiftButton,
+        goodLiftLed,
         number,
-        vibrationMotor: process.env[`REFEREE${number}_VIBRATION_MOTOR`],
+        vibrationMotor,
     };
 }
