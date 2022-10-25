@@ -10,7 +10,7 @@ Referee control boxes may be used in compliance with the IWF Referee Light Syste
 
 * White and red buttons for "Good lift" and "No lift".
 * White and red LEDs to confirm decision entry.
-* Vibration to signal when a decision is required.
+* Buzzer and/or vibration to signal when a decision is required.
 
 ### Single Referee Mode
 

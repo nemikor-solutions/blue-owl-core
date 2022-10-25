@@ -1,13 +1,15 @@
 import type Owlcms from './owlcms';
 import type {
     ButtonOption,
-    LedOption
+    LedOption,
+    PiezoOption,
 } from 'johnny-five';
 
 import debug from 'debug';
 import {
     Button,
     Led,
+    Piezo,
 } from 'johnny-five';
 
 export type Decision = 'bad' | 'good';
@@ -21,6 +23,7 @@ export interface RefereeOptions {
     goodLiftLed?: LedOption['pin'] | null;
     number: RefereeNumber;
     owlcms: Owlcms;
+    piezo: PiezoOption['pin'] | null;
     platform: string;
     vibrationMotor?: LedOption['pin'] | null;
 }
@@ -48,6 +51,8 @@ export default class Referee {
     private goodLiftLed?: Led;
 
     private options: RefereeOptions;
+
+    private piezo?: Piezo;
 
     // Johnny-Five doesn't have a vibration motor component,
     // but it's functionally equivalent to an LED
@@ -114,6 +119,10 @@ export default class Referee {
             this.badLiftLed = new Led(this.options.badLiftLed);
         }
 
+        if (this.options.piezo) {
+            this.piezo = new Piezo(this.options.piezo);
+        }
+
         if (this.options.vibrationMotor) {
             this.vibrationMotor = new Led(this.options.vibrationMotor);
         }
@@ -163,16 +172,18 @@ export default class Referee {
     public async decisionRequest() {
         this.debug('decision requested');
 
-        if (!this.vibrationMotor) {
+        if (!this.piezo && !this.vibrationMotor) {
             return;
         }
 
-        this.vibrationMotor.on();
+        this.piezo?.frequency(1047, 200);
+        this.vibrationMotor?.on();
         await sleep(200);
-        this.vibrationMotor.off();
+        this.vibrationMotor?.off();
         await sleep(100);
-        this.vibrationMotor.on();
+        this.piezo?.frequency(1047, 200);
+        this.vibrationMotor?.on();
         await sleep(200);
-        this.vibrationMotor.off();
+        this.vibrationMotor?.off();
     }
 }

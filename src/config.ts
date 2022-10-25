@@ -72,6 +72,7 @@ function parseReferee(number: RefereeNumber): RefereeConfig | null {
     const badLiftLed = process.env[`REFEREE${number}_BAD_LIFT_LED`] || null;
     const goodLiftButton = process.env[`REFEREE${number}_GOOD_LIFT_BUTTON`] || '';
     const goodLiftLed = process.env[`REFEREE${number}_GOOD_LIFT_LED`] || null;
+    const piezo = Number(process.env[`REFEREE${number}_PIEZO`]) || null;
     const vibrationMotor = process.env[`REFEREE${number}_VIBRATION_MOTOR`] || null;
 
     if (!badLiftButton && !goodLiftButton) {
@@ -84,6 +85,7 @@ function parseReferee(number: RefereeNumber): RefereeConfig | null {
         goodLiftButton,
         goodLiftLed,
         number,
+        piezo,
         vibrationMotor,
     };
 }
