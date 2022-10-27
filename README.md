@@ -2,8 +2,6 @@
 
 Blue Owl provides Technical Official device integration for [OWLCMS](https://owlcms.github.io/owlcms4/) via a microcontroller powered by [Johnny-Five](http://johnny-five.io/).
 
-Blue Owl currently provides functionality related to referees only. Support for a jury and timekeeper are planned.
-
 ## Referees
 
 Referee control boxes may be used in compliance with the IWF Referee Light System as documented in TCRR 3.3.6. The referee control boxes support:
@@ -15,6 +13,15 @@ Referee control boxes may be used in compliance with the IWF Referee Light Syste
 ### Single Referee Mode
 
 Blue Owl supports a single referee mode for competitions run with only one referee. When only one referee control box is configured, it will send a decision for all three referees.
+
+## Timekeeper
+
+The timekeeper control box may be used to fully control the clock. The timekeeper control box supports:
+
+* Starting the clock.
+* Stopping the clock.
+* Resetting the clock to one minute.
+* Resetting the clock to two minutes.
 
 ## License
 

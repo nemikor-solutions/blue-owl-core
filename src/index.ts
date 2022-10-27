@@ -17,7 +17,12 @@ import parseConfig from './config';
         return;
     }
 
-    const { platform, referees, url } = config;
+    const {
+        platform,
+        referees,
+        timekeeper,
+        url,
+    } = config;
     const owlcms = new Owlcms({
         url,
     });
@@ -29,6 +34,7 @@ import parseConfig from './config';
             owlcms,
             platform,
             referees,
+            timekeeper,
         });
         await controller.connect();
     } catch (error) {

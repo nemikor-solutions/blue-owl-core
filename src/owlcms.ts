@@ -111,6 +111,14 @@ export default class Owlcms
         return super.on(type, listener);
     }
 
+    public oneMinuteClock({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/clock/${platform}`, '60');
+    }
+
     public publishDecision({
         decision,
         platform,
@@ -121,5 +129,29 @@ export default class Owlcms
         referee: number;
     }) {
         this.mqtt.publish(`owlcms/decision/${platform}`, `${referee} ${decision}`);
+    }
+
+    public startClock({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/clock/${platform}`, 'start');
+    }
+
+    public stopClock({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/clock/${platform}`, 'stop');
+    }
+
+    public twoMinuteClock({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/clock/${platform}`, '120');
     }
 }

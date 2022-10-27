@@ -1,22 +1,28 @@
 import type Owlcms from './owlcms';
 import type {
-    RefereeOptions
+    RefereeOptions,
 } from './referee';
+import type {
+    TimekeeperOptions,
+} from './timekeeper';
 
 import debug from 'debug';
 import Referee from './referee';
+import Timekeeper from './timekeeper';
 import {
     Board,
 } from 'johnny-five';
 
-export interface ControllerOptions {
+type CommonOptions = {
     owlcms: Owlcms;
     platform: string;
-    referees: Array<Omit<
-        RefereeOptions,
-        | 'owlcms'
-        | 'platform'
-    >>;
+};
+
+type RemoveCommonOptions<T> = Omit<T, keyof CommonOptions>;
+
+export interface ControllerOptions extends CommonOptions {
+    referees?: Array<RemoveCommonOptions<RefereeOptions>> | null;
+    timekeeper?: RemoveCommonOptions<TimekeeperOptions> | null;
 }
 
 export default class Controller {
@@ -27,7 +33,6 @@ export default class Controller {
     private static requiredOptions: Array<keyof ControllerOptions> = [
         'owlcms',
         'platform',
-        'referees',
     ];
 
     private debug: debug.Debugger;
@@ -51,6 +56,13 @@ export default class Controller {
         this.debug = debug(`controller:${options.platform}`);
     }
 
+    private get commonOptions(): CommonOptions {
+        return {
+            owlcms: this.owlcms,
+            platform: this.options.platform,
+        };
+    }
+
     private get owlcms() {
         return this.options.owlcms;
     }
@@ -60,13 +72,21 @@ export default class Controller {
 
         return new Promise<void>((resolve, reject) => {
             board.on('ready', () => {
-                this.referees = this.options.referees.map((refereeOptions) => {
-                    return new Referee({
-                        ...refereeOptions,
-                        owlcms: this.owlcms,
-                        platform: this.options.platform,
+                if (this.options.referees) {
+                    this.referees = this.options.referees.map((refereeOptions) => {
+                        return new Referee({
+                            ...refereeOptions,
+                            ...this.commonOptions,
+                        });
                     });
-                });
+                }
+
+                if (this.options.timekeeper) {
+                    new Timekeeper({
+                        ...this.options.timekeeper,
+                        ...this.commonOptions,
+                    });
+                }
 
                 this.debug('board ready');
                 resolve();
