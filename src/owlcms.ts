@@ -12,8 +12,14 @@ export interface DecisionRequestEvent {
     referee: RefereeNumber;
 }
 
+export interface SummonEvent {
+    platform: string;
+    referee: RefereeNumber;
+}
+
 interface OwlcmsEvents {
     decisionRequest: (data: DecisionRequestEvent) => void;
+    summon: (data: SummonEvent) => void;
 }
 
 export interface OwlcmsOptions {
@@ -52,8 +58,7 @@ export default class Owlcms
             const [, action, ...topicParts] = topic.split('/');
             let data: DecisionRequestEvent;
 
-            switch (action) {
-            case 'decisionRequest':
+            if (action === 'decisionRequest' || action === 'summon') {
                 if (message === 'off') {
                     return;
                 }
@@ -64,8 +69,7 @@ export default class Owlcms
                     platform,
                     referee: parseInt(referee) as RefereeNumber,
                 };
-                break;
-            default:
+            } else {
                 return;
             }
 

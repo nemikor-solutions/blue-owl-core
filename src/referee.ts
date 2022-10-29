@@ -3,6 +3,7 @@ import type {
     ButtonOption,
     LedOption,
     PiezoOption,
+    PiezoTune,
 } from 'johnny-five';
 
 import debug from 'debug';
@@ -102,7 +103,15 @@ export default class Referee {
             }
 
             this.decisionRequest();
-        })
+        });
+
+        this.owlcms.on('summon', ({ platform, referee }) => {
+            if (platform !== this.platform || referee !== this.number) {
+                return;
+            }
+
+            this.summon();
+        });
 
         this.debug('initialized');
     }
@@ -126,6 +135,17 @@ export default class Referee {
         if (this.options.vibrationMotor) {
             this.vibrationMotor = new Led(this.options.vibrationMotor);
         }
+    }
+
+    private play(song: PiezoTune['song']) {
+        this.piezo?.play({
+            song,
+            tempo: 600,
+        }, () => {
+            // For some reason, the pin tends to go high after playing,
+            // so we manually set it low (off).
+            this.piezo?.off();
+        });
     }
 
     private resetLeds() {
@@ -160,6 +180,18 @@ export default class Referee {
         });
     }
 
+    private async vibrate(pattern: number[], action: 'on' | 'off' = 'on') {
+        if (!pattern.length) {
+            this.vibrationMotor?.off();
+            return;
+        }
+
+        const duration = pattern.shift() as number;
+        this.vibrationMotor?.[action]();
+        await sleep(duration);
+        this.vibrate(pattern, action === 'on' ? 'off' : 'on');
+    }
+
     public blinkLeds() {
         this.badLiftLed?.blink(300);
         this.goodLiftLed?.blink(300);
@@ -176,14 +208,28 @@ export default class Referee {
             return;
         }
 
-        this.piezo?.frequency(1047, 200);
-        this.vibrationMotor?.on();
-        await sleep(200);
-        this.vibrationMotor?.off();
-        await sleep(100);
-        this.piezo?.frequency(1047, 200);
-        this.vibrationMotor?.on();
-        await sleep(200);
-        this.vibrationMotor?.off();
+        this.play([
+            ['c6', 2],
+            [null, 1],
+            ['c6', 2],
+        ]);
+        this.vibrate([200, 100, 200]);
+    }
+
+    public async summon() {
+        this.debug('summon');
+
+        if (!this.piezo && !this.vibrationMotor) {
+            return;
+        }
+
+        this.play([
+            ['c4', 1],
+            ['c5', 1],
+            [null, 1],
+            ['c4', 1],
+            ['c5', 1],
+        ]);
+        this.vibrate([200, 100, 200]);
     }
 }
