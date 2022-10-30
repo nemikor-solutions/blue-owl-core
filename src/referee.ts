@@ -149,10 +149,8 @@ export default class Referee {
     }
 
     private resetLeds() {
-        this.badLiftLed?.stop();
-        this.badLiftLed?.off();
-        this.goodLiftLed?.stop();
-        this.goodLiftLed?.off();
+        this.badLiftLed?.stop().off();
+        this.goodLiftLed?.stop().off();
     }
 
     private setUpButtons() {
