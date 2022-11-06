@@ -29,10 +29,16 @@ export interface RefereeOptions {
     vibrationMotor?: LedOption['pin'] | null;
 }
 
-const decisions = [
+export const decisions: Decision[] = [
     'bad',
     'good',
-] as const;
+];
+
+export const referees: RefereeNumber[] = [
+    1,
+    2,
+    3
+];
 
 async function sleep(duration: number) {
     return new Promise((resolve) => {

@@ -10,6 +10,7 @@ import type {
 
 import * as dotenv from 'dotenv';
 
+type JuryConfig = NonNullable<ControllerOptions['jury']>;
 type RefereeConfig = NonNullable<ControllerOptions['referees']>[number];
 type TimekeeperConfig = NonNullable<ControllerOptions['timekeeper']>;
 
@@ -23,6 +24,7 @@ export type Config =
         | 'platform'
     >
     & {
+        jury: JuryConfig | null;
         referees: RefereeConfig[] | null;
         timekeeper: TimekeeperConfig | null;
     };
@@ -33,14 +35,52 @@ export default function parseConfig(): Config {
     const platform = process.env['PLATFORM'] || 'A';
     const url = process.env['MQTT_URL'] || 'mqtt://127.0.0.1:1883';
 
+    const jury = parseJury();
     const referees = parseReferees();
     const timekeeper = parseTimekeeper();
 
     return {
+        jury,
         platform,
         referees,
         timekeeper,
         url,
+    };
+}
+
+function parseJury(): JuryConfig | null {
+    const deliberation = process.env['JURY_DELIBERATION_BUTTON'] || '';
+    const referee1BadLift = process.env['JURY_REFEREE1_BAD_LIFT_LED'] || '';
+    const referee1GoodLift = process.env['JURY_REFEREE1_GOOD_LIFT_LED'] || '';
+    const referee2BadLift = process.env['JURY_REFEREE2_BAD_LIFT_LED'] || '';
+    const referee2GoodLift = process.env['JURY_REFEREE2_GOOD_LIFT_LED'] || '';
+    const referee3BadLift = process.env['JURY_REFEREE3_BAD_LIFT_LED'] || '';
+    const referee3GoodLift = process.env['JURY_REFEREE3_GOOD_LIFT_LED'] || '';
+    const resumeCompetition = process.env['JURY_RESUME_COMPETITION_BUTTON'] || '';
+    const summonReferee1 = process.env['JURY_SUMMON_REFEREE1_BUTTON'] || '';
+    const summonReferee2 = process.env['JURY_SUMMON_REFEREE2_BUTTON'] || '';
+    const summonReferee3 = process.env['JURY_SUMMON_REFEREE3_BUTTON'] || '';
+    const summonTechnicalController = process.env['JURY_SUMMON_TECHNICAL_CONTROLLER_BUTTON'] || '';
+    const technicalBreak = process.env['JURY_TECHNICAL_BREAK_BUTTON'] || '';
+
+    if (!deliberation) {
+        return null;
+    }
+
+    return {
+        deliberation,
+        referee1BadLift,
+        referee1GoodLift,
+        referee2BadLift,
+        referee2GoodLift,
+        referee3BadLift,
+        referee3GoodLift,
+        resumeCompetition,
+        summonReferee1,
+        summonReferee2,
+        summonReferee3,
+        summonTechnicalController,
+        technicalBreak,
     };
 }
 

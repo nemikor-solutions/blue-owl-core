@@ -7,9 +7,28 @@ import debug from 'debug';
 import EventEmitter from 'node:events';
 import mqtt from 'mqtt';
 
+export interface ClockStartEvent {
+    platform: string;
+}
+
+export interface DecisionEvent {
+    decision: Decision;
+    platform: string;
+    referee: RefereeNumber;
+}
+
 export interface DecisionRequestEvent {
     platform: string;
     referee: RefereeNumber;
+}
+
+export type Official =
+    | RefereeNumber
+    | 'all'
+    | 'controller';
+
+export interface ResetDecisionsEvent {
+    platform: string;
 }
 
 export interface SummonEvent {
@@ -18,9 +37,18 @@ export interface SummonEvent {
 }
 
 interface OwlcmsEvents {
+    clockStart: (data: ClockStartEvent) => void;
+    decision: (data: DecisionEvent) => void;
     decisionRequest: (data: DecisionRequestEvent) => void;
+    resetDecisions: (data: ResetDecisionsEvent) => void;
     summon: (data: SummonEvent) => void;
 }
+
+type OwlcmsEventDataMap = {
+    [K in keyof OwlcmsEvents]: Parameters<OwlcmsEvents[K]>[0];
+}
+
+type OwlcmsEventData = OwlcmsEventDataMap[keyof OwlcmsEvents];
 
 export interface OwlcmsOptions {
     url: string;
@@ -55,19 +83,31 @@ export default class Owlcms
             const message = _message.toString();
             this.debug(`${topic}: ${message}`);
 
-            const [, action, ...topicParts] = topic.split('/');
-            let data: DecisionRequestEvent;
+            const [, ,action, platform] = topic.split('/') as ['owlcms', 'fop', string, string];
+            let data: OwlcmsEventData;
 
-            if (action === 'decisionRequest' || action === 'summon') {
-                if (message === 'off') {
+            if (action === 'decision') {
+                const [referee, decision] = message.split(' ') as [string, Decision];
+
+                data = {
+                    decision,
+                    platform,
+                    referee: parseInt(referee) as RefereeNumber,
+                };
+            } else if (action === 'decisionRequest' || action === 'summon') {
+                const [referee, status] = message.split(' ') as [string, string];
+
+                if (status === 'off') {
                     return;
                 }
-
-                const [platform, referee] = topicParts as [string, string];
 
                 data = {
                     platform,
                     referee: parseInt(referee) as RefereeNumber,
+                };
+            } else if (action === 'clockStart' || action === 'resetDecisions') {
+                data = {
+                    platform,
                 };
             } else {
                 return;
@@ -80,7 +120,7 @@ export default class Owlcms
             this.mqtt.on('connect', () => {
                 this.debug('connected');
 
-                this.mqtt.subscribe('owlcms/#', (error) => {
+                this.mqtt.subscribe('owlcms/fop/#', (error) => {
                     if (error) {
                         console.error('Failed to subscribe to owlcms messages.');
                         console.error(error);
@@ -132,7 +172,15 @@ export default class Owlcms
         platform: string;
         referee: number;
     }) {
-        this.mqtt.publish(`owlcms/decision/${platform}`, `${referee} ${decision}`);
+        this.mqtt.publish(`owlcms/refbox/decision/${platform}`, `${referee} ${decision}`);
+    }
+
+    public resumeCompetition({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'stop');
     }
 
     public startClock({
@@ -143,12 +191,73 @@ export default class Owlcms
         this.mqtt.publish(`owlcms/clock/${platform}`, 'start');
     }
 
+    public startDeliberation({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'deliberation');
+    }
+
+    public startTechnicalBreak({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'technical');
+    }
+
     public stopClock({
         platform,
     }: {
         platform: string;
     }) {
         this.mqtt.publish(`owlcms/clock/${platform}`, 'stop');
+    }
+
+    public summon({
+        official,
+        platform,
+    }: {
+        official: Official;
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/jurybox/summon/${platform}`, official.toString());
+    }
+
+    public summonAll({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.summon({
+            official: 'all',
+            platform,
+        });
+    }
+
+    public summonReferee({
+        platform,
+        referee,
+    }: {
+        platform: string;
+        referee: RefereeNumber;
+    }) {
+        this.summon({
+            official: referee,
+            platform,
+        });
+    }
+
+    public summonTechnicalController({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.summon({
+            official: 'controller',
+            platform,
+        });
     }
 
     public twoMinuteClock({

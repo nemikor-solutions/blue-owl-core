@@ -1,5 +1,8 @@
 import type Owlcms from './owlcms';
 import type {
+    JuryOptions,
+} from './jury';
+import type {
     RefereeOptions,
 } from './referee';
 import type {
@@ -7,6 +10,7 @@ import type {
 } from './timekeeper';
 
 import debug from 'debug';
+import Jury from './jury';
 import Referee from './referee';
 import Timekeeper from './timekeeper';
 import {
@@ -21,6 +25,7 @@ type CommonOptions = {
 type RemoveCommonOptions<T> = Omit<T, keyof CommonOptions>;
 
 export interface ControllerOptions extends CommonOptions {
+    jury?: RemoveCommonOptions<JuryOptions> | null;
     referees?: Array<RemoveCommonOptions<RefereeOptions>> | null;
     timekeeper?: RemoveCommonOptions<TimekeeperOptions> | null;
 }
@@ -72,6 +77,13 @@ export default class Controller {
 
         return new Promise<void>((resolve, reject) => {
             board.on('ready', () => {
+                if (this.options.jury) {
+                    new Jury({
+                        ...this.options.jury,
+                        ...this.commonOptions,
+                    });
+                }
+
                 if (this.options.referees) {
                     this.referees = this.options.referees.map((refereeOptions) => {
                         return new Referee({

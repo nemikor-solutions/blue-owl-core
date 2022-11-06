@@ -17,24 +17,16 @@ import parseConfig from './config';
         return;
     }
 
-    const {
-        platform,
-        referees,
-        timekeeper,
-        url,
-    } = config;
     const owlcms = new Owlcms({
-        url,
+        url: config.url,
     });
 
     try {
         await owlcms.connect();
 
         const controller = new Controller({
+            ...config,
             owlcms,
-            platform,
-            referees,
-            timekeeper,
         });
         await controller.connect();
     } catch (error) {
