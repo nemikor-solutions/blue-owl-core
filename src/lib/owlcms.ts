@@ -1,7 +1,7 @@
 import type {
     Decision,
-    RefereeNumber
-} from './referee';
+    RefereeNumber,
+} from 'lib/model/referee';
 
 import debug from 'debug';
 import EventEmitter from 'node:events';
@@ -54,9 +54,7 @@ export interface OwlcmsOptions {
     url: string;
 }
 
-export default class Owlcms
-    extends EventEmitter
-{
+export default class Owlcms extends EventEmitter {
     private debug: debug.Debugger;
 
     private mqtt: mqtt.Client;
@@ -74,7 +72,7 @@ export default class Owlcms
             }
         });
 
-        this.debug = debug('owlcms');
+        this.debug = debug('blue-owl:owlcms');
         this.mqtt = mqtt.connect(options.url);
     }
 
