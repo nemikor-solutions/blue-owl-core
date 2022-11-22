@@ -10,8 +10,8 @@ Referee control boxes may be used in compliance with the IWF Referee Light Syste
 
 * White and red buttons for "Good lift" and "No lift".
 * White and red LEDs to confirm decision entry.
-* Buzzer and/or vibration to signal when a decision is required.
-* Buzzer and/or vibration to signal when summoned to the jury table.
+* LED, buzzer, and vibration to signal when a decision is required.
+* LED, buzzer, and vibration to signal when summoned to the jury table.
 
 #### Single Referee Mode
 
@@ -261,7 +261,7 @@ Provides audible feedback to the referee, via a piezo buzzer, when a decision is
     * `board` (optional; `Board`): Which Johnny-Five board the buzzer is connected to.
     * `piezo` (`number | string`): Which pin the buzzer is connected to.
 
-##### leds(options)
+##### confirmation-leds(options)
 
 Provides visual confirmation that OWLCMS has acknowledged the decision.
 
@@ -271,6 +271,14 @@ Provides visual confirmation that OWLCMS has acknowledged the decision.
     * `goodLiftLed` (`number | string`): Which pin the good lift LED is connected to.
 
 *NOTE: `badLiftLed` and `goodLiftLed` may be set to the same pin if a single LED is being used to confirm the decision was submitted, without indicating which decision was submitted.*
+
+##### warning-led(options)
+
+Provides visual feedback to the referee, via an LED, when a decision is required and when the jury summons the referee.
+
+* `options`: Configuration options for the LED.
+    * `board` (optional; `Board`): Which Johnny-Five board the LED is connected to.
+    * `led` (`number | string`): Which pin the warning LED is connected to.
 
 ##### vibration(options)
 

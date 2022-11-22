@@ -29,19 +29,28 @@ export default (options: RefereeLedsOptions) => {
         }),
     };
 
+    function flash({
+        duration = 2000,
+        speed = 300,
+    }: {
+        duration?: number;
+        speed?: number;
+    } = {}) {
+        leds.bad.blink(speed);
+        leds.good.blink(speed);
+
+        setTimeout(reset, duration);
+    }
+
     function reset() {
-        leds.bad.off();
-        leds.good.off();
+        leds.bad.stop().off();
+        leds.good.stop().off();
     }
 
     return (referee: Referee) => {
-        // TODO: Blink LEDs on startup
-        // referee.on('', () => {
-        //     leds.bad.blink(300);
-        //     leds.good.blink(300);
-
-        //     setTimeout(reset, 2000);
-        // });
+        referee.on('initialized', () => {
+            flash();
+        });
 
         referee.on('decisionConfirmed', ({ decision }) => {
             reset();
