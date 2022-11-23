@@ -66,7 +66,7 @@ import refereeWarningLed from 'lib/model/referee/warning-led';
                 }),
                 refereeBuzzer({
                     board: refBox,
-                    piezo: 7,
+                    piezo: 8,
                 }),
                 refereeWarningLed({
                     board: refBox,

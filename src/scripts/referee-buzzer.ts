@@ -57,7 +57,7 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
                 }),
                 refereeBuzzer({
                     board: refBox,
-                    piezo: 7,
+                    piezo: 8,
                 }),
             ],
             number: 3,
