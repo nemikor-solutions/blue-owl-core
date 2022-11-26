@@ -93,22 +93,31 @@ Provides functionality for starting and stopping the competition, including summ
 
 * `options`: Configure options for the buttons.
     * `badLiftButton` (`number | string`): Which pin the bad lift button is connected to.
+    * `badLiftButtonPullUp` (optional; `boolean`): Whether the bad lift button should use an internal pull-up resistor.
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
     * `deliberationButton` (`number | string`): Which pin the deliberation break button is connected to.
+    * `deliberationButtonPullUp` (optional; `boolean`): Whether the deliberation break button should use an internal pull-up resistor.
     * `goodLiftButton` (`number | string`): Which pin the good lift button is connected to.
+    * `goodLiftButtonPullUp` (optional; `boolean`): Whether the good lift button should use an internal pull-up resistor.
     * `resumeCompetitionButton` (`number | string`): Which pin the resume competition button is connected to.
+    * `resumeCompetitionButtonPullUp` (optional; `boolean`): Whether the resume competition button should use an internal pull-up resistor.
     * `summonReferee1Button` (`number | string`): Which pin the summon referee 1 button is connected to.
+    * `summonReferee1ButtonPullUp` (optional; `boolean`): Whether the summon referee 1 button should use an internal pull-up resistor.
     * `summonReferee2Button` (`number | string`): Which pin the summon referee 2 button is connected to.
+    * `summonReferee2ButtonPullUp` (optional; `boolean`): Whether the summon referee 2 button should use an internal pull-up resistor.
     * `summonReferee3Button` (`number | string`): Which pin the summon referee 3 button is connected to.
+    * `summonReferee3ButtonPullUp` (optional; `boolean`): Whether the summon referee 3 button should use an internal pull-up resistor.
     * `summonTechnicalControllerButton` (`number | string`): Which pin the summon technical controller button is connected to.
+    * `summonTechnicalControllerButtonPullUp` (optional; `boolean`): Whether the summon technical controller button should use an internal pull-up resistor.
     * `technicalBreakButton` (`number | string`): Which pin the technical break button is connected to.
+    * `technicalBreakButtonPullUp` (optional; `boolean`): Whether the technical break button should use an internal pull-up resistor.
 
 ##### referee-leds(options)
 
 Provides functionality for real-time referee decision LEDs.
 
 * `options`: Configurat options for the LEDs.
-    * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
+    * `board` (optional; `Board`): Which Johnny-Five board the LEDs are connected to.
     * `referee1BadLiftLed` (`number | string`): Which pin the referee 1 bad lift LED is connected to.
     * `referee1GoodLiftLed` (`number | string`): Which pin the referee 1 good lift LED is connected to.
     * `referee2BadLiftLed` (`number | string`): Which pin the referee 2 bad lift LED is connected to.
@@ -184,8 +193,10 @@ Provides functionality for good and bad lift buttons to submit the jury member's
 
 * `options`: Configuration options for the buttons.
     * `badLiftButton` (`number | string`): Which pin the bad lift button is connected to.
+    * `badLiftButtonPullUp` (optional; `boolean`): Whether the bad lift button should use an internal pull-up resistor.
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
     * `goodLiftButton` (`number | string`): Which pin the good lift button is connected to.
+    * `goodLiftButtonPullUp` (optional; `boolean`): Whether the good lift button should use an internal pull-up resistor.
 
 ##### rgb-led(options)
 
@@ -193,7 +204,7 @@ Provides functionality for displaying the jury member's decision on the jury pan
 
 * `options`: Configuration options for the RGB LED.
     * `anode` (optional; `boolean`): Whether the RGB LED is common anode.
-    * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
+    * `board` (optional; `Board`): Which Johnny-Five board the LEDs are connected to.
     * `pins` (object with `red`, `green`, and `blue` keys): Which pin each of the RGB LED leads is conneccted to.
 
 #### Events
@@ -250,8 +261,10 @@ Provides functionality for good and bad lift buttons to submit the referee's dec
 
 * `options`: Configuration options for the buttons.
     * `badLiftButton` (`number | string`): Which pin the bad lift button is connected to.
+    * `badLiftButtonPullUp` (optional; `boolean`): Whether the bad lift button should use an internal pull-up resistor.
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
     * `goodLiftButton` (`number | string`): Which pin the good lift button is connected to.
+    * `goodLiftButtonPullUp` (optional; `boolean`): Whether the good lift button should use an internal pull-up resistor.
 
 ##### buzzer(options)
 
@@ -339,9 +352,13 @@ Provides functionality for controlling the clock.
 * `options`: Configuration options for the buttons.
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
     * `oneMinuteButton` (`number | string`): Which pin the one minute button is connected to.
+    * `oneMinuteButtonPullUp` (optional; `boolean`): Whether the one minute button should use an internal pull-up resistor.
     * `startButton` (`number | string`): Which pin the start button is connected to.
+    * `startButtonPullUp` (optional; `boolean`): Whether the start button should use an internal pull-up resistor.
     * `stopButton` (`number | string`): Which pin the stop button is connected to.
+    * `stopButtonPullUp` (optional; `boolean`): Whether the stop button should use an internal pull-up resistor.
     * `twoMinuteButton` (`number | string`): Which pin the two minute button is connected to.
+    * `twoMinuteButtonPullUp` (optional; `boolean`): Whether the two minute button should use an internal pull-up resistor.
 
 #### Events
 

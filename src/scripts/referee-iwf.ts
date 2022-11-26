@@ -21,8 +21,10 @@ import refereeWarningLed from 'lib/model/referee/warning-led';
             modules: [
                 refereeButtons({
                     badLiftButton: 3,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 4,
+                    goodLiftButtonPullUp: true,
                 }),
                 refereeBuzzer({
                     board: refBox,
@@ -41,8 +43,10 @@ import refereeWarningLed from 'lib/model/referee/warning-led';
             modules: [
                 refereeButtons({
                     badLiftButton: 6,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 7,
+                    goodLiftButtonPullUp: true,
                 }),
                 refereeBuzzer({
                     board: refBox,
@@ -61,8 +65,10 @@ import refereeWarningLed from 'lib/model/referee/warning-led';
             modules: [
                 refereeButtons({
                     badLiftButton: 9,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 10,
+                    goodLiftButtonPullUp: true,
                 }),
                 refereeBuzzer({
                     board: refBox,

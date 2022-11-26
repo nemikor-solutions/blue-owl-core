@@ -19,8 +19,10 @@ import refereeButtons from 'lib/model/referee/buttons';
             modules: [
                 refereeButtons({
                     badLiftButton: 3,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 4,
+                    goodLiftButtonPullUp: true,
                 }),
             ],
             number: 1,
@@ -31,8 +33,10 @@ import refereeButtons from 'lib/model/referee/buttons';
             modules: [
                 refereeButtons({
                     badLiftButton: 6,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 7,
+                    goodLiftButtonPullUp: true,
                 }),
             ],
             number: 2,
@@ -43,8 +47,10 @@ import refereeButtons from 'lib/model/referee/buttons';
             modules: [
                 refereeButtons({
                     badLiftButton: 9,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 10,
+                    goodLiftButtonPullUp: true,
                 }),
             ],
             number: 3,

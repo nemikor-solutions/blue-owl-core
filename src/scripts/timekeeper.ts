@@ -20,9 +20,13 @@ import timekeeperButtons from 'lib/model/timekeeper/buttons';
                 timekeeperButtons({
                     board: timekeeperBox,
                     oneMinuteButton: 11,
+                    oneMinuteButtonPullUp: true,
                     startButton: 9,
+                    startButtonPullUp: true,
                     stopButton: 10,
+                    stopButtonPullUp: true,
                     twoMinuteButton: 12,
+                    twoMinuteButtonPullUp: true,
                 }),
             ],
             owlcms,

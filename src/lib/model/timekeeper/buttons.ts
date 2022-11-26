@@ -17,9 +17,13 @@ type Action =
 export interface TimekeeperButtonsOptions {
     board?: Board;
     oneMinuteButton: ButtonOption['pin'];
+    oneMinuteButtonPullUp?: ButtonOption['isPullup'];
     startButton: ButtonOption['pin'];
+    startButtonPullUp?: ButtonOption['isPullup'];
     stopButton: ButtonOption['pin'];
+    stopButtonPullUp?: ButtonOption['isPullup'];
     twoMinuteButton: ButtonOption['pin'];
+    twoMinuteButtonPullUp?: ButtonOption['isPullup'];
 }
 
 const actions: Action[] =[
@@ -33,6 +37,7 @@ export default (options: TimekeeperButtonsOptions) => {
     const buttons = actions.reduce((_buttons, action) => {
         _buttons[action] = new Button({
             board: options.board,
+            isPullup: options[`${action}ButtonPullUp`],
             pin: options[`${action}Button`],
         });
 

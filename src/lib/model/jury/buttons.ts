@@ -16,28 +16,66 @@ import {
 
 export interface JuryButtonsOptions {
     badLiftButton: ButtonOption['pin'];
+    badLiftButtonPullUp?: ButtonOption['isPullup'];
     board?: Board;
     deliberationButton: ButtonOption['pin'];
+    deliberationButtonPullUp?: ButtonOption['isPullup'];
     goodLiftButton: ButtonOption['pin'];
+    goodLiftButtonPullUp?: ButtonOption['isPullup'];
     resumeCompetitionButton: ButtonOption['pin'];
+    resumeCompetitionButtonPullUp?: ButtonOption['isPullup'];
     summonReferee1Button: ButtonOption['pin'];
+    summonReferee1ButtonPullUp?: ButtonOption['isPullup'];
     summonReferee2Button: ButtonOption['pin'];
+    summonReferee2ButtonPullUp?: ButtonOption['isPullup'];
     summonReferee3Button: ButtonOption['pin'];
+    summonReferee3ButtonPullUp?: ButtonOption['isPullup'];
     summonTechnicalControllerButton: ButtonOption['pin'];
+    summonTechnicalControllerButtonPullUp?: ButtonOption['isPullup'];
     technicalBreakButton: ButtonOption['pin'];
+    technicalBreakButtonPullUp?: ButtonOption['isPullup'];
 }
 
 export default (options: JuryButtonsOptions) => {
-    const badLift = new Button(options.badLiftButton);
-    const goodLift = new Button(options.goodLiftButton);
-    const deliberation = new Button(options.deliberationButton);
-    const summonTechnicalController = new Button(options.summonTechnicalControllerButton);
-    const resumeCompetition = new Button(options.resumeCompetitionButton);
-    const technicalBreak = new Button(options.technicalBreakButton);
+    const badLift = new Button({
+        board: options.board,
+        isPullup: options.badLiftButtonPullUp,
+        pin: options.badLiftButton,
+    });
+    const goodLift = new Button({
+        board: options.board,
+        isPullup: options.goodLiftButtonPullUp,
+        pin: options.goodLiftButton,
+    });
+    const deliberation = new Button({
+        board: options.board,
+        isPullup: options.deliberationButtonPullUp,
+        pin: options.deliberationButton,
+    });
+    const summonTechnicalController = new Button({
+        board: options.board,
+        isPullup: options.summonTechnicalControllerButtonPullUp,
+        pin: options.summonTechnicalControllerButton,
+    });
+    const resumeCompetition = new Button({
+        board: options.board,
+        isPullup: options.resumeCompetitionButtonPullUp,
+        pin: options.resumeCompetitionButton,
+    });
+    const technicalBreak = new Button({
+        board: options.board,
+        isPullup: options.technicalBreakButtonPullUp,
+        pin: options.technicalBreakButton,
+    });
 
     const refereeButtons = referees.reduce((buttons, referee) => {
-        const summonProperty = `summonReferee${referee}Button` as const;
-        buttons[referee] = new Button(options[summonProperty]);
+        const pinProperty = `summonReferee${referee}Button` as const;
+        const pullUpProperty = `summonReferee${referee}ButtonPullUp` as const;
+        buttons[referee] = new Button({
+            board: options.board,
+            isPullup: options[pullUpProperty],
+            pin: options[pinProperty],
+        });
 
         return buttons;
     }, {} as Record<RefereeNumber, Button>);

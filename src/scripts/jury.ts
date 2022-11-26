@@ -26,8 +26,10 @@ import parseConfig from 'scripts/config';
                     modules: [
                         juryMemberButtons({
                             badLiftButton: 24,
+                            badLiftButtonPullUp: true,
                             board: juryBox,
                             goodLiftButton: 26,
+                            goodLiftButtonPullUp: true,
                         }),
                         juryMemberRgbLed({
                             anode: true,
@@ -45,8 +47,10 @@ import parseConfig from 'scripts/config';
                     modules: [
                         juryMemberButtons({
                             badLiftButton: 28,
+                            badLiftButtonPullUp: true,
                             board: juryBox,
                             goodLiftButton: 30,
+                            goodLiftButtonPullUp: true,
                         }),
                         juryMemberRgbLed({
                             anode: true,
@@ -64,8 +68,10 @@ import parseConfig from 'scripts/config';
                     modules: [
                         juryMemberButtons({
                             badLiftButton: 32,
+                            badLiftButtonPullUp: true,
                             board: juryBox,
                             goodLiftButton: 34,
+                            goodLiftButtonPullUp: true,
                         }),
                         juryMemberRgbLed({
                             anode: true,
@@ -91,15 +97,24 @@ import parseConfig from 'scripts/config';
                 }),
                 juryButtons({
                     badLiftButton: 44,
+                    badLiftButtonPullUp: true,
                     board: juryBox,
                     deliberationButton: 53,
+                    deliberationButtonPullUp: true,
                     goodLiftButton: 46,
+                    goodLiftButtonPullUp: true,
                     resumeCompetitionButton: 47,
+                    resumeCompetitionButtonPullUp: true,
                     summonReferee1Button: 22,
+                    summonReferee1ButtonPullUp: true,
                     summonReferee2Button: 23,
+                    summonReferee2ButtonPullUp: true,
                     summonReferee3Button: 25,
+                    summonReferee3ButtonPullUp: true,
                     summonTechnicalControllerButton: 51,
+                    summonTechnicalControllerButtonPullUp: true,
                     technicalBreakButton: 49,
+                    technicalBreakButtonPullUp: true,
                 }),
             ],
             owlcms,

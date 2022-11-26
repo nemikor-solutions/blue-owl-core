@@ -17,17 +17,21 @@ import {
 export interface RefereeButtonsOptions {
     board?: Board;
     badLiftButton: ButtonOption['pin'];
+    badLiftButtonPullUp?: ButtonOption['isPullup'];
     goodLiftButton: ButtonOption['pin'];
+    goodLiftButtonPullUp?: ButtonOption['isPullup'];
 }
 
 export default (options: RefereeButtonsOptions) => {
     const buttons: Record<Decision, Button> = {
         bad: new Button({
             board: options.board,
+            isPullup: options.badLiftButtonPullUp,
             pin: options.badLiftButton,
         }),
         good: new Button({
             board: options.board,
+            isPullup: options.goodLiftButtonPullUp,
             pin: options.goodLiftButton,
         }),
     };

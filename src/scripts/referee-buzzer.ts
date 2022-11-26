@@ -20,8 +20,10 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
             modules: [
                 refereeButtons({
                     badLiftButton: 3,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 4,
+                    goodLiftButtonPullUp: true,
                 }),
                 refereeBuzzer({
                     board: refBox,
@@ -36,8 +38,10 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
             modules: [
                 refereeButtons({
                     badLiftButton: 6,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 7,
+                    goodLiftButtonPullUp: true,
                 }),
                 refereeBuzzer({
                     board: refBox,
@@ -52,8 +56,10 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
             modules: [
                 refereeButtons({
                     badLiftButton: 9,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 10,
+                    goodLiftButtonPullUp: true,
                 }),
                 refereeBuzzer({
                     board: refBox,

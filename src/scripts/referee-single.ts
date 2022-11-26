@@ -23,8 +23,10 @@ import refereeButtons from 'lib/model/referee/buttons';
             modules: [
                 refereeButtons({
                     badLiftButton: 3,
+                    badLiftButtonPullUp: true,
                     board: refBox,
                     goodLiftButton: 4,
+                    goodLiftButtonPullUp: true,
                 }),
             ],
             number: 1,
