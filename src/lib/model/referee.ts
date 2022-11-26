@@ -91,7 +91,7 @@ export default class Referee extends Model<RefereeOptions> {
     public publishDecision(decision: Decision) {
         this.debug(decision);
 
-        this.owlcms.publishDecision({
+        this.owlcms.publishRefereeDecision({
             decision,
             platform: this.platform,
             referee: this.number,

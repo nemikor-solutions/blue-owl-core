@@ -90,8 +90,10 @@ import parseConfig from 'scripts/config';
                     referee3GoodLiftLed: 39,
                 }),
                 juryButtons({
+                    badLiftButton: 44,
                     board: juryBox,
                     deliberationButton: 53,
+                    goodLiftButton: 46,
                     resumeCompetitionButton: 47,
                     summonReferee1Button: 22,
                     summonReferee2Button: 23,

@@ -92,8 +92,10 @@ The `Owlcms` class provides the necessary APIs for two way communication between
 Provides functionality for starting and stopping the competition, including summoning other officials.
 
 * `options`: Configure options for the buttons.
+    * `badLiftButton` (`number | string`): Which pin the bad lift button is connected to.
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
     * `deliberationButton` (`number | string`): Which pin the deliberation break button is connected to.
+    * `goodLiftButton` (`number | string`): Which pin the good lift button is connected to.
     * `resumeCompetitionButton` (`number | string`): Which pin the resume competition button is connected to.
     * `summonReferee1Button` (`number | string`): Which pin the summon referee 1 button is connected to.
     * `summonReferee2Button` (`number | string`): Which pin the summon referee 2 button is connected to.
@@ -134,13 +136,11 @@ The referee decisions should be cleared because a clock has started for a new at
 
 #### Methods
 
-##### publishDecision(data)
+##### publishDecision(decision)
 
-Publish a jury member's decision for the current attempt.
+Publish the jury's decision for the lift under deliberation.
 
-* `data`: Data about the decision.
-    * `decision` (`Decision`): The jury members's decision of whether the lift was good or bad.
-    * `number` (`JuryMemberNumber`): The number indicating which jury member made the decision.
+* `decision` (`Decision`): The jury's decision of whether the lift was good or bad.
 
 ##### resumeCompetition()
 
@@ -196,7 +196,7 @@ Provides functionality for displaying the jury member's decision on the jury pan
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
     * `pins` (object with `red`, `green`, and `blue` keys): Which pin each of the RGB LED leads is conneccted to.
 
-#### Evens
+#### Events
 
 ##### decision(data)
 

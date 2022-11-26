@@ -1,4 +1,7 @@
 import type {
+    JuryMemberNumber,
+} from 'lib/model/jury';
+import type {
     Decision,
     RefereeNumber,
 } from 'lib/model/referee';
@@ -161,7 +164,29 @@ export default class Owlcms extends EventEmitter {
         this.mqtt.publish(`owlcms/clock/${platform}`, '60');
     }
 
-    public publishDecision({
+    public publishJuryDecision({
+        decision,
+        platform,
+    }: {
+        decision: Decision;
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/jurybox/decision/${platform}`, decision);
+    }
+
+    public publishJuryMemberDecision({
+        decision,
+        juryMember,
+        platform,
+    }: {
+        decision: Decision;
+        juryMember: JuryMemberNumber;
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/jurybox/juryMember/decision/${platform}`, `${juryMember} ${decision}`);
+    }
+
+    public publishRefereeDecision({
         decision,
         platform,
         referee,

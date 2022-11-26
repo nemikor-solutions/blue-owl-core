@@ -86,6 +86,11 @@ export default class Jury extends Model<JuryOptions> {
         }
 
         this.decisions[number] = decision;
+        this.owlcms.publishJuryMemberDecision({
+            decision,
+            juryMember: number,
+            platform: this.platform,
+        });
 
         if (this.decisionCount !== this.members.length) {
             return;
@@ -100,14 +105,13 @@ export default class Jury extends Model<JuryOptions> {
         return super.on(type, listener);
     }
 
-    public publishDecision({
-        decision,
-        juryMember,
-    }: {
-        decision: Decision;
-        juryMember: JuryMemberNumber;
-    }) {
-        this.decisions[juryMember] = decision;
+    public publishDecision(decision: Decision) {
+        this.debug(decision);
+
+        this.owlcms.publishJuryDecision({
+            decision,
+            platform: this.platform,
+        });
     }
 
     private refereeDecision({

@@ -15,8 +15,10 @@ import {
 } from 'johnny-five';
 
 export interface JuryButtonsOptions {
+    badLiftButton: ButtonOption['pin'];
     board?: Board;
     deliberationButton: ButtonOption['pin'];
+    goodLiftButton: ButtonOption['pin'];
     resumeCompetitionButton: ButtonOption['pin'];
     summonReferee1Button: ButtonOption['pin'];
     summonReferee2Button: ButtonOption['pin'];
@@ -26,6 +28,8 @@ export interface JuryButtonsOptions {
 }
 
 export default (options: JuryButtonsOptions) => {
+    const badLift = new Button(options.badLiftButton);
+    const goodLift = new Button(options.goodLiftButton);
     const deliberation = new Button(options.deliberationButton);
     const summonTechnicalController = new Button(options.summonTechnicalControllerButton);
     const resumeCompetition = new Button(options.resumeCompetitionButton);
@@ -39,6 +43,14 @@ export default (options: JuryButtonsOptions) => {
     }, {} as Record<RefereeNumber, Button>);
 
     return (jury: Jury) => {
+        badLift.on('press', () => {
+            jury.publishDecision('bad');
+        });
+
+        goodLift.on('press', () => {
+            jury.publishDecision('good');
+        });
+
         deliberation.on('press', () => {
             jury.startDeliberation();
         });
