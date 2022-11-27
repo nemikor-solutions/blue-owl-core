@@ -19,7 +19,7 @@
         "referee-single": "npm run ts ./src/scripts/referee-single.ts",
         "referee-iwf": "npm run ts ./src/scripts/referee-iwf.ts",
         "test": "npm run lint",
-        "ts": "DEBUG=blue-owl:* ts-node -r tsconfig-paths/register",
+        "ts": "cross-env DEBUG=blue-owl:* ts-node -r tsconfig-paths/register",
         "timekeeper": "npm run ts ./src/scripts/timekeeper.ts"
     },
     "author": {
@@ -41,6 +41,7 @@
         "@types/node": "^16.11.66",
         "@typescript-eslint/eslint-plugin": "^5.43.0",
         "@typescript-eslint/parser": "^5.43.0",
+        "cross-env": "^7.0.3",
         "eslint": "^8.28.0",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.1.0",
