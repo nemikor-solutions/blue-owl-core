@@ -12,7 +12,9 @@
         "node": ">=16"
     },
     "scripts": {
-        "lint": "npx eslint .",
+        "lint": "concurrently \"npm:lint:*\"",
+        "lint:eslint": "npx eslint .",
+        "lint:ts": "tsc --noEmit --pretty -p tsconfig.lint.json",
         "jury": "npm run ts ./src/scripts/jury.ts",
         "referee-basic": "npm run ts ./src/scripts/referee-basic.ts",
         "referee-buzzer": "npm run ts ./src/scripts/referee-buzzer.ts",
@@ -41,6 +43,7 @@
         "@types/node": "^16.11.66",
         "@typescript-eslint/eslint-plugin": "^5.43.0",
         "@typescript-eslint/parser": "^5.43.0",
+        "concurrently": "^7.6.0",
         "cross-env": "^7.0.3",
         "eslint": "^8.28.0",
         "ts-node": "^10.9.1",
