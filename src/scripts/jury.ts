@@ -9,9 +9,17 @@ import Owlcms from 'lib/owlcms';
 import parseConfig from 'scripts/config';
 
 (async () => {
-    const { mqttUrl: url, platform} = parseConfig();
+    const {
+        mqttUsername,
+        mqttUrl,
+        mqttPassword,
+        platform,
+    } = parseConfig();
+
     const owlcms = new Owlcms({
-        url,
+        mqttPassword,
+        mqttUrl,
+        mqttUsername,
     });
 
     try {

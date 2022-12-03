@@ -5,9 +5,17 @@ import Timekeeper from 'lib/model/timekeeper';
 import timekeeperButtons from 'lib/model/timekeeper/buttons';
 
 (async () => {
-    const { mqttUrl: url, platform} = parseConfig();
+    const {
+        mqttUsername,
+        mqttUrl,
+        mqttPassword,
+        platform,
+    } = parseConfig();
+
     const owlcms = new Owlcms({
-        url,
+        mqttPassword,
+        mqttUrl,
+        mqttUsername,
     });
 
     try {

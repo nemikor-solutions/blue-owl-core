@@ -5,9 +5,17 @@ import Referee from 'lib/model/referee';
 import refereeButtons from 'lib/model/referee/buttons';
 
 (async () => {
-    const { mqttUrl: url, platform} = parseConfig();
+    const {
+        mqttUsername,
+        mqttUrl,
+        mqttPassword,
+        platform,
+    } = parseConfig();
+
     const owlcms = new Owlcms({
-        url,
+        mqttPassword,
+        mqttUrl,
+        mqttUsername,
     });
 
     try {

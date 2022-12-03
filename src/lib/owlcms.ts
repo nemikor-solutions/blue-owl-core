@@ -1,4 +1,7 @@
 import type {
+    IClientOptions,
+} from 'mqtt';
+import type {
     JuryMemberNumber,
 } from 'lib/model/jury';
 import type {
@@ -54,7 +57,9 @@ type OwlcmsEventDataMap = {
 type OwlcmsEventData = OwlcmsEventDataMap[keyof OwlcmsEvents];
 
 export interface OwlcmsOptions {
-    url: string;
+    mqttPassword?: string | undefined | null;
+    mqttUrl: string;
+    mqttUsername?: string | undefined | null;
 }
 
 export default class Owlcms extends EventEmitter {
@@ -63,7 +68,7 @@ export default class Owlcms extends EventEmitter {
     private mqtt: mqtt.Client;
 
     private static requiredOptions: Array<keyof OwlcmsOptions> = [
-        'url',
+        'mqttUrl',
     ];
 
     public constructor(options: OwlcmsOptions) {
@@ -76,7 +81,15 @@ export default class Owlcms extends EventEmitter {
         });
 
         this.debug = debug('blue-owl:owlcms');
-        this.mqtt = mqtt.connect(options.url);
+
+        const mqttOptions: IClientOptions = {};
+        if (options.mqttUsername) {
+            mqttOptions.username = options.mqttUsername;
+        }
+        if (options.mqttPassword) {
+            mqttOptions.password = options.mqttPassword;
+        }
+        this.mqtt = mqtt.connect(options.mqttUrl, mqttOptions);
     }
 
     public async connect() {
