@@ -16,10 +16,8 @@
         "lint:eslint": "npx eslint .",
         "lint:ts": "tsc --noEmit --pretty -p tsconfig.lint.json",
         "jury": "npm run ts ./src/scripts/jury.ts",
-        "referee-basic": "npm run ts ./src/scripts/referee-basic.ts",
-        "referee-buzzer": "npm run ts ./src/scripts/referee-buzzer.ts",
         "referee-single": "npm run ts ./src/scripts/referee-single.ts",
-        "referee-iwf": "npm run ts ./src/scripts/referee-iwf.ts",
+        "referee": "npm run ts ./src/scripts/referee.ts",
         "test": "npm run lint",
         "ts": "cross-env DEBUG=blue-owl:* ts-node -r tsconfig-paths/register",
         "timekeeper": "npm run ts ./src/scripts/timekeeper.ts"
