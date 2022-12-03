@@ -11,6 +11,7 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
         mqttUrl,
         mqttPassword,
         platform,
+        serialPort,
     } = parseConfig();
 
     const owlcms = new Owlcms({
@@ -22,7 +23,9 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
     try {
         await owlcms.connect();
 
-        const refBox = await connectBoard();
+        const refBox = await connectBoard({
+            port: serialPort,
+        });
 
         new Referee({
             modules: [
@@ -83,5 +86,10 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
         process.exitCode = 1;
 
         owlcms.disconnect();
+
+        // If the process does not exit cleanly within five seconds, force close
+        setTimeout(() => {
+            process.exit(2);
+        }, 5000);
     }
 })();

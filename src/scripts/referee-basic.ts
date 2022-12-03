@@ -10,6 +10,7 @@ import refereeButtons from 'lib/model/referee/buttons';
         mqttUrl,
         mqttPassword,
         platform,
+        serialPort,
     } = parseConfig();
 
     const owlcms = new Owlcms({
@@ -21,7 +22,9 @@ import refereeButtons from 'lib/model/referee/buttons';
     try {
         await owlcms.connect();
 
-        const refBox = await connectBoard();
+        const refBox = await connectBoard({
+            port: serialPort,
+        });
 
         new Referee({
             modules: [
@@ -70,5 +73,10 @@ import refereeButtons from 'lib/model/referee/buttons';
         process.exitCode = 1;
 
         owlcms.disconnect();
+
+        // If the process does not exit cleanly within five seconds, force close
+        setTimeout(() => {
+            process.exit(2);
+        }, 5000);
     }
 })();

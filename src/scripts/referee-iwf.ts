@@ -12,6 +12,7 @@ import refereeWarningLed from 'lib/model/referee/warning-led';
         mqttUrl,
         mqttPassword,
         platform,
+        serialPort,
     } = parseConfig();
 
     const owlcms = new Owlcms({
@@ -23,7 +24,9 @@ import refereeWarningLed from 'lib/model/referee/warning-led';
     try {
         await owlcms.connect();
 
-        const refBox = await connectBoard();
+        const refBox = await connectBoard({
+            port: serialPort,
+        });
 
         new Referee({
             modules: [
@@ -96,5 +99,10 @@ import refereeWarningLed from 'lib/model/referee/warning-led';
         process.exitCode = 1;
 
         owlcms.disconnect();
+
+        // If the process does not exit cleanly within five seconds, force close
+        setTimeout(() => {
+            process.exit(2);
+        }, 5000);
     }
 })();

@@ -10,6 +10,7 @@ import timekeeperButtons from 'lib/model/timekeeper/buttons';
         mqttUrl,
         mqttPassword,
         platform,
+        serialPort,
     } = parseConfig();
 
     const owlcms = new Owlcms({
@@ -21,7 +22,9 @@ import timekeeperButtons from 'lib/model/timekeeper/buttons';
     try {
         await owlcms.connect();
 
-        const timekeeperBox = await connectBoard();
+        const timekeeperBox = await connectBoard({
+            port: serialPort,
+        });
 
         new Timekeeper({
             modules: [
@@ -45,5 +48,10 @@ import timekeeperButtons from 'lib/model/timekeeper/buttons';
         process.exitCode = 1;
 
         owlcms.disconnect();
+
+        // If the process does not exit cleanly within five seconds, force close
+        setTimeout(() => {
+            process.exit(2);
+        }, 5000);
     }
 })();
