@@ -3,7 +3,7 @@ import JuryMember from 'lib/model/jury-member';
 import juryMemberButtons from 'lib/model/jury-member/buttons';
 import juryMemberRgbLed from 'lib/model/jury-member/rgb-led';
 import juryButtons from 'lib/model/jury/buttons';
-import juryRefereeLeds from 'lib/model/jury/referee-leds';
+import juryRefereeRgbLeds from 'lib/model/jury/referee-rgb-leds';
 import runner from 'scripts/runner';
 
 runner(({
@@ -17,19 +17,18 @@ runner(({
                 number: 1,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 24,
+                        badLiftButton: 23,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 26,
+                        goodLiftButton: 25,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
-                        anode: true,
                         board,
                         pins: {
-                            blue: 5,
-                            green: 6,
-                            red: 7,
+                            blue: 28,
+                            green: 30,
+                            red: 32,
                         },
                     }),
                 ],
@@ -38,19 +37,18 @@ runner(({
                 number: 2,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 28,
+                        badLiftButton: 27,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 30,
+                        goodLiftButton: 29,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
-                        anode: true,
                         board,
                         pins: {
-                            blue: 8,
-                            green: 9,
-                            red: 10,
+                            blue: 34,
+                            green: 36,
+                            red: 38,
                         },
                     }),
                 ],
@@ -59,53 +57,63 @@ runner(({
                 number: 3,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 32,
+                        badLiftButton: 31,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 34,
+                        goodLiftButton: 33,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
-                        anode: true,
                         board,
                         pins: {
-                            blue: 11,
-                            green: 12,
-                            red: 13,
+                            blue: 40,
+                            green: 42,
+                            red: 44,
                         },
                     }),
                 ],
             }),
         ],
         modules: [
-            juryRefereeLeds({
+            juryRefereeRgbLeds({
                 board,
-                referee1BadLiftLed: 33,
-                referee1GoodLiftLed: 31,
-                referee2BadLiftLed: 37,
-                referee2GoodLiftLed: 35,
-                referee3BadLiftLed: 41,
-                referee3GoodLiftLed: 39,
+                referee1Pins: {
+                    red: 2,
+                    green: 3,
+                    blue: 4,
+                },
+                referee2Pins: {
+                    red: 5,
+                    green: 6,
+                    blue: 7,
+                },
+                referee3Pins: {
+                    red: 8,
+                    green: 9,
+                    blue: 10,
+                },
             }),
             juryButtons({
-                badLiftButton: 44,
+                badLiftButton: 45,
                 badLiftButtonPullUp: true,
                 board,
-                deliberationButton: 53,
+                deliberationButton: 43,
                 deliberationButtonPullUp: true,
-                goodLiftButton: 46,
+                goodLiftButton: 47,
                 goodLiftButtonPullUp: true,
-                resumeCompetitionButton: 47,
+                resumeCompetitionButton: 53,
                 resumeCompetitionButtonPullUp: true,
-                summonReferee1Button: 22,
+                summonAllRefereesButton: 17,
+                summonAllRefereesButtonPullUp: true,
+                summonReferee1Button: 14,
                 summonReferee1ButtonPullUp: true,
-                summonReferee2Button: 23,
+                summonReferee2Button: 15,
                 summonReferee2ButtonPullUp: true,
-                summonReferee3Button: 25,
+                summonReferee3Button: 16,
                 summonReferee3ButtonPullUp: true,
-                summonTechnicalControllerButton: 51,
+                summonTechnicalControllerButton: 49,
                 summonTechnicalControllerButtonPullUp: true,
-                technicalBreakButton: 49,
+                technicalBreakButton: 51,
                 technicalBreakButtonPullUp: true,
             }),
         ],

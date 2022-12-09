@@ -24,6 +24,8 @@ export interface JuryButtonsOptions {
     goodLiftButtonPullUp?: ButtonOption['isPullup'];
     resumeCompetitionButton: ButtonOption['pin'];
     resumeCompetitionButtonPullUp?: ButtonOption['isPullup'];
+    summonAllRefereesButton?: ButtonOption['pin'];
+    summonAllRefereesButtonPullUp?: ButtonOption['isPullup'];
     summonReferee1Button: ButtonOption['pin'];
     summonReferee1ButtonPullUp?: ButtonOption['isPullup'];
     summonReferee2Button: ButtonOption['pin'];
@@ -52,6 +54,13 @@ export default (options: JuryButtonsOptions) => {
         isPullup: options.deliberationButtonPullUp,
         pin: options.deliberationButton,
     });
+    const summonAllReferees = options.summonAllRefereesButton
+        ? new Button({
+            board: options.board,
+            isPullup: options.summonAllRefereesButtonPullUp,
+            pin: options.summonAllRefereesButton,
+        })
+        : null;
     const summonTechnicalController = new Button({
         board: options.board,
         isPullup: options.summonTechnicalControllerButtonPullUp,
@@ -95,6 +104,10 @@ export default (options: JuryButtonsOptions) => {
 
         resumeCompetition.on('press', () => {
             jury.resumeCompetition();
+        });
+
+        summonAllReferees?.on('press', () => {
+            jury.summonAllReferees();
         });
 
         summonTechnicalController.on('press', () => {

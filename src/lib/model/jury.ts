@@ -154,6 +154,13 @@ export default class Jury extends Model<JuryOptions> {
         this.owlcms.startTechnicalBreak({ platform: this.platform });
     }
 
+    public summonAllReferees() {
+        this.debug('summon all referees');
+        this.owlcms.summonAllReferees({
+            platform: this.platform,
+        });
+    }
+
     public summonReferee(referee: RefereeNumber) {
         this.debug(`summon referee ${referee}`);
         this.owlcms.summonReferee({

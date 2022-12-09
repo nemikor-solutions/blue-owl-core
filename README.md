@@ -101,6 +101,8 @@ Provides functionality for starting and stopping the competition, including summ
     * `goodLiftButtonPullUp` (optional; `boolean`): Whether the good lift button should use an internal pull-up resistor.
     * `resumeCompetitionButton` (`number | string`): Which pin the resume competition button is connected to.
     * `resumeCompetitionButtonPullUp` (optional; `boolean`): Whether the resume competition button should use an internal pull-up resistor.
+    * `summonAllRefereesButton` (optional; `number | string`): Which pin the summon all referees button is connected to.
+    * `summonAllRefereesButtonPullUp` (optional; `boolean`): Whether the summon all referees button should use an internal pull-up resistor.
     * `summonReferee1Button` (`number | string`): Which pin the summon referee 1 button is connected to.
     * `summonReferee1ButtonPullUp` (optional; `boolean`): Whether the summon referee 1 button should use an internal pull-up resistor.
     * `summonReferee2Button` (`number | string`): Which pin the summon referee 2 button is connected to.

@@ -261,7 +261,7 @@ export default class Owlcms extends EventEmitter {
         this.mqtt.publish(`owlcms/jurybox/summon/${platform}`, official.toString());
     }
 
-    public summonAll({
+    public summonAllReferees({
         platform,
     }: {
         platform: string;
