@@ -91,7 +91,7 @@ The `Owlcms` class provides the necessary APIs for two way communication between
 
 Provides functionality for starting and stopping the competition, including summoning other officials.
 
-* `options`: Configure options for the buttons.
+* `options`: Configuration options for the buttons.
     * `badLiftButton` (`number | string`): Which pin the bad lift button is connected to.
     * `badLiftButtonPullUp` (optional; `boolean`): Whether the bad lift button should use an internal pull-up resistor.
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
@@ -116,7 +116,7 @@ Provides functionality for starting and stopping the competition, including summ
 
 Provides functionality for real-time referee decision LEDs.
 
-* `options`: Configurat options for the LEDs.
+* `options`: Configuration options for the LEDs.
     * `board` (optional; `Board`): Which Johnny-Five board the LEDs are connected to.
     * `referee1BadLiftLed` (`number | string`): Which pin the referee 1 bad lift LED is connected to.
     * `referee1GoodLiftLed` (`number | string`): Which pin the referee 1 good lift LED is connected to.
@@ -124,6 +124,17 @@ Provides functionality for real-time referee decision LEDs.
     * `referee2GoodLiftLed` (`number | string`): Which pin the referee 2 good lift LED is connected to.
     * `referee3BadLiftLed` (`number | string`): Which pin the referee 3 bad lift LED is connected to.
     * `referee3GoodLiftLed` (`number | string`): Which pin the referee 3 good lift LED is connected to.
+
+##### referee-rgb-leds(options)
+
+Provides functionality for real-time referee decision RGB LEDs.
+
+* `options`: Configuration options for the RGB LEDs.
+    * `anode` (optional; `boolean`): Whether the RGB LEDs are common anode.
+    * `board` (optional; `Board`): Which Johnny-Five board the LEDs are connected to.
+    * `referee1Pins` (object with `red`, `green`, and `blue` keys): Which pin each of the referee 1 RGB LED leads is connected to.
+    * `referee2Pins` (object with `red`, `green`, and `blue` keys): Which pin each of the referee 2 RGB LED leads is connected to.
+    * `referee3Pins` (object with `red`, `green`, and `blue` keys): Which pin each of the referee 3 RGB LED leads is connected to.
 
 #### Events
 
@@ -205,7 +216,7 @@ Provides functionality for displaying the jury member's decision on the jury pan
 * `options`: Configuration options for the RGB LED.
     * `anode` (optional; `boolean`): Whether the RGB LED is common anode.
     * `board` (optional; `Board`): Which Johnny-Five board the LEDs are connected to.
-    * `pins` (object with `red`, `green`, and `blue` keys): Which pin each of the RGB LED leads is conneccted to.
+    * `pins` (object with `red`, `green`, and `blue` keys): Which pin each of the RGB LED leads is connected to.
 
 #### Events
 

@@ -60,22 +60,14 @@ export default (options: JuryRefereeLedsOptions) => {
 
     return (jury: Jury) => {
         jury.on('refereeDecision', ({ decision, referee }) => {
-            // Turn the decision light on
             const ledProperty = refereeDecisionProperty({ decision, referee });
-            leds[ledProperty].stop().on();
+            leds[ledProperty].on();
 
-            // If the referee is changing their decision, blink the previous decision light
-            // to make it obvious that a change occurred.
             const otherLedProperty = refereeDecisionProperty({
                 decision: decision === 'good' ? 'bad' : 'good',
                 referee,
             });
-            if (leds[otherLedProperty].isOn) {
-                leds[otherLedProperty].blink();
-                setTimeout(() => {
-                    leds[otherLedProperty].stop().off();
-                }, 600);
-            }
+            leds[otherLedProperty].off();
         });
 
         jury.on('resetRefereeDecisions', () => {
