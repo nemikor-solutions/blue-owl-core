@@ -32,6 +32,7 @@
     "dependencies": {
         "debug": "^4.3.4",
         "dotenv": "^16.0.3",
+        "firmata": "^2.3.0",
         "johnny-five": "^2.1.0",
         "mqtt": "^4.3.7"
     },
