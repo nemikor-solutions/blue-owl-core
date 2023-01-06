@@ -5,4 +5,4 @@ export BLUE_OWL_MQTT_USERNAME=test
 export BLUE_OWL_PLATFORM=A
 export BLUE_OWL_SERIAL_PORT=COM6
 
-npm run ts ./src/scripts/wokwi/referee/referee.ts
+npm run ts ./src/wokwi/referee/referee-single.ts
