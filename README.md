@@ -56,7 +56,7 @@ The jury control panel and jury control units may be used to fulfill all jury me
 
 ## API
 
-Blue Owl is programmed in JavaScript using the Johnny-Five implementation of Firmata.  The full specification of the devices is documented in the [API](API) document.
+Blue Owl is programmed in JavaScript using the Johnny-Five implementation of Firmata.  The full specification of the devices is documented in the [API](API.md) document.
 
 ## About the name
 
