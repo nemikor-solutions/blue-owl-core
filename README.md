@@ -2,7 +2,7 @@
 
 Blue Owl provides Technical Official device integration for [OWLCMS](https://owlcms.github.io/owlcms4/). The [Johnny-Five](http://johnny-five.io/) software is used to control the devices' microprocessor using the [Firmata](https://github.com/firmata/protocol) protocol.
 
-> This fork focuses on defining build-it-yourself diagrams and in providing a way to simulate the devices on the wokwi.com simulator.  The official software is in the `src/scripts` and is untouched relative to that in the upstream directory by Scott González.
+> This fork focuses on defining build-it-yourself diagrams and providing a way to simulate the devices on the [wokwi.com](https://docs.wokwi.com) simulator.  The official software is in the `src/scripts` and is untouched relative to that in the upstream directory by Scott González.
 
 ## Overview
 
@@ -10,7 +10,7 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
 
 ![Firmata](src/wokwi/overview.drawio.png)
 
-- The Referee Control Box contains a small Arduino microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.  Each referee keypads contain two buttons, a buzzer and a LED.
+- The Referee Control Box contains a tiny Arduino Nano microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.  Each referee keypads contain two buttons, a buzzer, and a LED.
 
   ![refBox](src/wokwi/referee/refereeBox.png)
 
@@ -18,8 +18,9 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
   - The control box reads the buttons pressed by referees when they enter decisions.  it notifies Blue Owl using the Firmata protocol.  Blue Owl relays the events to owlcms using [MQTT messages](https://owlcms.github.io/owlcms4/#/MQTTMessages).
   - Blue Owl reads MQTT commands from owlcms and sends Firmata instructions to the referee control box. The control box can then activate the LEDs or buzzers on the referee devices.
   
-- If owlcms is modified, the only thing that needs to change is the Blue-Owl software on the laptop.
-  - There are modules in Blue-Owl for each type of device
+- If owlcms is modified, the only thing that needs to change is the Blue Owl software on the laptop.
+  - There are different Blue Owl configurations for each device.
+  - The jury Blue Owl would run on the jury laptop, the referee Blue Owl would run on the countdown laptop, and the timekeeper Blue Owl would run either on the announcer or timekeeper laptop.
   
 - Blue Owl is extremely configurable.  
 
