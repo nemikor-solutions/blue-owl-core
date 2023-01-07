@@ -1,8 +1,14 @@
 # Blue Owl
 
-Blue Owl provides Technical Official device integration for [OWLCMS](https://owlcms.github.io/owlcms4/). The [Johnny-Five](http://johnny-five.io/) software is used to control the devices' microprocessor using the [Firmata](https://github.com/firmata/protocol) protocol.
+Blue Owl provides Technical Official device integration for [OWLCMS](https://owlcms.github.io/owlcms4/). The [Johnny-Five](http://johnny-five.io/) software is used to control the devices' microprocessors using the [Firmata](https://github.com/firmata/protocol) protocol.
 
 > This fork focuses on defining build-it-yourself diagrams and providing a way to simulate the devices on the [wokwi.com](https://docs.wokwi.com) simulator.  The official software is in the `src/scripts` and is untouched relative to that in the upstream directory by Scott González.
+
+## Features
+
+- No coding whatsoever required to is build the devices.  Standard Firmata firmware is loaded on the devices, once.
+- Schematics and configurations are provided for building the physical devices yourself.
+- Pre-packaged Blue Owl software is provided to connect with owlcms.
 
 ## Overview
 
@@ -10,7 +16,7 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
 
 ![Firmata](src/build-it-yourself/overview.drawio.png)
 
-- The Referee Control Box contains a tiny Arduino Nano microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.  Each referee keypads contain two buttons, a buzzer, and a LED.
+- The Referee Control Box contains a tiny Arduino Nano microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.  Each referee keypad contain two buttons, a buzzer, and a LED.
 
   ![refBox](src/build-it-yourself/referee/refereeBox.png)
 
@@ -25,7 +31,7 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
 - Blue Owl is extremely configurable.  
 
   - The files in the `scripts` directory contain the layout for fully compliant commercial devices built with printed circuit boards.  
-  - The `wokwi` directory contains fully compliant layout scripts that are suitable for "build-it-yourself" scenarios, and the necessary files to run the scripts. You can also use these files to run a simulated Arduino on the [wokwi.com](https://wokwi.com) simulator. The simulated devices can even be connected for real to a running owlcms.
+  - The `build-it-yourself` directory contains fully compliant layout scripts that are suitable for building and running your own devices. The devices can be run on the [wokwi.com](https://wokwi.com) simulator and the simulated devices can even be connected for real to a running owlcms.
 
 
 ## Supported Devices
@@ -41,7 +47,7 @@ Referee control boxes may be used in compliance with the IWF Referee Light Syste
 
 #### Single Referee Mode
 
-For competitions run with only one referee, simply configure all three referees with the same buttons. This will cause the single referee control box to send a decision for all three referees.
+For competitions run with only one referee, a script configures all three referees to the same buttons. So the same decision is sent unanimously 3 times. 
 
 ### Timekeeper
 
@@ -68,9 +74,15 @@ The jury control panel and jury control units may be used to fulfill all jury me
 
 Blue Owl is programmed in JavaScript using the Johnny-Five implementation of Firmata.  The full specification of the devices is documented in the [API](API.md) document.
 
+Blue Owl talks to owlcms using MQTT messages.  The full list of messages supported by owlcms is documented: [MQTT messages](https://owlcms.github.io/owlcms4/#/MQTTMessages).
+
+## Other Requirements
+
+An MQTT server must be visible to both owlcms and Blue Owl.  Typically the MQTT server is installed on the same computer as owlcms.  See [MQTT Server Installation Instructions](https://owlcms.github.io/owlcms4/#/MQTT) . This installation process is only needed once.
+
 ## About the name
 
-Should you wonder,  OWL is Olympic Weightlifting, Blue is the color of the official's suits, and the name is a salute to their keen eyes.
+Should you wonder,  OWL stands for is Olympic Weightlifting. Blue is the color of the official's suits, and the name is a salute to their keen eyes.
 
 ## License
 
