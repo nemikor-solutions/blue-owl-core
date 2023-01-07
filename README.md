@@ -88,4 +88,4 @@ Should you wonder,  OWL stands for is Olympic Weightlifting. Blue is the color o
 
 Copyright Scott González. Released under the terms of the ISC license.
 
-Wokwi files and layouts are Copyright Jean-François Lamy, Released under the terms of the ISC license.
+Buid-it-yourself files and layouts are Copyright Jean-François Lamy, Released under the terms of the ISC license.
