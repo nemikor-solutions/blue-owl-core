@@ -6,16 +6,15 @@ Blue Owl provides Technical Official device integration for [OWLCMS](https://owl
 
 ## Overview
 
-The following diagram illustrates the architecture. We use the Jury device as an example, but the same applies to the Referee and Timekeeper devices.
+The following diagram illustrates the concept. We use the Jury device as an example, but the same applies to the Referee and Timekeeper devices.
 
 ![Firmata](src/wokwi/overview.svg)
 
-- The Jury control box contains a small microprocessor (typically an Arduino) that is pre-loaded with the Firmata software.
-  - The Firmata running on the Arduino reads the various sensors, buttons, etc. attached to the microprocessor, and sends that information back over the USB connection. Conversely, it listens to commands to turn on LED lights, activate buzzers, etc.
-- The Jury laptop uses its USB port to provide power and to speak Firmata with the Jury Control Box
-- Blue Owl is the software relay between owlcms and the Arduino. 
-  - It reads Firmata information sent by the Jury box and sends it to owlcms. For example, the decisions by each jury member, or the president entering that the previous lift is overturned.
-  - It reads commands from owlcms and sends Firmata instructions to the jury control devices. For example, resetting the various LEDs on the Jury box.
+- The Jury control box contains a small Arduino microprocessor that is pre-loaded with the Firmata software.
+- Blue Owl acts as relay relay between owlcms and the Arduino. 
+  - The USB connection between the computer is used for power and for exchanging information.
+  - Blue Owl reads Firmata information sent by the Jury box and sends it to owlcms. For example, the decisions by each jury member, or the president entering that the previous lift is overturned.
+  - Blue Owl reads commands from owlcms and sends Firmata instructions to the jury control devices. For example, resetting the various LEDs on the Jury box.
 - If owlcms is modified, the only thing that needs to change is the Blue-Owl software on the laptop.
   - There are modules in Blue-Owl for each type of device
 - Blue Owl is extremely configurable.  The files in the `scripts` directory contain the layout for fully compliant commercial devices built with printed circuit boards.  The `wokwi` directory contains fully compliant layouts that are suitable for "build-it yourself". You can also use these files to run a simulated Arduino on the [wokwi.com](https://wokwi.com) simulator, and even connect the simulation to a running owlcms.
