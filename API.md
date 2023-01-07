@@ -1,4 +1,4 @@
-#Blue OWL Architure
+# Blue OWL Architecture
 ## API
 
 Each technical official is represented by a model, e.g., `Referee`. These models provide the logic and APIs necessary for the official, but do not provide any hardware-specific implementations. Instead, the models provide methods for actions that the official can perform and emits events for information provided by OWLCMS. Each model must be instantiated with a set of modules which provide the hardware-specific implementations.
