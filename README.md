@@ -2,6 +2,8 @@
 
 Blue Owl provides Technical Official device integration for [OWLCMS](https://owlcms.github.io/owlcms4/). The [Johnny-Five](http://johnny-five.io/) software is used to control the devices' microprocessor using the [Firmata](https://github.com/firmata/protocol) protocol.
 
+> This fork focuses on providing a way to simulate the devices on the wokwi.com simulator.  The official software is in the upstream directory by Scott González.
+
 ## Overview
 
 The following diagram illustrates the architecture. We use the Jury device as an example, but the same applies to the Referee and Timekeeper devices.
