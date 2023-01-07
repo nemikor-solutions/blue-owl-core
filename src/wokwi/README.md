@@ -1,9 +1,11 @@
-# WOKWI scripts and alternate pinouts
+# WOKWI scripts and Build-it-yourself diagrams
 
-This directory contains working simulations of the devices.
+This directory contains definitions of the devices that you can use to build your own.
 
-The .ts files define the pin mappings that blue-owl uses.
-The diagram.json files define the mapping of the physical components as used by Wokwi.
+For each device
+- a visual diagram is provided
+- .ts files are provided to define the pin mappings
+- .cmd and .sh scripts are provided to run blue-owl
+- diagram.json and sketch.ino files are provided to simulate the device on wokwi.com
 
-Instructions for running are found in the sketch.ino file for each directory.
 
