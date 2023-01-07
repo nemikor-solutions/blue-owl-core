@@ -2,22 +2,30 @@
 
 Blue Owl provides Technical Official device integration for [OWLCMS](https://owlcms.github.io/owlcms4/). The [Johnny-Five](http://johnny-five.io/) software is used to control the devices' microprocessor using the [Firmata](https://github.com/firmata/protocol) protocol.
 
-> This fork focuses on providing a way to simulate the devices on the wokwi.com simulator.  The official software is in the `src/scripts` and is untouched relative to that in the upstream directory by Scott González.
+> This fork focuses on defining build-it-yourself diagrams and in providing a way to simulate the devices on the wokwi.com simulator.  The official software is in the `src/scripts` and is untouched relative to that in the upstream directory by Scott González.
 
 ## Overview
 
-The following diagram illustrates the concept. We use the Jury device as an example, but the same applies to the Referee and Timekeeper devices.
+The following diagram illustrates the concept. We use the Refereeing devices as an example, but the same applies to the Jury and Timekeeper devices.
 
 ![Firmata](src/wokwi/overview.drawio.png)
 
-- The Jury control box contains a small Arduino microprocessor that is pre-loaded with the Firmata software.
-- Blue Owl acts as relay relay between owlcms and the Arduino. 
-  - The USB connection between the computer is used for power and for exchanging information.
-  - Blue Owl reads Firmata information sent by the Jury box and sends it to owlcms. For example, the decisions by each jury member, or the president entering that the previous lift is overturned.
-  - Blue Owl reads commands from owlcms and sends Firmata instructions to the jury control devices. For example, resetting the various LEDs on the Jury box.
+- The Referee Control Box contains a small Arduino microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.  Each referee keypads contain two buttons, a buzzer and a LED.
+
+  ![refBox](src/wokwi/referee/refereeBox.png)
+
+- Blue Owl acts as a relay between owlcms and the Arduino.
+  - The control box reads the buttons pressed by referees when they enter decisions.  it notifies Blue Owl using the Firmata protocol.  Blue Owl relays the events to owlcms using [MQTT messages](https://owlcms.github.io/owlcms4/#/MQTTMessages).
+  - Blue Owl reads MQTT commands from owlcms and sends Firmata instructions to the referee control box. The control box can then activate the LEDs or buzzers on the referee devices.
+  
 - If owlcms is modified, the only thing that needs to change is the Blue-Owl software on the laptop.
   - There are modules in Blue-Owl for each type of device
-- Blue Owl is extremely configurable.  The files in the `scripts` directory contain the layout for fully compliant commercial devices built with printed circuit boards.  The `wokwi` directory contains fully compliant layouts that are suitable for "build-it yourself". You can also use these files to run a simulated Arduino on the [wokwi.com](https://wokwi.com) simulator, and even connect the simulation to a running owlcms.
+  
+- Blue Owl is extremely configurable.  
+
+  - The files in the `scripts` directory contain the layout for fully compliant commercial devices built with printed circuit boards.  
+  - The `wokwi` directory contains fully compliant layout scripts that are suitable for "build-it-yourself" scenarios, and the necessary files to run the scripts. You can also use these files to run a simulated Arduino on the [wokwi.com](https://wokwi.com) simulator. The simulated devices can even be connected for real to a running owlcms.
+
 
 ## Supported Devices
 
