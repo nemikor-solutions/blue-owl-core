@@ -8,7 +8,7 @@ Blue Owl provides Technical Official device integration for [OWLCMS](https://owl
 
 The following diagram illustrates the concept. We use the Jury device as an example, but the same applies to the Referee and Timekeeper devices.
 
-![Firmata](src/wokwi/overview.svg)
+![Firmata](src/wokwi/overview.drawio.svg)
 
 - The Jury control box contains a small Arduino microprocessor that is pre-loaded with the Firmata software.
 - Blue Owl acts as relay relay between owlcms and the Arduino. 
