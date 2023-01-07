@@ -1,4 +1,4 @@
-rem Windows - try to use  our copy of node which has the right binary version
+rem Windows - force the use of our copy of node which has the right binary version
 set PATH=%~dp0\..\..\..\node;%PATH%
 
 set BLUE_OWL_MQTT_PASSWORD=test
@@ -7,4 +7,4 @@ set BLUE_OWL_MQTT_USERNAME=test
 set BLUE_OWL_PLATFORM=A
 set BLUE_OWL_SERIAL_PORT=COM6
 
-npm run ts ./src/build-it-yourself/timekeeper/timekeeper.ts
+npm run ts ./src/build-it-yourself/referee/referee-single.ts

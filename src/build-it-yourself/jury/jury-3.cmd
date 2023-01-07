@@ -7,4 +7,4 @@ set BLUE_OWL_MQTT_USERNAME=test
 set BLUE_OWL_PLATFORM=A
 set BLUE_OWL_SERIAL_PORT=COM6
 
-npm run ts ./src/wokwi/jury/jury-3.ts
+npm run ts ./src/build-it-yourself/jury/jury-3.ts

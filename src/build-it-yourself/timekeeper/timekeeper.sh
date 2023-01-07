@@ -12,4 +12,4 @@ export BLUE_OWL_PLATFORM=A
 export BLUE_OWL_SERIAL_PORT=COM6
 
 which npm
-npm run ts ./src/wokwi/timekeeper/timekeeper.ts
+npm run ts ./src/build-it-yourself/timekeeper/timekeeper.ts

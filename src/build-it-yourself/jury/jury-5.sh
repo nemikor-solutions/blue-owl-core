@@ -5,4 +5,4 @@ export BLUE_OWL_MQTT_USERNAME=test
 export BLUE_OWL_PLATFORM=A
 export BLUE_OWL_SERIAL_PORT=COM6
 
-npm run ts ./src/wokwi/jury/jury-5.ts
+npm run ts ./src/build-it-yourself/jury/jury-5.ts
