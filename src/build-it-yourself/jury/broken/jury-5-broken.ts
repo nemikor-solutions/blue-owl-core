@@ -17,18 +17,18 @@ runner(({
                 number: 1,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 'A9',
+                        badLiftButton: 53,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 'A8',
+                        goodLiftButton: 51,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 29,
-                            green: 27,
-                            red: 25,
+                            blue: 54,
+                            green: 55,
+                            red: 56,
                         },
                     }),
                 ],
@@ -37,18 +37,18 @@ runner(({
                 number: 2,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 'A7',
+                        badLiftButton: 49,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 'A6',
+                        goodLiftButton: 47,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 35,
-                            green: 33,
-                            red: 31,
+                            blue: 57,
+                            green: 58,
+                            red: 59,
                         },
                     }),
                 ],
@@ -57,18 +57,18 @@ runner(({
                 number: 3,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 'A5',
+                        badLiftButton: 45,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 'A4',
+                        goodLiftButton: 43,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 41,
-                            green: 39,
-                            red: 37,
+                            blue: 60,
+                            green: 61,
+                            red: 62,
                         },
                     }),
                 ],
@@ -77,18 +77,18 @@ runner(({
                 number: 4,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 'A3',
+                        badLiftButton: 41,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 'A2',
+                        goodLiftButton: 39,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 47,
-                            green: 45,
-                            red: 43,
+                            blue: 63,
+                            green: 64,
+                            red: 65,
                         },
                     }),
                 ],
@@ -97,18 +97,18 @@ runner(({
                 number: 5,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 'A1',
+                        badLiftButton: 37,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 'A0',
+                        goodLiftButton: 35,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 53,
-                            green: 51,
-                            red: 49,
+                            blue: 66,
+                            green: 67,
+                            red: 68,
                         },
                     }),
                 ],
