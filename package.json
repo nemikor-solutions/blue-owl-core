@@ -30,8 +30,6 @@
     },
     "license": "ISC",
     "dependencies": {
-        "aedes": "^0.48.1",
-        "aedes-cli": "^0.6.1",
         "debug": "^4.3.4",
         "dotenv": "^16.0.3",
         "firmata": "^2.3.0",

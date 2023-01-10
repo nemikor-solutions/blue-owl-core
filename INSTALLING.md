@@ -84,8 +84,8 @@ owlcms needs to connect to your MQTT server.
 
 This step is not needed on the main owlcms machine unless it is also used by the announcer or timekeeper.
 
-- on Windows, obtain the blue-owl.exe self-extracting zip file from **TBC LOCATION**  Execute the file and unzip it to your desktop.
-- on macOS or Linux, obtain the Zip from **TBC LOCATION**  and unzip it to a directory of your choice.
+- on Windows, obtain the blue-owl.exe self-extracting zip file from **[https://github.com/owlcms/blue-owl/releases](https://github.com/owlcms/blue-owl/releases)**  Execute the file and unzip it to your desktop.
+- on macOS or Linux, obtain the blue-owl.zip from **https://github.com/owlcms/blue-owl/releases**  and unzip it to a directory of your choice.
 
 We then use our command line window to go to the directory and make it available.
 
@@ -94,7 +94,7 @@ cd Desktop/blue-owl
 npm install
 ```
 
-Edit the .sh or .cmd scripts to have the correct address and login information for your MQTT Server
+Edit the `bash/config.sh` or `windows\config.cmd` scripts in to have the correct address and login information for your MQTT Server
 
 
 
@@ -112,10 +112,12 @@ Edit the .sh or .cmd scripts to have the correct address and login information f
 
 4. On Windows:
 
-   1. Open a command window
-   2. Run the `.\referee.cmd`  or  `.\timekeeper.cmd`  or `.\jury-3.cmd` script depending on the machine you are on.
+   1. FInd the directory where blue-node.exe was unpacked, double-click on it
+   1. Open the Windows directory
+   1. Double-click on the script you want to run
 
 5. On macOS or Linux
 
    1. Open a terminal window
-   2. Run the `./referee.sh`  or  `./timekeeper.sh` or `./jury-3.cmd sh` depending on the machine you are on.
+   2. Go to the `bash` directory where you unzipped the distribution.
+   3. Run the `./referee.sh`  or  `./timekeeper.sh` or `./jury-3.cmd sh` depending on the machine you are on.

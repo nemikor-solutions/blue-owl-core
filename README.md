@@ -34,6 +34,9 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
   - There are different launchers for each device that call the appropriate definition script for the device.
   - The jury Blue Owl would run on the jury laptop, the referee Blue Owl would run on the countdown laptop, and the timekeeper Blue Owl would run either on the announcer or timekeeper laptop.
 
+## Running Blue Owl
+
+Scripts to start the build-it-yourself devices are found in the `windows` and `bash` (for macOS and Linux).  These scripts are included in the blue-owl packages found in the Releases.  Instructions for installation are found in [Installing](INSTALLING.md)
 
 ## Supported Devices
 
