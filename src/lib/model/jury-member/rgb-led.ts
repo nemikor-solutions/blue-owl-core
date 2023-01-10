@@ -1,29 +1,26 @@
 import type JuryMember from 'lib/model/jury-member';
 import type {
-    Board,
-} from 'johnny-five';
+    DigitalRgbOptions,
+} from 'lib/johnny-five/digital-rgb';
 
-import {
-    Led,
-} from 'johnny-five';
+import DigitalRgb from 'lib/johnny-five/digital-rgb';
 
 export interface JuryRefereeLedsOptions {
-    anode?: Led.RGBOption['isAnode'];
-    board?: Board;
-    pins: Led.RGBOption['pins'];
+    anode?: DigitalRgbOptions['anode'];
+    board?: DigitalRgbOptions['board'];
+    pins: DigitalRgbOptions['pins'];
 }
 
 export default (options: JuryRefereeLedsOptions) => {
-    const led = new Led.RGB({
+    const led = new DigitalRgb({
+        anode: options.anode,
         board: options.board,
         pins: options.pins,
-        isAnode: options.anode,
     });
 
     return (juryMember: JuryMember) => {
         juryMember.on('decision', () => {
-            led.color('#00ff00')
-            led.on();
+            led.green();
         });
 
         juryMember.on('reset', () => {
@@ -31,7 +28,7 @@ export default (options: JuryRefereeLedsOptions) => {
         });
 
         juryMember.on('reveal', ({ decision }) => {
-            led.color(decision === 'good' ? '#ffffff' : '#ff0000');
+            led[decision === 'good' ? 'white' : 'red']();
         });
     };
 }
