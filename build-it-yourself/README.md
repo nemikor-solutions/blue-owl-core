@@ -4,7 +4,7 @@ This directory contains definitions of the devices that you can use to build you
 
 For each device
 - a visual diagram is provided
-- .ts files are provided to define the pin mappings
+- .ts files are provided to define the pin mappings (see the scripts directory)
 - .cmd and .sh scripts are provided to run blue-owl
 - diagram.json and sketch.ino files are provided to simulate the device on wokwi.com
 
