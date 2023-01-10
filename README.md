@@ -31,13 +31,8 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
   - Blue Owl reads MQTT commands from owlcms and sends Firmata instructions to the referee control box. The control box can then activate the LEDs or buzzers on the referee devices.
   
 - If owlcms is modified, the only thing that needs to change is the Blue Owl software on the laptop.
-  - There are different Blue Owl configurations for each device.
+  - There are different launchers for each device that call the appropriate definition script for the device.
   - The jury Blue Owl would run on the jury laptop, the referee Blue Owl would run on the countdown laptop, and the timekeeper Blue Owl would run either on the announcer or timekeeper laptop.
-  
-- Blue Owl is extremely configurable.  
-
-  - The files in the `scripts` directory contain the layout for fully compliant commercial devices built with printed circuit boards.  
-  - The `build-it-yourself` directory contains fully compliant layout scripts that are suitable for building and running your own devices. The devices can be run on the [wokwi.com](https://wokwi.com) simulator and the simulated devices can even be connected for real to a running owlcms.
 
 
 ## Supported Devices
