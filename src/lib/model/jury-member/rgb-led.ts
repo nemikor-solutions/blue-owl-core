@@ -20,7 +20,6 @@ export default (options: JuryRefereeLedsOptions) => {
 
     return (juryMember: JuryMember) => {
         juryMember.on('decision', () => {
-            console.log('decision', juryMember.number);
             led.green();
         });
 
@@ -30,7 +29,6 @@ export default (options: JuryRefereeLedsOptions) => {
         });
 
         juryMember.on('reveal', ({ decision }) => {
-            console.log('reveal', decision, juryMember.number);
             led[decision === 'good' ? 'white' : 'red']();
         });
     };
