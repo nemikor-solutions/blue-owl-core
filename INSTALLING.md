@@ -1,5 +1,9 @@
 ## Installing the Blue Owl Refereeing Package
 
+> #### Note: these are ***Early Adopter Instructions***
+>
+> The following instructions are NOT what to expect in the final package.  The final package will NOT require installing Node on the machines, and will NOT require editing a configuration file.  A self-contained application will do all that with a graphical user interface
+
 The following steps are required once on every machine that will run Blue Owl (typically the countdown display laptop, the jury laptop, and the timekeeper laptop if one is used -- otherwise the announcer laptop).  The main owlcms machine also needs the prerequisites.
 
 We will install two pieces of software, nvm and npm
