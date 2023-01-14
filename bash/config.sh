@@ -1,4 +1,5 @@
-export BLUE_OWL_SERIAL_PORT=COM6
+# not normally needed
+#export BLUE_OWL_SERIAL_PORT=COM6
 
 export BLUE_OWL_MQTT_URL=mqtt://127.0.0.1:1883
 export BLUE_OWL_MQTT_USERNAME=test

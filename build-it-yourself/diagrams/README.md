@@ -9,10 +9,13 @@ This directory contains definitions and diagrams for the devices
 
 To look at a file
 
-1. go to the wokwi.com site, scroll down to the "Start from Scratch" section at the bottom of the page.
-2. start a new Arduino Nano project (except for the jury, which is Arduino Mega)
-3. Go to the design directory you want (jury, referee, timekeeper)
-3. Select the content  `diagram.json` (select all) and paste it in the diagram.json window on Wokwi.
+1. go to the wokwi.com site and sign up/login
+2. Go to your own projects (there is an icon at the top right)
+3. Click on "+ New Project" at the top.
+4. Start a new Arduino Nano project (except for the jury, which is Arduino Mega)
+5. Go to the design directory you want in this area (jury, referee, timekeeper)
+6. Select the content  `diagram.json` (select all) and paste it in the diagram.json window on Wokwi.
+7. Select the content `sketch.ino` and paste it in the sketch.ino on Wokwi.
 
 ## Running a simulation
 
@@ -28,10 +31,15 @@ To look at a file
 5. Go to https://wokwi.com and open your project
 6. In the diagram.json window, click ONCE and hit `F1` .
 7. Type the letters `load h` and select `Load HEX file and start simulation`
-8. The browser will open a dialog asking for a serial port to open
-   - Select the odd-numbered port (COM5) - by convention the scripts run Firmata on the even numbered port.
+8. Check the script you want to run. You can make a copy of the script under a different name if you wish.
+
+    1. Pick a pair of ports from those you have created (say COM5 and COM6)
+    2. In the script, use the even-numbered port (COM6)  -- this is not mandatory, but makes it easier to remember.
+    3. Edit and save the script.
+9. The browser will open a dialog asking for a serial port to open
+   - Select the odd-numbered port (COM5)  that is the other member of the pair.
    - Click `Select`
-9. Start the script you want from the windows directory.  You should see something like the following.
+10. Start the script you want from the windows directory.  You should see something like the following.
 
     ```text
     blue-owl:owlcms connected +0ms
