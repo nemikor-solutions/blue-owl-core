@@ -2,11 +2,18 @@
 
 > #### Note: these are ***Early Adopter Instructions***
 >
-> The following instructions are NOT what to expect in the final package.  The final package will NOT require installing Node on the machines, and will NOT require editing a configuration file.  A self-contained application will do all that with a graphical user interface.  Only the initial installation on owlcms will remain, and this will also be simplified.
+> The following instructions are NOT what to expect in the final package.  The final package will NOT require installing Node on the machines, and will NOT require editing a configuration file.  A self-contained application will do all that with a graphical user interface.
+>
+
+Starting with release 37.2 owlcms no longer requires an external MQTT server.  It provides one.  We need to configure the devices so they have the necessary software to run Blue Owl, and configure them to reach owlcms using MQTT.
+
+## Configuring the Device-hosting laptops
+
+> The devices need to be connected to a laptop that provides power over USB. Blue Owl runs on the laptop and controls the physical device, also over USB.
+>
+> **These steps are necessary  on each machine that will have devices connected to it**
 
 
-
-## Initial Installation on the owlcms server
 
 We will install two pieces of software, nvm and npm
 
@@ -35,59 +42,6 @@ nvm install 16
 nvm use 16
 nvm alias default 16
 ```
-
-
-
-#### Installing an MQTT Server
-
-This step is only needed on the owlcms machine.
-
-The refereeing device scripts and owlcms communicate with one another using the MQTT protocol. 
-
-A very simple server can be installed as follows:
-
-```
-npm install -g aedes-cli
-```
-
-You can choose to install a different server, Mosquitto is a very common choice.  
-
-
-
-#### Configuring owlcms to call the MQTT Server
-
-> The owlcms server can also be configured from the user interface in the Language and Settings menu, but this method ensures that you don't have to do it again if you clear your database.
-
-owlcms needs to connect to your MQTT server.  
-
-1. Go to the installation directory, and locate the `owlcms.l4j.ini` file (depending on your Windows configuration, the `.ini`can be hidden).  
-2. For an initial server without any passwords locate the section for MQTT parameters and remove the `#` comment markers at the beginning of the line. Obviously, replace `192.168.0.101` with the actual IP address or name of your server (same as reported by owlcms when it starts up.)
-
-```
-# MQTT for refereeing devices
--DmqttServer=192.168.1.101
--DmqttUserName=owlcms
--DmqttPassword=some_Password_you_choose
--DmqttPort=1883
-```
-
-3. You can then run `aedes -v`  (the `-v` is optional, it shows the messages going through)
-
-   **IMPORTANT**: you will need to authorize port 1883 to be open on your computer. Normally Windows will prompt you to authorize the port.  If it doesn't you will have to edit your firewall settings manually or simply disable your firewall.
-
-   
-
-## Configuring the Device-hosting laptops
-
-> The devices need to be connected to a laptop that provides power over USB. Blue Owl runs on the laptop and controls the physical device, also over USB
->
-> **These steps are necessary  on each machine that will have devices connected to it**
-
-
-
-#### Install NVM and NPM
-
-This is the same as for owlcms.  Please refer to [Installing NVM](#installing-nvm) and [Installing Node.js and NPM](#installing-node.js-and-npm) above
 
 
 
