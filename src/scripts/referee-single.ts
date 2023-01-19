@@ -14,10 +14,10 @@ runner(({
     const options: RefereeOptions = {
         modules: [
             refereeButtons({
-                badLiftButton: 3,
+                badLiftButton: 12,
                 badLiftButtonPullUp: true,
                 board,
-                goodLiftButton: 4,
+                goodLiftButton: 9,
                 goodLiftButtonPullUp: true,
             }),
         ],
