@@ -1,13 +1,13 @@
 import type {
     CoreModelEvents,
     CoreModelOptions,
-} from 'lib/model/core';
+} from '../model/core';
 import type {
     JuryMemberNumber,
-} from 'lib/model/jury';
+} from '../model/jury';
 import type {
     Decision,
-} from 'lib/model/referee';
+} from '../model/referee';
 
 import CoreModel from 'lib/model/core';
 

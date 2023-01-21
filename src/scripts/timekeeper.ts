@@ -1,6 +1,6 @@
-import runner from 'scripts/runner';
-import Timekeeper from 'lib/model/timekeeper';
-import timekeeperButtons from 'lib/model/timekeeper/buttons';
+import runner from './runner';
+import Timekeeper from '../lib/model/timekeeper';
+import timekeeperButtons from '../lib/model/timekeeper/buttons';
 
 runner(({
     board,
@@ -23,5 +23,12 @@ runner(({
         ],
         owlcms,
         platform,
-    });
+    }),
+    {
+        mqttPassword: "",
+        mqttUsername: "",
+        mqttUrl: "mqtt://127.0.0.1:1883",
+        platform: 'A',
+        serialPort: process.argv[2],
+    }
 });

@@ -1,7 +1,7 @@
-import type Referee from 'lib/model/referee';
+import type Referee from '../../model/referee';
 import type {
     Decision,
-} from 'lib/model/referee';
+} from '../../model/referee';
 import type {
     Board,
     LedOption,

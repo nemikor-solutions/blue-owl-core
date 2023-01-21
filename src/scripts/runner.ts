@@ -3,11 +3,11 @@ import type {
 } from 'johnny-five';
 import type {
     Config,
-} from 'scripts/config';
+} from './config';
 
-import connectBoard from 'lib/board';
-import Owlcms from 'lib/owlcms';
-import parseConfig from 'scripts/config';
+import connectBoard from '../lib/board';
+import Owlcms from '../lib/owlcms';
+import parseConfig from '../scripts/config';
 
 export type Initializer = (options: InitializerOptions) => void;
 
@@ -18,8 +18,8 @@ export interface InitializerOptions {
     platform: Config['platform'];
 }
 
-export default async (initializer: Initializer) => {
-    const config = parseConfig();
+export default async (initializer: Initializer, config?: Config) => {
+    config ||= parseConfig();
 
     const owlcms = new Owlcms({
         mqttPassword: config.mqttPassword,

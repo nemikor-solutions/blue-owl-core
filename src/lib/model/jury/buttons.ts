@@ -1,7 +1,7 @@
-import type Jury from 'lib/model/jury';
+import type Jury from '../../model/jury';
 import type {
     RefereeNumber,
-} from 'lib/model/referee';
+} from '../../model/referee';
 import type {
     Board,
     ButtonOption,

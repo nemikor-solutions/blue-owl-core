@@ -1,9 +1,9 @@
 import type {
     ModelEvents,
     ModelOptions,
-} from 'lib/model';
+} from '../model';
 
-import Model from 'lib/model';
+import Model from '../model';
 
 export type TimekeeperEvents = ModelEvents;
 export type TimekeeperOptions = ModelOptions<Timekeeper>;
