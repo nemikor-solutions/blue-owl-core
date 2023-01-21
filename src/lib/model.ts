@@ -1,10 +1,10 @@
-import type Owlcms from 'lib/owlcms';
+import type Owlcms from './owlcms';
 import type {
     CoreModelEvents,
     CoreModelOptions,
 } from 'lib/model/core';
 
-import CoreModel from 'lib/model/core';
+import CoreModel from './model/core';
 
 export interface ModelOptions<T> extends CoreModelOptions<T> {
     owlcms: Owlcms;

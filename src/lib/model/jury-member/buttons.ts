@@ -9,7 +9,7 @@ import type {
 
 import {
     decisions,
-} from 'lib/model/referee';
+} from '../../model/referee';
 import {
     Button,
 } from 'johnny-five';

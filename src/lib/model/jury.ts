@@ -1,4 +1,4 @@
-import type JuryMember from 'lib/model/jury-member';
+import type JuryMember from '../model/jury-member';
 import type {
     ModelEvents,
     ModelOptions,
@@ -8,7 +8,7 @@ import type {
     RefereeNumber,
 } from '../model/referee';
 
-import Model from 'lib/model';
+import Model from '../model';
 
 export type JuryMemberNumber = 1 | 2 | 3 | 4 | 5;
 

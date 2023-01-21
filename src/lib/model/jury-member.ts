@@ -9,7 +9,7 @@ import type {
     Decision,
 } from '../model/referee';
 
-import CoreModel from 'lib/model/core';
+import CoreModel from '../model/core';
 
 interface DecisionEvent {
     decision: Decision;
