@@ -42,12 +42,17 @@ export interface SummonEvent {
     referee: RefereeNumber;
 }
 
+export interface DownDecisionsEvent {
+    platform: string;
+}
+
 interface OwlcmsEvents {
     clockStart: (data: ClockStartEvent) => void;
     decision: (data: DecisionEvent) => void;
     decisionRequest: (data: DecisionRequestEvent) => void;
     resetDecisions: (data: ResetDecisionsEvent) => void;
     summon: (data: SummonEvent) => void;
+    down: (data: DownDecisionsEvent) => void;
 }
 
 type OwlcmsEventDataMap = {
@@ -119,7 +124,7 @@ export default class Owlcms extends EventEmitter {
                     platform,
                     referee: parseInt(referee) as RefereeNumber,
                 };
-            } else if (action === 'clockStart' || action === 'resetDecisions') {
+            } else if (action === 'clockStart' || action === 'resetDecisions' || action === 'down') {
                 data = {
                     platform,
                 };

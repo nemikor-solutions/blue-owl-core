@@ -1,13 +1,15 @@
 import Referee from '../../src/lib/model/referee';
 import refereeButtons from '../../src/lib/model/referee/buttons';
 import refereeBuzzer from '../../src/lib/model/referee/buzzer';
+import downRelays from '../../src/lib/model/down/relays'
 import refereeWarningLed from '../../src/lib/model/referee/warning-led';
 import runner from '../../src/scripts/runner';
 import type {
     Config,
 } from '../../src/scripts/config';
+import Down from 'lib/model/down';
 
-export function doReferee(conf?: Config) {
+export function doReferees(conf?: Config) {
     runner(({
         board,
         owlcms,
@@ -79,5 +81,18 @@ export function doReferee(conf?: Config) {
             owlcms,
             platform,
         });
+        new Down({
+            modules: [
+                downRelays({
+                    board,
+                    lightDuration: 1500,
+                    lightRelay: 'A0',   
+                    soundDuration: 500,
+                    soundRelay: 'A1',
+                }),
+            ],
+            owlcms,
+            platform,
+        })
     }, conf)
 }

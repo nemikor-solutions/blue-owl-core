@@ -3,7 +3,7 @@ import type {
 } from '../../src/scripts/config';
 import promptSync from 'prompt-sync';
 import { doTimekeeper } from './timekeeper';
-import { doReferee } from './referee';
+import { doReferees } from './referee';
 import { doSoloReferee } from './referee-single';
 import { doJury3 } from './jury-3';
 import { doJury5 } from './jury-5';
@@ -40,7 +40,7 @@ switch (selectedDevice) {
         break;
     }
     case "R": {
-        doReferee(configuration);
+        doReferees(configuration);
         break;
     }
     case "S": {
@@ -63,7 +63,7 @@ switch (selectedDevice) {
 
 
 function selectDevice() {
-    const valid = new RegExp('[RST35]');
+    const valid = new RegExp('[rRsStT35]');
 
     console.log("Please select the desired settings. ENTER selects the [default value]");
     console.log("");
@@ -84,6 +84,6 @@ function selectDevice() {
         selectedDevice ||= "T";
     }
     console.log("");
-    return selectedDevice;
+    return selectedDevice.toUpperCase();
 }
 
