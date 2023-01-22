@@ -1,4 +1,4 @@
-import runner from '../../src/scripts/runner';
+import runner from './runner';
 import Timekeeper from '../../src/lib/model/timekeeper';
 import timekeeperButtons from '../../src/lib/model/timekeeper/buttons';
 import type {

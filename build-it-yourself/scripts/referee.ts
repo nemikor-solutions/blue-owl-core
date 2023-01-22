@@ -3,7 +3,7 @@ import refereeButtons from '../../src/lib/model/referee/buttons';
 import refereeBuzzer from '../../src/lib/model/referee/buzzer';
 import downRelays from '../../src/lib/model/down/relays'
 import refereeWarningLed from '../../src/lib/model/referee/warning-led';
-import runner from '../../src/scripts/runner';
+import runner from './runner';
 import type {
     Config,
 } from '../../src/scripts/config';

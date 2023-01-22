@@ -4,7 +4,7 @@ import type {
 import Referee from '../../src/lib/model/referee';
 import refereeButtons from '../../src/lib/model/referee/buttons';
 import downRelays from '../../src/lib/model/down/relays'
-import runner from '../../src/scripts/runner';
+import runner from './runner';
 import type {
     Config,
 } from '../../src/scripts/config';

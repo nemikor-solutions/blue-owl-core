@@ -4,7 +4,7 @@ import juryMemberButtons from '../../src/lib/model/jury-member/buttons';
 import juryMemberRgbLed from '../../src/lib/model/jury-member/rgb-led';
 import juryButtons from '../../src/lib/model/jury/buttons';
 import juryRefereeRgbLeds from '../../src/lib/model/jury/referee-rgb-leds';
-import runner from '../../src/scripts/runner';
+import runner from './runner';
 import type {
     Config,
 } from '../../src/scripts/config';

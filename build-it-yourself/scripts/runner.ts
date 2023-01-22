@@ -3,11 +3,11 @@ import type {
 } from 'johnny-five';
 import type {
     Config,
-} from './config';
+} from '../../src/scripts/config';
 
-import connectBoard from '../lib/board';
-import Owlcms from '../lib/owlcms';
-import parseConfig from '../scripts/config';
+import connectBoard from '../../src/lib/board';
+import Owlcms from '../../src/lib/owlcms';
+import parseConfig from '../../src/scripts/config';
 
 export type Initializer = (options: InitializerOptions) => void;
 
@@ -36,7 +36,7 @@ export default async (initializer: Initializer, config?: Config) => {
                 port: config.serialPort,
             });
         } else {
-            board = await connectBoard({});
+            board = await connectBoard();
         }
 
         initializer({

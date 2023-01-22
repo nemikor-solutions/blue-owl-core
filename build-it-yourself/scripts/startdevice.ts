@@ -29,7 +29,7 @@ const configuration: Config = {
     mqttUsername: selectedMQTTUsername,
     mqttUrl: "mqtt://" + selectedMQTTServer + ":" + selectedMQTTPort,
     platform: selectedPlatform,
-    serialPort: selectedSerialPort,
+    serialPort: selectedSerialPort == '' ? void 0 : selectedSerialPort,
 }
 
 if (process.env) process.env['DEBUG'] = "blue-owl:*"
