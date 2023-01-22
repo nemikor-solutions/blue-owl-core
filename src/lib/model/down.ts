@@ -26,7 +26,7 @@ export default class Down extends Model<DownOptions> {
             if (platform !== this.platform) {
                 return;
             }
-            console.log("owlcms down event received")
+            //console.log("owlcms down event received")
             this.triggerDown();
         });
     }
