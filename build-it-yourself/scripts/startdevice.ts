@@ -10,19 +10,23 @@ import { doJury5 } from './jury-5';
 
 const prompt = promptSync({ sigint: true });
 const selectedDevice = selectDevice();
+let selectedPlatform = prompt("platform [A] ")
+selectedPlatform ||= "A";
+console.log();
 
 let selectedSerialPort = prompt("communication port [automatic detection] ")
 selectedSerialPort ||= '';
-let selectedPlatform = prompt("platform [A] ")
-selectedPlatform ||= "A";
-let selectedMQTTServer = prompt("MQTT server address [192.168.1.254] ")
-selectedMQTTServer ||= "192.168.1.254";
+console.log();
+
+let selectedMQTTServer = prompt("MQTT server address [192.168.1.100] ")
+selectedMQTTServer ||= "192.168.1.100";
 let selectedMQTTPort = prompt("MQTT server port [1883] ");
 selectedMQTTPort ||= "1883"
 let selectedMQTTUsername = prompt("MQTT username [] ")
 selectedMQTTUsername ||= "";
 let selectedMQTTPassword = prompt("MQTT password [] ")
 selectedMQTTPassword ||= "";
+console.log()
 
 const configuration: Config = {
     mqttPassword: selectedMQTTPassword,
@@ -32,7 +36,7 @@ const configuration: Config = {
     serialPort: selectedSerialPort == '' ? void 0 : selectedSerialPort,
 }
 
-if (process.env) process.env['DEBUG'] = "blue-owl:*"
+//if (process.env) process.env['DEBUG'] = "blue-owl:*"
 
 switch (selectedDevice) {
     case "T": {
@@ -61,7 +65,6 @@ switch (selectedDevice) {
     }
 }
 
-
 function selectDevice() {
     const valid = new RegExp('[rRsStT35]');
 
@@ -83,7 +86,6 @@ function selectDevice() {
         selectedDevice = prompt("Type of device ? [T] ");
         selectedDevice ||= "T";
     }
-    console.log("");
     return selectedDevice.toUpperCase();
 }
 

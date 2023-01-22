@@ -39,7 +39,9 @@ export default abstract class CoreModel<
         this.debug = debug(`blue-owl:${this.debuggerName}`);
 
         this._initialize();
-
+        if (! process.env['DEBUG']) {
+            console.log(this.debuggerName, "initialized")
+        }
         this.debug('initialized');
         this.emit('initialized');
     }
