@@ -94,6 +94,7 @@ export default class Owlcms extends EventEmitter {
         if (options.mqttPassword) {
             mqttOptions.password = options.mqttPassword;
         }
+        mqttOptions.connectTimeout = 5000;
         this.mqtt = mqtt.connect(options.mqttUrl, mqttOptions);
     }
 
@@ -155,6 +156,13 @@ export default class Owlcms extends EventEmitter {
                 this.debug('client error');
                 reject(error);
             });
+
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            this.mqtt.on("offline", (_error: unknown) => {
+                console.error();
+                console.error("Timed out. Not connected. Check the MQTT server address.");
+                this.mqtt.end();
+           });
         });
     }
 
