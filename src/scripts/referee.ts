@@ -4,7 +4,6 @@ import refereeBuzzer from 'lib/model/referee/buzzer';
 import refereeWarningLed from 'lib/model/referee/warning-led';
 import runner from 'scripts/runner';
 
-
 runner(({
     board,
     owlcms,
@@ -13,19 +12,19 @@ runner(({
     new Referee({
         modules: [
             refereeButtons({
-                badLiftButton: 3,
+                badLiftButton: 12,
                 badLiftButtonPullUp: true,
                 board,
-                goodLiftButton: 4,
+                goodLiftButton: 9,
                 goodLiftButtonPullUp: true,
             }),
             refereeBuzzer({
                 board,
-                piezo: 2,
+                piezo: 11,
             }),
             refereeWarningLed({
                 board,
-                led: 'A0',
+                led: 10,
             }),
         ],
         number: 1,
@@ -35,19 +34,19 @@ runner(({
     new Referee({
         modules: [
             refereeButtons({
-                badLiftButton: 6,
+                badLiftButton: 8,
                 badLiftButtonPullUp: true,
                 board,
-                goodLiftButton: 7,
+                goodLiftButton: 5,
                 goodLiftButtonPullUp: true,
             }),
             refereeBuzzer({
                 board,
-                piezo: 5,
+                piezo: 7,
             }),
             refereeWarningLed({
                 board,
-                led: 'A1',
+                led: 6,
             }),
         ],
         number: 2,
@@ -57,19 +56,19 @@ runner(({
     new Referee({
         modules: [
             refereeButtons({
-                badLiftButton: 9,
+                badLiftButton: 'A0',
                 badLiftButtonPullUp: true,
                 board,
-                goodLiftButton: 10,
+                goodLiftButton: 'A2',
                 goodLiftButtonPullUp: true,
             }),
             refereeBuzzer({
                 board,
-                piezo: 8,
+                piezo: 2,
             }),
             refereeWarningLed({
                 board,
-                led: 'A2',
+                led: 'A1',
             }),
         ],
         number: 3,
