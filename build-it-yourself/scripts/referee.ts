@@ -7,7 +7,7 @@ import runner from '../../src/scripts/runner';
 import type {
     Config,
 } from '../../src/scripts/config';
-import Down from 'lib/model/down';
+import Down from '../../src/lib/model/down';
 
 export function doReferees(conf?: Config) {
     runner(({
