@@ -89,7 +89,10 @@ export default class Owlcms extends EventEmitter {
         if (options.mqttPassword) {
             mqttOptions.password = options.mqttPassword;
         }
-        this.mqtt = mqtt.connect(options.mqttUrl, mqttOptions);
+        this.mqtt = mqtt.connect(options.mqttUrl, {
+            ...mqttOptions,
+            connectTimeout: 5_000,
+        });
     }
 
     public async connect() {
@@ -149,6 +152,18 @@ export default class Owlcms extends EventEmitter {
             this.mqtt.on('error', (error) => {
                 this.debug('client error');
                 reject(error);
+            });
+
+            this.mqtt.once('offline', () => {
+                reject(new Error('MQTT server offline'));
+            });
+
+            this.mqtt.on('offline', () => {
+                this.debug('client offline');
+            });
+
+            this.mqtt.on('reconnect', () => {
+                this.debug('reconnect');
             });
         });
     }
