@@ -37,6 +37,7 @@ export default (options: DownRelayOptions) => {
 
     return (down: Down) => {
         down.on('initialized', () => {
+            // beep to confirm when starting up.
             triggerRelays();
         });
         down.on('triggerRelays', () => {
