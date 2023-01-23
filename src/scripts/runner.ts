@@ -3,11 +3,11 @@ import type {
 } from 'johnny-five';
 import type {
     Config,
-} from 'scripts/config';
+} from './config';
 
-import connectBoard from 'lib/board';
-import Owlcms from 'lib/owlcms';
-import parseConfig from 'scripts/config';
+import connectBoard from '../lib/board';
+import Owlcms from '../lib/owlcms';
+import parseConfig from './config';
 
 export type Initializer = (options: InitializerOptions) => void;
 

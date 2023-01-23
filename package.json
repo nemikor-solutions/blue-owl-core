@@ -8,7 +8,7 @@
         "weightlifting"
     ],
     "main": "index.js",
-    "bin" : "./dist/build-it-yourself/scripts/startdevice.js",
+    "bin": "./dist/build-it-yourself/scripts/startdevice.js",
     "engines": {
         "node": ">=16"
     },
@@ -54,10 +54,13 @@
         "typescript": "^4.8.4"
     },
     "pkg": {
-        "assets": [
-          "node_modules/**/*.*"
+        "scripts" : "dist/**/*.js",
+        "assets" : [
+            "node_modules/@serialport/**/*.node",
+            "node_modules/johnny-five/**/*.node*"
         ],
         "targets": [
-          "node16-win"
-        ]}
+            "node16-win"
+        ]
+    }
 }

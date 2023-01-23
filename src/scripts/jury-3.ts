@@ -1,10 +1,10 @@
-import Jury from 'lib/model/jury';
-import JuryMember from 'lib/model/jury-member';
-import juryMemberButtons from 'lib/model/jury-member/buttons';
-import juryMemberRgbLed from 'lib/model/jury-member/rgb-led';
-import juryButtons from 'lib/model/jury/buttons';
-import juryRefereeRgbLeds from 'lib/model/jury/referee-rgb-leds';
-import runner from 'scripts/runner';
+import Jury from '../lib/model/jury';
+import JuryMember from '../lib/model/jury-member';
+import juryMemberButtons from '../lib/model/jury-member/buttons';
+import juryMemberRgbLed from '../lib/model/jury-member/rgb-led';
+import juryButtons from '../lib/model/jury/buttons';
+import juryRefereeRgbLeds from '../lib/model/jury/referee-rgb-leds';
+import runner from './runner';
 
 runner(({
     board,
