@@ -1,6 +1,6 @@
-import runner from 'scripts/runner';
-import Timekeeper from 'lib/model/timekeeper';
-import timekeeperButtons from 'lib/model/timekeeper/buttons';
+import runner from '@scripts/runner';
+import Timekeeper from '@lib/model/timekeeper';
+import timekeeperButtons from '@lib/model/timekeeper/buttons';
 
 runner(({
     board,

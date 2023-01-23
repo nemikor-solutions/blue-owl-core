@@ -1,15 +1,15 @@
-import type Jury from 'lib/model/jury';
+import type Jury from '@lib/model/jury';
 import type {
     DigitalRgbOptions,
-} from 'lib/johnny-five/digital-rgb';
+} from '@lib/johnny-five/digital-rgb';
 import type {
     RefereeNumber,
-} from 'lib/model/referee';
+} from '@lib/model/referee';
 
-import DigitalRgb from 'lib/johnny-five/digital-rgb';
+import DigitalRgb from '@lib/johnny-five/digital-rgb';
 import {
     referees,
-} from 'lib/model/referee';
+} from '@lib/model/referee';
 
 export interface JuryRefereeRgbLedsOptions {
     anode?: DigitalRgbOptions['anode'];

@@ -1,6 +1,4 @@
 {
-    "extends": "@tsconfig/node16-strictest/tsconfig.json",
-
     "compilerOptions": {
         "baseUrl": "src",
         "declaration": true,
@@ -8,7 +6,7 @@
         "paths": {
             "@lib/*": ["lib/*"],
             "@scripts/*": ["scripts/*"]
-        },
+        }
     },
 
     "include": [

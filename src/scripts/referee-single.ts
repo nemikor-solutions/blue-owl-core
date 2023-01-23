@@ -1,10 +1,10 @@
 import type {
     RefereeOptions,
-} from 'lib/model/referee';
+} from '@lib/model/referee';
 
-import Referee from 'lib/model/referee';
-import refereeButtons from 'lib/model/referee/buttons';
-import runner from 'scripts/runner';
+import Referee from '@lib/model/referee';
+import refereeButtons from '@lib/model/referee/buttons';
+import runner from '@scripts/runner';
 
 runner(({
     board,

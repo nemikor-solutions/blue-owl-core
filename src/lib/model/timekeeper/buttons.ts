@@ -1,4 +1,4 @@
-import type Timekeeper from 'lib/model/timekeeper';
+import type Timekeeper from '@lib/model/timekeeper';
 import type {
     Board,
     ButtonOption,

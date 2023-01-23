@@ -1,8 +1,8 @@
-import Referee from 'lib/model/referee';
-import refereeButtons from 'lib/model/referee/buttons';
-import refereeBuzzer from 'lib/model/referee/buzzer';
-import refereeWarningLed from 'lib/model/referee/warning-led';
-import runner from 'scripts/runner';
+import Referee from '@lib/model/referee';
+import refereeButtons from '@lib/model/referee/buttons';
+import refereeBuzzer from '@lib/model/referee/buzzer';
+import refereeWarningLed from '@lib/model/referee/warning-led';
+import runner from '@scripts/runner';
 
 runner(({
     board,

@@ -1,4 +1,4 @@
-import type Referee from 'lib/model/referee';
+import type Referee from '@lib/model/referee';
 import type {
     Board,
     PiezoOption,

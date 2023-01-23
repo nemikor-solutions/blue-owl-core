@@ -3,11 +3,11 @@ import type {
 } from 'mqtt';
 import type {
     JuryMemberNumber,
-} from 'lib/model/jury';
+} from '@lib/model/jury';
 import type {
     Decision,
     RefereeNumber,
-} from 'lib/model/referee';
+} from '@lib/model/referee';
 
 import debug from 'debug';
 import EventEmitter from 'node:events';
