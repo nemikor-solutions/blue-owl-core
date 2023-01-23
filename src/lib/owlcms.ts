@@ -28,6 +28,10 @@ export interface DecisionRequestEvent {
     referee: RefereeNumber;
 }
 
+export interface DownEvent {
+    platform: string;
+}
+
 export type Official =
     | RefereeNumber
     | 'all'
@@ -50,6 +54,7 @@ interface OwlcmsEvents {
     clockStart: (data: ClockStartEvent) => void;
     decision: (data: DecisionEvent) => void;
     decisionRequest: (data: DecisionRequestEvent) => void;
+    down: (data: DownEvent) => void;
     resetDecisions: (data: ResetDecisionsEvent) => void;
     summon: (data: SummonEvent) => void;
     down: (data: DownDecisionsEvent) => void;
@@ -87,7 +92,9 @@ export default class Owlcms extends EventEmitter {
 
         this.debug = debug('blue-owl:owlcms');
 
-        const mqttOptions: IClientOptions = {};
+        const mqttOptions: IClientOptions = {
+            connectTimeout: 5_000,
+        };
         if (options.mqttUsername) {
             mqttOptions.username = options.mqttUsername;
         }
@@ -125,7 +132,11 @@ export default class Owlcms extends EventEmitter {
                     platform,
                     referee: parseInt(referee) as RefereeNumber,
                 };
-            } else if (action === 'clockStart' || action === 'resetDecisions' || action === 'down') {
+            } else if (
+                action === 'clockStart'
+                || action === 'down'
+                || action === 'resetDecisions'
+            ) {
                 data = {
                     platform,
                 };
@@ -157,12 +168,17 @@ export default class Owlcms extends EventEmitter {
                 reject(error);
             });
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            this.mqtt.on("offline", (_error: unknown) => {
-                console.error();
-                console.error("Timed out. Not connected. Check the MQTT server address.");
-                this.mqtt.end();
-           });
+            this.mqtt.once('offline', () => {
+                reject(new Error('MQTT server offline'));
+            });
+
+            this.mqtt.on('offline', () => {
+                this.debug('client offline');
+            });
+
+            this.mqtt.on('reconnect', () => {
+                this.debug('reconnect');
+            });
         });
     }
 
