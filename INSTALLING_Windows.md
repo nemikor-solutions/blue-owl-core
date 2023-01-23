@@ -11,7 +11,7 @@ This step is needed only once per laptop that will have a device attached to it.
 At the start of the competition setup, start the owlcms server and get its address:  
 
 - owlcms opens a window when it starts. Note the address it is advertising.  If you see something like `http://192.168.0.100:8080` then what you need to write down is the numerical part `192.168.0.100` 
-- Also note the platform name (or names) being used.
+- Also take note of the platform name (or names) being used.
 
 Then for each device you want to plug in
 
@@ -28,18 +28,20 @@ You should see something similar to the following.  If you get an error message,
 
 ## Troubleshooting
 
-### Communication Port Not Detected
+### No connected device found
 
-The software attempts to detect to which communication port the device is attached.  If it can't find it automatically, then you have to provide it. 
+The software attempts to detect to which communication port the device is attached, and this works in most circumstances. If the automatic process fails, you will get the "no connected device found message".
+
+You will then need to determine the communication port and provide it explicitly. 
 
 1. open a command-line window: left-click *once* on the Windows logo ⊞ and type `cmd`
 2. Type the `mode` command.  This will list the communications ports on your laptop. Look for the ports starting with "COM".  You will likely have only one or two.  Try each.
 
 ### Device or Firmware Error
 
-This indicates that the device is not correctly configured or has not finished initializing.  Disconnect the device and connect it again.  Leave it time to boot (about 15 seconds).  Then run the program again.
+This most often indicates that the device is not actually attached to the port you specified, or has not finished initializing.  Disconnect the device and connect it again.  Leave it time to boot (about 15 seconds).  Then run the program again.  Other possibilities include the fact that the Firmata software has not been correctly uploaded to the Arduino board.
 
-#### ECONNREFUSED
+#### Connect ECONNREFUSED
 
 This happens when the device-hosting laptop is actively denied access to the MQTT server.  There are two causes:
 
@@ -48,7 +50,7 @@ This happens when the device-hosting laptop is actively denied access to the MQT
 
 ### MQTT Server Offline
 
-The likely cause is that you mistyped the MQTT server address.  The address you typed cannot be reached. There is typically a 30 second timeout before the server is deemed to be unreachable.
+The likely cause is that you mistyped the MQTT server address.  The address you typed in cannot be reached. There is typically a 30-second timeout before the server is deemed to be unreachable.
 
 ### Wrong Username or password
 
@@ -60,11 +62,11 @@ On owlcms, it is possible to configure a username and password.  Use the menu to
 
 ### More than one device on the same laptop
 
-If you need more than one device, you can start the program several times.  You can use the `mode` command after adding each device to know what device is on what port.
+If you need more than one device, you can start the program several times.  But you will need to specify the communication port explicitly for each device. You can use the `mode` command after adding each device to know what device is on what port.
 
 ### Cloud Usage
 
-- If you are running a cloud competition, then the MQTT server is not provided by owlcms.  You need to use an external broker that both owlcms and the device-hosting laptops will use.  Refer to the MQTT instructions for owlcms.
+If you are running a cloud competition, then the MQTT server is not provided by owlcms.  You need to use an external broker that both owlcms and the device-hosting laptops will use.  Refer to the MQTT instructions for owlcms.
 
 
 
