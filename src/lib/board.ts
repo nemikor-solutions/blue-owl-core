@@ -6,10 +6,10 @@ import {
     Board,
 } from 'johnny-five';
 
-export default (options: BoardOption = {}) => {
-    const board = new Board({ repl: false, ...options });
-
+export default (options: BoardOption = {}): Promise<Board> => {
     return new Promise<Board>((resolve, reject) => {
+        const board = new Board({ repl: false, ...options });
+
         board.on('ready', () => {
             resolve(board);
         });
