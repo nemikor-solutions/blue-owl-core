@@ -19,6 +19,15 @@ For competitions run with only one referee, simply configure all three referees 
 
 
 
+### Down Signal
+
+The down signal box may be used in compliance with the IWF Referee Lifht System as documented in TCRR 3.3.6.5. The down signal box supports:
+
+* Visible signal via a relay.
+* Audible signal via a relay.
+
+
+
 ### Timekeeper
 
 The timekeeper control box may be used to fully control the timing clock as documented in TCRR 7.10. The timekeeper control box supports:
@@ -63,6 +72,8 @@ The numbers `1`, `2`, `3`, `4`, and `5`.
 #### RefereeNumber
 
 The numbers `1`, `2`, and `3`.
+
+
 
 ### Owlcms
 
@@ -344,6 +355,39 @@ The jury has summoned the referee to the jury table.
 Publish a decision for the current attempt.
 
 * `decision` (`Decision`): The referee's decision of whether the lift was good or bad.
+
+
+
+### DownSignal
+
+#### constructor(options)
+
+* `options`: Configuration options for the down signal.
+    * `modules` (`Array<(downSignal: DownSignal) => void>`): A set of modules that provide hardware-specific implementations.
+    * `owlcms` (`Owlcms`): An instance of `Owlcms`.
+    * `platform` (`string`): The name of the platform.
+
+#### Modules
+
+##### relay(options)
+
+Provides functionality for controlling electrical power to a device via a relay.
+
+* `options`: Configuration options for the relay.
+    * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
+    * `duration` (`number`): The duration (in milliseconds) that the relay is closed when the down signal is given.
+    * `pin` (`number | string`): Which pin the relay is connected to.
+    * `type` (optional; `"NC" | "NO"`): Whether the relay is normally closed (NC) or normally open (NO). Defaults to `"NO"`.
+
+#### Events
+
+##### initialized
+
+The model has been initialized.
+
+##### down
+
+The down signal should be shown.
 
 
 
