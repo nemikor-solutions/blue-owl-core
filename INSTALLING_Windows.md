@@ -41,11 +41,14 @@ This indicates that the device is not correctly configured or has not finished i
 
 #### ECONNREFUSED
 
-This happens when the device-hosting laptop is actively denied access to the MQTT server.  Likely cause 1883 is not open on the owlcms laptop.  The easiest way to work around this issue is by disabling the firewall on the owlcms laptop. See [this link](https://www.alphr.com/turn-off-windows-firewall/) for instructions.  Once the rush is over you can configure the owlcms laptop more cleanly to open ports 8080 an 1883. See [this tutorial](https://www.howtogeek.com/394735/how-do-i-open-a-port-on-windows-firewall/) on opening ports.
+This happens when the device-hosting laptop is actively denied access to the MQTT server.  There are two causes:
 
-### MQTT Server Timed Out
+- owlcms is not running at the address you indicated, and so there is no MQTT server to connect to.
+- If owlcms is running, then the likely cause is that port 1883 is blocked by a firewall on the owlcms laptop.  The quickest way to work around this issue is by disabling the firewall. See [this link](https://www.alphr.com/turn-off-windows-firewall/) for instructions.  Once the rush is over you can configure the owlcms laptop more cleanly to open ports 8080 an 1883. See [this tutorial](https://www.howtogeek.com/394735/how-do-i-open-a-port-on-windows-firewall/) on opening ports.
 
-The likely cause is that you mistyped the MQTT server address.  If there is no response after 5 seconds, which should always be the case in a local setup, the timeout is given.
+### MQTT Server Offline
+
+The likely cause is that you mistyped the MQTT server address.  The address you typed cannot be reached. There is typically a 30 second timeout before the server is deemed to be unreachable.
 
 ### Wrong Username or password
 
