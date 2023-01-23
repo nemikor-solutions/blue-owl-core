@@ -4,10 +4,11 @@ Blue Owl provides Technical Official device integration for [OWLCMS](https://owl
 
 ### About this Fork
 
-- This fork does not replace the upstream directory by Scott González.  The files in `src/scripts` are meant to be identical to the official upstream version.
+- This fork does not replace the upstream directory by Scott González.  The files in `src` are meant to be match official upstream version.
+- The `Releases` directory in this fork contains a simple interactive [Windows executable](INSTALLING_Windows.md) that is pre-packaged, and the necessary files for starting the program on Mac and Linux.
 - This fork adds a `build-it-yourself` directory that contains
-  - Diagrams for building your own devices.  The diagrams have a different pin layout than the official ones which have been designed with for printed circuit boards.
-  - Definitions of the build-it-yourself devices that are usable by Blue Owl.  These are identical to the ones in the official directory, except that the pin locations are changed to match the build-it-yourself diagrams.
+  - Diagrams for building your own devices.  An interactive version of the diagram can be loaded on  [wokwi.com](https://wokwi.com) to get the exact pin numbers etc.
+  - Scripts for running the device using the blue-owl library.  If you build your own design and need to change pin assignments, then you can simply change the scripts, and even [rebuild your own executable](BUILDING.md))
   - Definitions of the build-it-yourself devices and instructions for running them on the [wokwi.com](https://wokwi.com) simulator.  You can actually connect the simulated devices to owlcms, click on the virtual buttons, see the virtual LEDs and hear the virtual beeps.
 
 ## Features
@@ -22,7 +23,7 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
 
 ![Firmata](build-it-yourself/overview.drawio.png)
 
-- The Referee Control Box contains a tiny Arduino Nano microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.  Each referee keypad contain two buttons, a buzzer, and a LED.
+- The Referee Control Box contains a tiny Arduino Nano microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.   A version with [Down Signal Relays](build-it-yourself/diagrams/referee/refereeBoxDown.jpg) relays is also available.   The referee keypads are connected to the Arduino with a wire and only contain two buttons, a buzzer, and a LED.
 
   ![refBox](build-it-yourself/diagrams/referee/refereeBox.png)
 
