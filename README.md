@@ -23,7 +23,7 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
 
 ![Firmata](build-it-yourself/overview.drawio.png)
 
-- The Referee Control Box contains a tiny Arduino Nano microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.   A version with [Down Signal Relays](build-it-yourself/diagrams/referee/refereeBoxDown.jpg) relays is also available.   The referee keypads are connected to the Arduino with a wire and only contain two buttons, a buzzer, and a LED.
+- The Referee Control Box contains a tiny Arduino Nano microprocessor that is pre-loaded with the Firmata software.  It gets its power and instructions from the Countdown athlete-facing laptop.   A version with [Down Signal Relays](./build-it-yourself/diagrams/referee/refereeBoxDown.png) relays is also available.   The referee keypads are connected to the Arduino with a wire and only contain two buttons, a buzzer, and a LED.
 
   ![refBox](build-it-yourself/diagrams/referee/refereeBox.png)
 
