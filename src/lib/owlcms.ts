@@ -57,7 +57,6 @@ interface OwlcmsEvents {
     down: (data: DownEvent) => void;
     resetDecisions: (data: ResetDecisionsEvent) => void;
     summon: (data: SummonEvent) => void;
-    down: (data: DownDecisionsEvent) => void;
 }
 
 type OwlcmsEventDataMap = {
