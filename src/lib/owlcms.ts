@@ -82,17 +82,16 @@ export default class Owlcms extends EventEmitter {
 
         this.debug = debug('blue-owl:owlcms');
 
-        const mqttOptions: IClientOptions = {};
+        const mqttOptions: IClientOptions = {
+            connectTimeout: 5_000,
+        };
         if (options.mqttUsername) {
             mqttOptions.username = options.mqttUsername;
         }
         if (options.mqttPassword) {
             mqttOptions.password = options.mqttPassword;
         }
-        this.mqtt = mqtt.connect(options.mqttUrl, {
-            ...mqttOptions,
-            connectTimeout: 5_000,
-        });
+        this.mqtt = mqtt.connect(options.mqttUrl, mqttOptions);
     }
 
     public async connect() {
