@@ -31,8 +31,8 @@ export default (options: DownRelayOptions) => {
     function triggerRelays() {
         lightRelay.close();
         soundRelay.close();
-        setTimeout(() => {console.log("toggling light");lightRelay.open();},  2000);
-        setTimeout(() => {console.log("toggling buzzer");soundRelay.open();}, 500);
+        setTimeout(() => lightRelay.open(), options.lightDuration ||= 2000);
+        setTimeout(() => soundRelay.open(), options.soundDuration ||= 500);
     }
 
     return (down: Down) => {
