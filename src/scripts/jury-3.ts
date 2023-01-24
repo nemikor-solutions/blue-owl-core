@@ -26,9 +26,9 @@ runner(({
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 41,
-                            green: 40,
-                            red: 39,
+                            blue: 44,
+                            green: 43,
+                            red: 42,
                         },
                     }),
                 ],
@@ -46,9 +46,9 @@ runner(({
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 44,
-                            green: 43,
-                            red: 42,
+                            blue: 52,
+                            green: 53,
+                            red: 45,
                         },
                     }),
                 ],
@@ -66,9 +66,9 @@ runner(({
                     juryMemberRgbLed({
                         board,
                         pins: {
-                            blue: 52,
-                            green: 53,
-                            red: 45,
+                            blue: 49,
+                            green: 50,
+                            red: 51,
                         },
                     }),
                 ],

@@ -5,13 +5,13 @@ import type {
 
 import DigitalRgb from '../../johnny-five/digital-rgb';
 
-export interface JuryRefereeLedsOptions {
+export interface JuryMemberRgbLedOptions {
     anode?: DigitalRgbOptions['anode'];
     board?: DigitalRgbOptions['board'];
     pins: DigitalRgbOptions['pins'];
 }
 
-export default (options: JuryRefereeLedsOptions) => {
+export default (options: JuryMemberRgbLedOptions) => {
     const led = new DigitalRgb({
         anode: options.anode,
         board: options.board,

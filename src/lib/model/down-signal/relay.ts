@@ -19,7 +19,7 @@ export default (options: DownSignalRelayOptions) => {
     const relay = new Relay({
         board: options.board,
         pin: options.pin,
-        type: options.type || 'NC',
+        type: options.type || 'NO',
     });
 
     function toggle() {
