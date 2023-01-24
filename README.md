@@ -5,7 +5,7 @@ Blue Owl provides Technical Official device integration for [OWLCMS](https://owl
 ### About this Fork
 
 - This fork does not replace the upstream directory by Scott González.  The files in `src` are meant to be match official upstream version.
-- The `Releases` directory in this fork contains a simple interactive [Windows executable](INSTALLING_Windows.md) that is pre-packaged, and the necessary files for starting the program on Mac and Linux.
+- The `Releases` directory in this fork contains the programs necessary to run the program on Windows, Mac or Linux.
 - This fork adds a `build-it-yourself` directory that contains
   - Diagrams for building your own devices.  An interactive version of the diagram can be loaded on  [wokwi.com](https://wokwi.com) to get the exact pin numbers etc.
   - Scripts for running the device using the blue-owl library.  If you build your own design and need to change pin assignments, then you can simply change the scripts, and even [rebuild your own executable](BUILDING.md))
@@ -13,9 +13,9 @@ Blue Owl provides Technical Official device integration for [OWLCMS](https://owl
 
 ## Features
 
-- No coding whatsoever required to is build the devices.  Standard Firmata firmware is loaded on the devices, once.
-- Schematics and configurations are provided for building the physical devices yourself.
-- A pre-packaged Blue Owl software kit is provided to connect with owlcms.
+- No coding whatsoever is required to build the devices.  Standard Firmata firmware (included) is loaded on the devices, once.  A laptop provides power and a program (included) is used to control the devices.
+- Schematics and configurations are provided for building the physical devices yourself.  If there are parts you don't need, simply omit them.
+- If you need to change the pin assignments, there are instructions for doing so and rebuilding the control program.  The firmware does not change.
 
 ## Overview
 
@@ -35,9 +35,9 @@ The following diagram illustrates the concept. We use the Refereeing devices as 
   - There are different launchers for each device that call the appropriate definition script for the device.
   - The jury Blue Owl would run on the jury laptop, the referee Blue Owl would run on the countdown laptop, and the timekeeper Blue Owl would run either on the announcer or timekeeper laptop.
 
-## Running Blue Owl
+## Running
 
-Scripts to start the build-it-yourself devices are found in the `windows` and `bash` (for macOS and Linux).  These scripts are included in the blue-owl packages found in the Releases.  Instructions for installation are found in [Installing](INSTALLING.md)
+The `Releases` directory in this fork contains a simple interactive Windows executable for launching the control program on a laptop (see [instructions](INSTALLING_Windows.md)). The necessary files for starting the program on Mac and Linux are also available (see [instructions](INSTALLING_Mac_Linux.md)).
 
 ## Supported Devices
 
@@ -49,6 +49,7 @@ Referee control boxes may be used in compliance with the IWF Referee Light Syste
 * White and red LEDs to confirm decision entry.
 * LED, buzzer, and vibration to signal when a decision is required.
 * LED, buzzer, and vibration to signal when summoned to the jury table.
+* Triggering two relays, one to control a lamp, the other to control an external buzzer.
 
 #### Single Referee Mode
 
@@ -81,13 +82,9 @@ Blue Owl is programmed in JavaScript using the Johnny-Five implementation of Fir
 
 Blue Owl talks to owlcms using MQTT messages.  The full list of messages supported by owlcms is documented: [MQTT messages](https://owlcms.github.io/owlcms4/#/MQTTMessages).
 
-## Installation
+## About the names
 
-An MQTT server must be visible to both owlcms and Blue Owl.  Typically the MQTT server is installed on the same computer as owlcms.  See [Installing](Installing.md) for details
-
-## About the name
-
-Should you wonder,  OWL stands for is Olympic Weightlifting. Blue is the color of the official's suits, and the name is a salute to their keen eyes.
+Should you wonder,  OWL stands for is Olympic Weightlifting. Blue is the color of the official's suits, and the name is a salute to their keen eyes.  Johnny-Five is a take on the [Johnny 5](https://robotics.fandom.com/wiki/Johnny_5) sentient robot from the Short-Circuit movie.
 
 ## License
 
