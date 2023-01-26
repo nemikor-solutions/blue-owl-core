@@ -61,6 +61,10 @@ Each technical official is represented by a model, e.g., `Referee`. These models
 
 The documentation uses a few custom types:
 
+#### Color
+
+The strings `aqua`, `cyan`, `fuchsia`, `lime`, `magenta`, `white`, and `yellow`.
+
 #### Decision
 
 The strings `bad` and `good`.
@@ -318,6 +322,17 @@ Provides visual confirmation that OWLCMS has acknowledged the decision.
     * `goodLiftLed` (`number | string`): Which pin the good lift LED is connected to.
 
 *NOTE: `badLiftLed` and `goodLiftLed` may be set to the same pin if a single LED is being used to confirm the decision was submitted, without indicating which decision was submitted.*
+
+##### rgb-led(options)
+
+Provides visual feedback to the referee, via an RGB LED, when a decision is required, when OWLCMS has acknowledged the decision, and when the jury summons the referee.
+
+* `options`: Configuration options for the RGB LED.
+    * `anode` (optional; `boolean`): Whether the RGB LEDs are common anode.
+    * `board` (optional; `Board`): Which Johnny-Five board the RGB LED is connected to.
+    * `decisionRequestColor` (optional; `Color`): The color to show when a decision is requested. Defaults to `"blue"`.
+    * `pins`: (object with `red`, `green`, and `blue` keys): Which pin each of the RGB LED leads is connected to.
+    * `summonColor` (optional; `Color`): The color to show when a decision is requested. Defaults to `"yellow"`.
 
 ##### warning-led(options)
 
