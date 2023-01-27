@@ -10,6 +10,14 @@ export {
     Owlcms,
 };
 
+import DownSignal from '@lib/model/down-signal';
+import downSignalRelay from '@lib/model/down-signal/relay';
+
+export {
+    DownSignal,
+    downSignalRelay,
+};
+
 import Jury from '@lib/model/jury';
 import juryButtons from '@lib/model/jury/buttons';
 import juryRefereeLeds from '@lib/model/jury/referee-leds';
@@ -24,11 +32,13 @@ export {
 
 import JuryMember from '@lib/model/jury-member';
 import juryMemberButtons from '@lib/model/jury-member/buttons';
+import juryMemberLeds from '@lib/model/jury-member/leds';
 import juryMemberRgbLed from '@lib/model/jury-member/rgb-led';
 
 export {
     JuryMember,
     juryMemberButtons,
+    juryMemberLeds,
     juryMemberRgbLed,
 };
 

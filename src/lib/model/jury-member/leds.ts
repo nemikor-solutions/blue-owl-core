@@ -1,4 +1,4 @@
-import type JuryMember from 'lib/model/jury-member';
+import type JuryMember from '@lib/model/jury-member';
 import type {
     Board,
     LedOption,

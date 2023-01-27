@@ -1,4 +1,4 @@
-import type DownSignal from 'lib/model/down-signal';
+import type DownSignal from '@lib/model/down-signal';
 import type {
     Board,
     RelayOption,
