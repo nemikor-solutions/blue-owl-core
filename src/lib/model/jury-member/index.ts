@@ -11,18 +11,18 @@ import type {
 
 import CoreModel from '@lib/model/core';
 
-interface DecisionEvent {
+export interface JuryMemberDecisionEvent {
     decision: Decision;
 }
 
-interface RevealEvent {
+export interface JuryMemeberRevealEvent {
     decision: Decision;
 }
 
 interface JuryMemberEvents extends CoreModelEvents {
-    decision: (data: DecisionEvent) => void;
+    decision: (data: JuryMemberDecisionEvent) => void;
     reset: () => void;
-    reveal: (data: RevealEvent) => void;
+    reveal: (data: JuryMemeberRevealEvent) => void;
 }
 
 export interface JuryMemberOptions extends CoreModelOptions<JuryMember> {

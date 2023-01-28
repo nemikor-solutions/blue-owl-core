@@ -7,12 +7,12 @@ import Model from '@lib/model';
 
 export type Decision = 'bad' | 'good';
 
-interface DecisionEvent {
+export interface RefereeDecisionEvent {
     decision: Decision;
 }
 
 interface RefereeEvents extends ModelEvents {
-    decisionConfirmed: (data: DecisionEvent) => void;
+    decisionConfirmed: (data: RefereeDecisionEvent) => void;
     decisionRequest: () => void;
     summon: () => void;
 }

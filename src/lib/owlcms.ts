@@ -13,22 +13,22 @@ import debug from 'debug';
 import EventEmitter from 'node:events';
 import mqtt from 'mqtt';
 
-export interface ClockStartEvent {
+export interface OwlcmsClockStartEvent {
     platform: string;
 }
 
-export interface DecisionEvent {
+export interface OwlcmsDecisionEvent {
     decision: Decision;
     platform: string;
     referee: RefereeNumber;
 }
 
-export interface DecisionRequestEvent {
+export interface OwlcmsDecisionRequestEvent {
     platform: string;
     referee: RefereeNumber;
 }
 
-export interface DownEvent {
+export interface OwlcmsDownEvent {
     platform: string;
 }
 
@@ -37,22 +37,22 @@ export type Official =
     | 'all'
     | 'controller';
 
-export interface ResetDecisionsEvent {
+export interface OwlcmsResetDecisionsEvent {
     platform: string;
 }
 
-export interface SummonEvent {
+export interface OwlcmsSummonEvent {
     platform: string;
     referee: RefereeNumber;
 }
 
 interface OwlcmsEvents {
-    clockStart: (data: ClockStartEvent) => void;
-    decision: (data: DecisionEvent) => void;
-    decisionRequest: (data: DecisionRequestEvent) => void;
-    down: (data: DownEvent) => void;
-    resetDecisions: (data: ResetDecisionsEvent) => void;
-    summon: (data: SummonEvent) => void;
+    clockStart: (data: OwlcmsClockStartEvent) => void;
+    decision: (data: OwlcmsDecisionEvent) => void;
+    decisionRequest: (data: OwlcmsDecisionRequestEvent) => void;
+    down: (data: OwlcmsDownEvent) => void;
+    resetDecisions: (data: OwlcmsResetDecisionsEvent) => void;
+    summon: (data: OwlcmsSummonEvent) => void;
 }
 
 type OwlcmsEventDataMap = {

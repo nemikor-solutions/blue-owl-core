@@ -1,12 +1,17 @@
 import type {
-    BoardOption,
+    BoardOption as BoardOptions,
 } from 'johnny-five';
 
 import {
     Board,
 } from 'johnny-five';
 
-export default (options: BoardOption = {}): Promise<Board> => {
+export type {
+    Board,
+    BoardOptions,
+};
+
+export default (options: BoardOptions = {}): Promise<Board> => {
     return new Promise<Board>((resolve, reject) => {
         const board = new Board({ repl: false, ...options });
 

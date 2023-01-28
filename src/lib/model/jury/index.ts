@@ -13,7 +13,7 @@ import Model from '@lib/model';
 export type JuryMemberNumber = 1 | 2 | 3 | 4 | 5;
 
 interface JuryEvents extends ModelEvents {
-    refereeDecision: (data: RefereeDecisionEvent) => void;
+    refereeDecision: (data: JuryRefereeDecisionEvent) => void;
     resetRefereeDecisions: () => void;
 }
 
@@ -21,7 +21,7 @@ export interface JuryOptions extends ModelOptions<Jury> {
     members: JuryMember[];
 }
 
-interface RefereeDecisionEvent {
+export interface JuryRefereeDecisionEvent {
     decision: Decision;
     referee: RefereeNumber;
 }

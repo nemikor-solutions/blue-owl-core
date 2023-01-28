@@ -11,13 +11,13 @@ import {
     Led,
 } from 'johnny-five';
 
-export interface RefereeLedsOptions {
+export interface RefereeConfirmationLedsOptions {
     badLiftLed: LedOption['pin'];
     board?: Board;
     goodLiftLed: LedOption['pin'];
 }
 
-export default (options: RefereeLedsOptions) => {
+export default (options: RefereeConfirmationLedsOptions) => {
     const leds: Record<Decision, Led> = {
         bad: new Led({
             board: options.board,
