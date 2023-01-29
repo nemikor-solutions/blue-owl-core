@@ -1,7 +1,7 @@
-import type Referee from '@lib/model/referee';
+import type Referee from '@lib/model/referee/index';
 import type {
     Decision,
-} from '@lib/model/referee';
+} from '@lib/model/referee/index';
 import type {
     Board,
     ButtonOption,
@@ -9,7 +9,7 @@ import type {
 
 import {
     decisions,
-} from '@lib/model/referee';
+} from '@lib/model/referee/index';
 import {
     Button,
 } from 'johnny-five';

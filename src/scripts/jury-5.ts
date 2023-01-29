@@ -1,5 +1,5 @@
-import Jury from '@lib/model/jury';
-import JuryMember from '@lib/model/jury-member';
+import Jury from '@lib/model/jury/index';
+import JuryMember from '@lib/model/jury-member/index';
 import juryMemberButtons from '@lib/model/jury-member/buttons';
 import juryMemberRgbLed from '@lib/model/jury-member/rgb-led';
 import juryButtons from '@lib/model/jury/buttons';

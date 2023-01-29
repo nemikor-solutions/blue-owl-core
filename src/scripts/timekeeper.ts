@@ -1,5 +1,5 @@
 import runner from '@scripts/runner';
-import Timekeeper from '@lib/model/timekeeper';
+import Timekeeper from '@lib/model/timekeeper/index';
 import timekeeperButtons from '@lib/model/timekeeper/buttons';
 
 runner(({

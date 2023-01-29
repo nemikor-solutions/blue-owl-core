@@ -1,9 +1,9 @@
 import type {
     ModelEvents,
     ModelOptions,
-} from '@lib/model';
+} from '@lib/model/index';
 
-import Model from '@lib/model';
+import Model from '@lib/model/index';
 
 interface DownSignalEvents extends ModelEvents {
     down: () => void;

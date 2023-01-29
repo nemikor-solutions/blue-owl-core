@@ -3,7 +3,7 @@ import type {
     ModelOptions,
 } from '@lib/model';
 
-import Model from '@lib/model';
+import Model from '@lib/model/index';
 
 export type Decision = 'bad' | 'good';
 

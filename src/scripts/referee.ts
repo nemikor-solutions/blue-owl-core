@@ -1,4 +1,4 @@
-import Referee from '@lib/model/referee';
+import Referee from '@lib/model/referee/index';
 import refereeButtons from '@lib/model/referee/buttons';
 import refereeBuzzer from '@lib/model/referee/buzzer';
 import refereeWarningLed from '@lib/model/referee/warning-led';

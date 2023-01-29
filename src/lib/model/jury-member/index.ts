@@ -4,10 +4,10 @@ import type {
 } from '@lib/model/core';
 import type {
     JuryMemberNumber,
-} from '@lib/model/jury';
+} from '@lib/model/jury/index';
 import type {
     Decision,
-} from '@lib/model/referee';
+} from '@lib/model/referee/index';
 
 import CoreModel from '@lib/model/core';
 

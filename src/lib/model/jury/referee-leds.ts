@@ -1,8 +1,8 @@
-import type Jury from '@lib/model/jury';
+import type Jury from '@lib/model/jury/index';
 import type {
     Decision,
     RefereeNumber,
-} from '@lib/model/referee';
+} from '@lib/model/referee/index';
 import type {
     Board,
     LedOption,
@@ -11,7 +11,7 @@ import type {
 import {
     decisions,
     referees,
-} from '@lib/model/referee';
+} from '@lib/model/referee/index';
 import {
     Led,
 } from 'johnny-five';

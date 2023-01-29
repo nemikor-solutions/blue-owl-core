@@ -2,7 +2,7 @@ export type {
     Board,
     BoardOptions,
 } from '@lib/board';
-export { default as createBoard } from '@lib/board';
+export { default as connectBoard } from '@lib/board';
 
 export type {
     Official,
@@ -25,13 +25,13 @@ export { default as CoreModel } from '@lib/model/core';
 export type {
     ModelEvents,
     ModelOptions,
-} from '@lib/model';
-export { default as Model } from '@lib/model';
+} from '@lib/model/index';
+export { default as Model } from '@lib/model/index';
 
 export type {
     DownSignalOptions,
-} from '@lib/model/down-signal';
-export { default as DownSignal } from '@lib/model/down-signal';
+} from '@lib/model/down-signal/index';
+export { default as DownSignal } from '@lib/model/down-signal/index';
 
 export type {
     DownSignalRelayOptions,
@@ -41,8 +41,8 @@ export { default as downSignalRelay } from '@lib/model/down-signal/relay';
 export type {
     JuryOptions,
     JuryRefereeDecisionEvent,
-} from '@lib/model/jury';
-export { default as Jury } from '@lib/model/jury';
+} from '@lib/model/jury/index';
+export { default as Jury } from '@lib/model/jury/index';
 
 export type {
     JuryButtonsOptions,
@@ -63,8 +63,8 @@ export type {
     JuryMemberDecisionEvent,
     JuryMemeberRevealEvent,
     JuryMemberOptions,
-} from '@lib/model/jury-member';
-export { default as JuryMember } from '@lib/model/jury-member';
+} from '@lib/model/jury-member/index';
+export { default as JuryMember } from '@lib/model/jury-member/index';
 
 export type {
     JuryMemberButtonsOptions,
@@ -86,8 +86,8 @@ export type {
     RefereeDecisionEvent,
     RefereeNumber,
     RefereeOptions,
-} from '@lib/model/referee';
-export { default as Referee } from '@lib/model/referee';
+} from '@lib/model/referee/index';
+export { default as Referee } from '@lib/model/referee/index';
 
 export type {
     RefereeButtonsOptions,
@@ -116,8 +116,8 @@ export { default as refereeWarningLed } from '@lib/model/referee/warning-led';
 
 export type {
     TimekeeperOptions,
-} from '@lib/model/timekeeper';
-export { default as Timekeeper } from '@lib/model/timekeeper';
+} from '@lib/model/timekeeper/index';
+export { default as Timekeeper } from '@lib/model/timekeeper/index';
 
 export type {
     TimekeeperButtonsOptions,
