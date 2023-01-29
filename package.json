@@ -34,7 +34,7 @@
     "license": "ISC",
     "dependencies": {
         "debug": "^4.3.4",
-        "johnny-five": "^2.1.0",
+        "johnny-five": "git://github.com/rwaldron/johnny-five.git#a6a2e2d",
         "mqtt": "^4.3.7"
     },
     "devDependencies": {
