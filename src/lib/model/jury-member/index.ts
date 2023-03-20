@@ -15,14 +15,14 @@ export interface JuryMemberDecisionEvent {
     decision: Decision;
 }
 
-export interface JuryMemeberRevealEvent {
+export interface JuryMemberRevealEvent {
     decision: Decision;
 }
 
 interface JuryMemberEvents extends CoreModelEvents {
     decision: (data: JuryMemberDecisionEvent) => void;
     reset: () => void;
-    reveal: (data: JuryMemeberRevealEvent) => void;
+    reveal: (data: JuryMemberRevealEvent) => void;
 }
 
 export interface JuryMemberOptions extends CoreModelOptions<JuryMember> {

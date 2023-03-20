@@ -39,6 +39,7 @@ export type {
 export { default as downSignalRelay } from '@lib/model/down-signal/relay';
 
 export type {
+    JuryMemberNumber,
     JuryOptions,
     JuryRefereeDecisionEvent,
 } from '@lib/model/jury/index';
@@ -61,8 +62,8 @@ export { default as juryRefereeRgbLeds } from '@lib/model/jury/referee-rgb-leds'
 
 export type {
     JuryMemberDecisionEvent,
-    JuryMemeberRevealEvent,
     JuryMemberOptions,
+    JuryMemberRevealEvent,
 } from '@lib/model/jury-member/index';
 export { default as JuryMember } from '@lib/model/jury-member/index';
 
