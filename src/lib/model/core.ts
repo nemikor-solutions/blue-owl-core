@@ -1,4 +1,9 @@
-import debug from 'debug';
+import type {
+    Logger,
+} from '@lib/logger';
+import {
+    createLogger,
+} from '@lib/logger';
 import EventEmitter from 'node:events';
 
 export interface CoreModelOptions<T> {
@@ -14,7 +19,7 @@ export default abstract class CoreModel<
     OptionsT extends CoreModelOptions<any>,
     // EventsT extends CoreModelEvents,
 > extends EventEmitter {
-    protected debug!: debug.Debugger;
+    protected debug!: Logger;
 
     protected abstract get debuggerName(): string;
 
@@ -36,7 +41,7 @@ export default abstract class CoreModel<
     protected abstract _initialize(): void
 
     protected initialize() {
-        this.debug = debug(`blue-owl:${this.debuggerName}`);
+        this.debug = createLogger(this.debuggerName);
 
         this._initialize();
 

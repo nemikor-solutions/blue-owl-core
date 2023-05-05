@@ -17,6 +17,16 @@ export type {
 export { default as Owlcms } from '@lib/owlcms';
 
 export type {
+    LogEventData,
+    Logger,
+    LogSubscriber,
+} from '@lib/logger';
+export {
+    createLogger,
+    onMessage,
+} from '@lib/logger';
+
+export type {
     CoreModelEvents,
     CoreModelOptions,
 } from '@lib/model/core';

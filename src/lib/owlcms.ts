@@ -1,15 +1,20 @@
 import type {
+    Logger,
+} from '@lib/logger';
+import type {
     IClientOptions,
 } from 'mqtt';
 import type {
     JuryMemberNumber,
 } from '@lib/model/jury/index';
+import {
+    createLogger,
+} from '@lib/logger';
 import type {
     Decision,
     RefereeNumber,
 } from '@lib/model/referee/index';
 
-import debug from 'debug';
 import EventEmitter from 'node:events';
 import mqtt from 'mqtt';
 
@@ -68,7 +73,7 @@ export interface OwlcmsOptions {
 }
 
 export default class Owlcms extends EventEmitter {
-    private debug: debug.Debugger;
+    private debug: Logger;
 
     private mqtt: mqtt.Client;
 
@@ -85,7 +90,7 @@ export default class Owlcms extends EventEmitter {
             }
         });
 
-        this.debug = debug('blue-owl:owlcms');
+        this.debug = createLogger('owlcms');
 
         const mqttOptions: IClientOptions = {
             connectTimeout: 5_000,
