@@ -247,6 +247,14 @@ export default class Owlcms extends EventEmitter {
         this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'stop');
     }
 
+    public startChallenge({
+        platform,
+    }: {
+        platform: string;
+    }) {
+        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'challenge');
+    }
+
     public startClock({
         platform,
     }: {

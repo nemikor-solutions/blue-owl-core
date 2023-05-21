@@ -110,6 +110,8 @@ Provides functionality for starting and stopping the competition, including summ
     * `badLiftButton` (`number | string`): Which pin the bad lift button is connected to.
     * `badLiftButtonPullUp` (optional; `boolean`): Whether the bad lift button should use an internal pull-up resistor.
     * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
+    * `challengeButton` (optional; `number | string`): Which pin the challenge button is connected to.
+    * `challengeButtonPullUp` (optional; `boolean`): Whether the challenge button should use an internal pull-up resistor.
     * `deliberationButton` (`number | string`): Which pin the deliberation break button is connected to.
     * `deliberationButtonPullUp` (optional; `boolean`): Whether the deliberation break button should use an internal pull-up resistor.
     * `goodLiftButton` (`number | string`): Which pin the good lift button is connected to.
@@ -124,7 +126,7 @@ Provides functionality for starting and stopping the competition, including summ
     * `summonReferee2ButtonPullUp` (optional; `boolean`): Whether the summon referee 2 button should use an internal pull-up resistor.
     * `summonReferee3Button` (`number | string`): Which pin the summon referee 3 button is connected to.
     * `summonReferee3ButtonPullUp` (optional; `boolean`): Whether the summon referee 3 button should use an internal pull-up resistor.
-    * `summonTechnicalControllerButton` (`number | string`): Which pin the summon technical controller button is connected to.
+    * `summonTechnicalControllerButton` (optional; `number | string`): Which pin the summon technical controller button is connected to.
     * `summonTechnicalControllerButtonPullUp` (optional; `boolean`): Whether the summon technical controller button should use an internal pull-up resistor.
     * `technicalBreakButton` (`number | string`): Which pin the technical break button is connected to.
     * `technicalBreakButtonPullUp` (optional; `boolean`): Whether the technical break button should use an internal pull-up resistor.
@@ -182,6 +184,10 @@ Publish the jury's decision for the lift under deliberation.
 ##### resumeCompetition()
 
 Resume the competition.
+
+##### startChallenge()
+
+Stop the competition for the jury to deliberate about the previous attempt due to a challenge.
 
 ##### startDeliberation()
 

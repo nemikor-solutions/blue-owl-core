@@ -144,6 +144,11 @@ export default class Jury extends Model<JuryOptions> {
         this.owlcms.resumeCompetition({ platform: this.platform });
     }
 
+    public startChallenge() {
+        this.debug('start challenge');
+        this.owlcms.startChallenge({ platform: this.platform });
+    }
+
     public startDeliberation() {
         this.debug('start deliberation');
         this.owlcms.startDeliberation({ platform: this.platform });

@@ -18,6 +18,8 @@ export interface JuryButtonsOptions {
     badLiftButton: ButtonOption['pin'];
     badLiftButtonPullUp?: ButtonOption['isPullup'];
     board?: Board;
+    challengeButton?: ButtonOption['pin'];
+    challengeButtonPullUp?: ButtonOption['isPullup'];
     deliberationButton: ButtonOption['pin'];
     deliberationButtonPullUp?: ButtonOption['isPullup'];
     goodLiftButton: ButtonOption['pin'];
@@ -32,7 +34,7 @@ export interface JuryButtonsOptions {
     summonReferee2ButtonPullUp?: ButtonOption['isPullup'];
     summonReferee3Button: ButtonOption['pin'];
     summonReferee3ButtonPullUp?: ButtonOption['isPullup'];
-    summonTechnicalControllerButton: ButtonOption['pin'];
+    summonTechnicalControllerButton?: ButtonOption['pin'];
     summonTechnicalControllerButtonPullUp?: ButtonOption['isPullup'];
     technicalBreakButton: ButtonOption['pin'];
     technicalBreakButtonPullUp?: ButtonOption['isPullup'];
@@ -61,11 +63,13 @@ export default (options: JuryButtonsOptions) => {
             pin: options.summonAllRefereesButton,
         })
         : null;
-    const summonTechnicalController = new Button({
-        board: options.board,
-        isPullup: options.summonTechnicalControllerButtonPullUp,
-        pin: options.summonTechnicalControllerButton,
-    });
+    const summonTechnicalController = options.summonTechnicalControllerButton
+        ? new Button({
+            board: options.board,
+            isPullup: options.summonTechnicalControllerButtonPullUp,
+            pin: options.summonTechnicalControllerButton,
+        })
+        : null;
     const resumeCompetition = new Button({
         board: options.board,
         isPullup: options.resumeCompetitionButtonPullUp,
@@ -76,6 +80,13 @@ export default (options: JuryButtonsOptions) => {
         isPullup: options.technicalBreakButtonPullUp,
         pin: options.technicalBreakButton,
     });
+    const challenge = options.challengeButton
+        ? new Button({
+            board: options.board,
+            isPullup: options.challengeButtonPullUp,
+            pin: options.challengeButton,
+        })
+        : null;
 
     const refereeButtons = referees.reduce((buttons, referee) => {
         const pinProperty = `summonReferee${referee}Button` as const;
@@ -110,13 +121,17 @@ export default (options: JuryButtonsOptions) => {
             jury.summonAllReferees();
         });
 
-        summonTechnicalController.on('press', () => {
+        summonTechnicalController?.on('press', () => {
             jury.summonTechnicalController();
         });
 
         technicalBreak.on('press', () => {
             jury.startTechnicalBreak();
         });
+
+        challenge?.on('press', () => {
+            jury.startChallenge();
+        })
 
         referees.forEach((referee) => {
             refereeButtons[referee].on('press', () => {

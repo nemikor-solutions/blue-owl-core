@@ -17,10 +17,10 @@ runner(({
                 number: 1,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 11,
+                        badLiftButton: 22,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 12,
+                        goodLiftButton: 23,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
@@ -37,10 +37,10 @@ runner(({
                 number: 2,
                 modules: [
                     juryMemberButtons({
-                        badLiftButton: 14,
+                        badLiftButton: 18,
                         badLiftButtonPullUp: true,
                         board,
-                        goodLiftButton: 15,
+                        goodLiftButton: 19,
                         goodLiftButtonPullUp: true,
                     }),
                     juryMemberRgbLed({
@@ -97,6 +97,8 @@ runner(({
                 badLiftButton: 30,
                 badLiftButtonPullUp: true,
                 board,
+                challengeButton: 37,
+                challengeButtonPullUp: true,
                 deliberationButton: 29,
                 deliberationButtonPullUp: true,
                 goodLiftButton: 31,
@@ -111,8 +113,6 @@ runner(({
                 summonReferee2ButtonPullUp: true,
                 summonReferee3Button: 34,
                 summonReferee3ButtonPullUp: true,
-                summonTechnicalControllerButton: 37,
-                summonTechnicalControllerButtonPullUp: true,
                 technicalBreakButton: 36,
                 technicalBreakButtonPullUp: true,
             }),
