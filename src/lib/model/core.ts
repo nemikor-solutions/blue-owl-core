@@ -33,9 +33,16 @@ export default abstract class CoreModel<
         super();
 
         this.options = options;
-        this.modules.forEach((module) => {
-            module(this);
-        });
+
+        // Johnny-Five does not seem to ensure that the MCU pins are in
+        // a proper state immediately upon initialization. Introduce a
+        // slight delay for module initialization to prevent processing
+        // phantom input signals such as button presses.
+        setTimeout(() => {
+            this.modules.forEach((module) => {
+                module(this);
+            });
+        }, 200);
     }
 
     protected abstract _initialize(): void
