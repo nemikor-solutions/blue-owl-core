@@ -69,6 +69,10 @@ The strings `aqua`, `cyan`, `fuchsia`, `lime`, `magenta`, `white`, and `yellow`.
 
 The strings `bad` and `good`.
 
+#### JuryMemberDecision
+
+The strings `bad`, `good`, and `hidden`.
+
 #### JuryMemberNumber
 
 The numbers `1`, `2`, `3`, `4`, and `5`.
@@ -95,7 +99,6 @@ The `Owlcms` class provides the necessary APIs for two way communication between
 #### constructor(options)
 
 * `options`: Configuration options for the jury.
-    * `members` (`Array<JuryMember>`): `JuryMember` instances for each of the three or five jury members.
     * `modules` (`Array<(jury: Jury) => void>`): A set of modules that provide hardware-specific implementations.
     * `owlcms` (`Owlcms`): An instance of `Owlcms`.
     * `platform` (`string`): The name of the platform.
@@ -253,21 +256,14 @@ Provides functionality for displaying the jury member's decision on the jury pan
 
 #### Events
 
-##### decision(data)
+##### decisionConfirmed(data)
 
 The jury member has made a decision about the current attempt.
 
 * `data`: Data about the decision being revealed.
-    * `decision` (`Decision`): Whether the lift was good or bad.
+    * `decision` (`JuryMemberDecision`): Whether the lift was good or bad (or should be hidden).
 
 ##### reset
-
-##### reveal(data)
-
-Reveal the decision on the jury panel because all jury members have sumitted a decision.
-
-* `data`: Data about the decision being revealed.
-    * `decision` (`Decision`): Whether the lift was good or bad.
 
 #### Methods
 
@@ -280,10 +276,6 @@ Publish the jury member's decision for the current attempt.
 ##### resetDecision()
 
 Reset the decision because a clock has started for a new attempt.
-
-##### revealDecision()
-
-Reveal the decision on the jury panel because all jury members have sumitted a decision.
 
 
 

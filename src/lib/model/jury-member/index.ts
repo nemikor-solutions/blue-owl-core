@@ -1,7 +1,7 @@
 import type {
-    CoreModelEvents,
-    CoreModelOptions,
-} from '@lib/model/core';
+    ModelEvents,
+    ModelOptions,
+} from '@lib/model/index';
 import type {
     JuryMemberNumber,
 } from '@lib/model/jury/index';
@@ -9,29 +9,26 @@ import type {
     Decision,
 } from '@lib/model/referee/index';
 
-import CoreModel from '@lib/model/core';
+import Model from '@lib/model/index';
+
+export type JuryMemberDecision =
+    | Decision
+    | 'hidden';
 
 export interface JuryMemberDecisionEvent {
-    decision: Decision;
+    decision: JuryMemberDecision;
 }
 
-export interface JuryMemberRevealEvent {
-    decision: Decision;
-}
-
-interface JuryMemberEvents extends CoreModelEvents {
-    decision: (data: JuryMemberDecisionEvent) => void;
+interface JuryMemberEvents extends ModelEvents {
+    decisionConfirmed: (data: JuryMemberDecisionEvent) => void;
     reset: () => void;
-    reveal: (data: JuryMemberRevealEvent) => void;
 }
 
-export interface JuryMemberOptions extends CoreModelOptions<JuryMember> {
+export interface JuryMemberOptions extends ModelOptions<JuryMember> {
     number: JuryMemberNumber;
 }
 
-export default class JuryMember extends CoreModel<JuryMemberOptions> {
-    private decision: Decision | null = null;
-
+export default class JuryMember extends Model<JuryMemberOptions> {
     protected override get debuggerName(): string {
         return `jury-member:${this.number}`
     }
@@ -46,7 +43,42 @@ export default class JuryMember extends CoreModel<JuryMemberOptions> {
     }
 
     protected _initialize() {
-        // Do nothing
+        this.owlcms.on('juryMemberDecision', ({ decision, juryMember, platform }) => {
+            if (platform !== this.platform || juryMember !== this.number) {
+                return;
+            }
+
+            this.decisionConfirmed(decision);
+        });
+
+        this.owlcms.on('juryDeliberation', ({ platform }) => {
+            if (platform !== this.platform) {
+                return;
+            }
+
+            this.resetDecision();
+        });
+
+        this.owlcms.on('resetDecisions', ({ platform }) => {
+            if (platform !== this.platform) {
+                return;
+            }
+
+            this.resetDecision();
+        });
+
+        this.owlcms.on('challenge', ({ platform }) => {
+            if (platform !== this.platform) {
+                return;
+            }
+
+            this.resetDecision();
+        });
+    }
+
+    private decisionConfirmed(decision: JuryMemberDecision) {
+        this.debug(`decision confirmed: ${decision}`);
+        this.emit('decisionConfirmed', { decision });
     }
 
     public override on<T extends keyof JuryMemberEvents>(type: T, listener: JuryMemberEvents[T]): this {
@@ -56,18 +88,15 @@ export default class JuryMember extends CoreModel<JuryMemberOptions> {
     public publishDecision(decision: Decision) {
         this.debug(decision);
 
-        this.decision = decision;
-        this.emit('decision', { decision });
+        this.owlcms.publishJuryMemberDecision({
+            decision,
+            juryMember: this.number,
+            platform: this.platform,
+        });
     }
 
     public resetDecision() {
-        this.decision = null;
+        this.debug('reset');
         this.emit('reset');
-    }
-
-    public revealDecision() {
-        this.emit('reveal', {
-            decision: this.decision,
-        });
     }
 }

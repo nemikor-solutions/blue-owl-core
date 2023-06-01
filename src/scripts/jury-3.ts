@@ -12,68 +12,6 @@ runner(({
     platform,
 }) => {
     new Jury({
-        members: [
-            new JuryMember({
-                number: 1,
-                modules: [
-                    juryMemberButtons({
-                        badLiftButton: 22,
-                        badLiftButtonPullUp: true,
-                        board,
-                        goodLiftButton: 23,
-                        goodLiftButtonPullUp: true,
-                    }),
-                    juryMemberRgbLed({
-                        board,
-                        pins: {
-                            blue: 44,
-                            green: 43,
-                            red: 42,
-                        },
-                    }),
-                ],
-            }),
-            new JuryMember({
-                number: 2,
-                modules: [
-                    juryMemberButtons({
-                        badLiftButton: 18,
-                        badLiftButtonPullUp: true,
-                        board,
-                        goodLiftButton: 19,
-                        goodLiftButtonPullUp: true,
-                    }),
-                    juryMemberRgbLed({
-                        board,
-                        pins: {
-                            blue: 52,
-                            green: 53,
-                            red: 45,
-                        },
-                    }),
-                ],
-            }),
-            new JuryMember({
-                number: 3,
-                modules: [
-                    juryMemberButtons({
-                        badLiftButton: 16,
-                        badLiftButtonPullUp: true,
-                        board,
-                        goodLiftButton: 17,
-                        goodLiftButtonPullUp: true,
-                    }),
-                    juryMemberRgbLed({
-                        board,
-                        pins: {
-                            blue: 49,
-                            green: 50,
-                            red: 51,
-                        },
-                    }),
-                ],
-            }),
-        ],
         modules: [
             juryRefereeRgbLeds({
                 board,
@@ -117,6 +55,72 @@ runner(({
                 technicalBreakButtonPullUp: true,
             }),
         ],
+        owlcms,
+        platform,
+    });
+    new JuryMember({
+        modules: [
+            juryMemberButtons({
+                badLiftButton: 22,
+                badLiftButtonPullUp: true,
+                board,
+                goodLiftButton: 23,
+                goodLiftButtonPullUp: true,
+            }),
+            juryMemberRgbLed({
+                board,
+                pins: {
+                    blue: 44,
+                    green: 43,
+                    red: 42,
+                },
+            }),
+        ],
+        number: 1,
+        owlcms,
+        platform,
+    });
+    new JuryMember({
+        modules: [
+            juryMemberButtons({
+                badLiftButton: 18,
+                badLiftButtonPullUp: true,
+                board,
+                goodLiftButton: 19,
+                goodLiftButtonPullUp: true,
+            }),
+            juryMemberRgbLed({
+                board,
+                pins: {
+                    blue: 52,
+                    green: 53,
+                    red: 45,
+                },
+            }),
+        ],
+        number: 2,
+        owlcms,
+        platform,
+    });
+    new JuryMember({
+        modules: [
+            juryMemberButtons({
+                badLiftButton: 16,
+                badLiftButtonPullUp: true,
+                board,
+                goodLiftButton: 17,
+                goodLiftButtonPullUp: true,
+            }),
+            juryMemberRgbLed({
+                board,
+                pins: {
+                    blue: 49,
+                    green: 50,
+                    red: 51,
+                },
+            }),
+        ],
+        number: 3,
         owlcms,
         platform,
     });

@@ -1,5 +1,9 @@
 import type JuryMember from '@lib/model/jury-member/index';
 import type {
+    JuryMemberDecision,
+} from '@lib/model/jury-member/index';
+import type {
+    Color,
     DigitalRgbLedOptions,
 } from '@lib/johnny-five/digital-rgb-led';
 
@@ -10,6 +14,12 @@ export interface JuryMemberRgbLedOptions {
     board?: DigitalRgbLedOptions['board'];
     pins: DigitalRgbLedOptions['pins'];
 }
+
+const decisionColor: Record<JuryMemberDecision, Color> = {
+    hidden: 'green',
+    good: 'white',
+    bad: 'red',
+};
 
 export default (options: JuryMemberRgbLedOptions) => {
     const led = new DigitalRgbLed({
@@ -27,16 +37,12 @@ export default (options: JuryMemberRgbLedOptions) => {
             });
         });
 
-        juryMember.on('decision', () => {
-            led.color('green').on();
+        juryMember.on('decisionConfirmed', ({ decision }) => {
+            led.color(decisionColor[decision]).on();
         });
 
         juryMember.on('reset', () => {
             led.off();
-        });
-
-        juryMember.on('reveal', ({ decision }) => {
-            led.color(decision === 'good' ? 'white' : 'red');
         });
     };
 }

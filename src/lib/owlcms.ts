@@ -7,6 +7,9 @@ import type {
 import type {
     JuryMemberNumber,
 } from '@lib/model/jury/index';
+import type {
+    JuryMemberDecision,
+} from '@lib/model/jury-member/index';
 import {
     createLogger,
 } from '@lib/logger';
@@ -17,6 +20,15 @@ import type {
 
 import EventEmitter from 'node:events';
 import mqtt from 'mqtt';
+
+export type Official =
+    | RefereeNumber
+    | 'all'
+    | 'controller';
+
+export interface OwlcmsChallengeEvent {
+    platform: string;
+}
 
 export interface OwlcmsClockStartEvent {
     platform: string;
@@ -37,10 +49,15 @@ export interface OwlcmsDownEvent {
     platform: string;
 }
 
-export type Official =
-    | RefereeNumber
-    | 'all'
-    | 'controller';
+export interface OwlcmsJuryDeliberationEvent {
+    platform: string;
+}
+
+export interface OwlcmsJuryMemberDecisionEvent {
+    decision: JuryMemberDecision;
+    juryMember: JuryMemberNumber;
+    platform: string;
+}
 
 export interface OwlcmsResetDecisionsEvent {
     platform: string;
@@ -52,10 +69,13 @@ export interface OwlcmsSummonEvent {
 }
 
 interface OwlcmsEvents {
+    challenge: (data: OwlcmsChallengeEvent) => void;
     clockStart: (data: OwlcmsClockStartEvent) => void;
     decision: (data: OwlcmsDecisionEvent) => void;
     decisionRequest: (data: OwlcmsDecisionRequestEvent) => void;
     down: (data: OwlcmsDownEvent) => void;
+    juryDeliberation: (data: OwlcmsJuryDeliberationEvent) => void;
+    juryMemberDecision: (data: OwlcmsJuryMemberDecisionEvent) => void;
     resetDecisions: (data: OwlcmsResetDecisionsEvent) => void;
     summon: (data: OwlcmsSummonEvent) => void;
 }
@@ -131,9 +151,19 @@ export default class Owlcms extends EventEmitter {
                     platform,
                     referee: parseInt(referee) as RefereeNumber,
                 };
+            } else if (action === 'juryMemberDecision') {
+                const [juryMember, decision] = message.split(' ') as [string, JuryMemberDecision];
+
+                data = {
+                    decision,
+                    juryMember: parseInt(juryMember) as JuryMemberNumber,
+                    platform,
+                };
             } else if (
-                action === 'clockStart'
+                action === 'challenge'
+                || action === 'clockStart'
                 || action === 'down'
+                || action === 'juryDeliberation'
                 || action === 'resetDecisions'
             ) {
                 data = {

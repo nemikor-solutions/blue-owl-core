@@ -31,27 +31,23 @@ export default (options: JuryMemberLedsOptions) => {
 
     function off() {
         badLift.off();
-            goodLift.off();
-            masked.off();
+        goodLift.off();
+        masked.off();
     }
 
     return (juryMember: JuryMember) => {
-        juryMember.on('decision', () => {
-            off();
-            masked.on();
-        });
-
-        juryMember.on('reset', () => {
-            off();
-        });
-
-        juryMember.on('reveal', ({ decision }) => {
-            off();
-            if (decision === 'good') {
+        juryMember.on('decisionConfirmed', ({ decision }) => {
+            if (decision === 'hidden') {
+                masked.on();
+            } else if (decision === 'good') {
                 goodLift.on();
             } else {
                 badLift.on();
             }
+        });
+
+        juryMember.on('reset', () => {
+            off();
         });
     };
 }
