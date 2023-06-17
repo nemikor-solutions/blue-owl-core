@@ -73,7 +73,6 @@ export { default as juryRefereeRgbLeds } from '@lib/model/jury/referee-rgb-leds'
 export type {
     JuryMemberDecisionEvent,
     JuryMemberOptions,
-    JuryMemberRevealEvent,
 } from '@lib/model/jury-member/index';
 export { default as JuryMember } from '@lib/model/jury-member/index';
 
