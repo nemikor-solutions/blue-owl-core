@@ -34,6 +34,11 @@ export interface OwlcmsClockStartEvent {
     platform: string;
 }
 
+export interface OwlcmsConfigEvent {
+    platforms: string[];
+    version: string;
+}
+
 export interface OwlcmsDecisionEvent {
     decision: Decision;
     platform: string;
@@ -71,8 +76,11 @@ export interface OwlcmsSummonEvent {
 interface OwlcmsEvents {
     challenge: (data: OwlcmsChallengeEvent) => void;
     clockStart: (data: OwlcmsClockStartEvent) => void;
+    config: (data: OwlcmsConfigEvent) => void;
+    connect: () => void;
     decision: (data: OwlcmsDecisionEvent) => void;
     decisionRequest: (data: OwlcmsDecisionRequestEvent) => void;
+    disconnect: () => void;
     down: (data: OwlcmsDownEvent) => void;
     juryDeliberation: (data: OwlcmsJuryDeliberationEvent) => void;
     juryMemberDecision: (data: OwlcmsJuryMemberDecisionEvent) => void;
@@ -92,10 +100,14 @@ export interface OwlcmsOptions {
     mqttUsername?: string | undefined | null;
 }
 
+const FOP_TOPICS = 'owlcms/fop/#';
+
 export default class Owlcms extends EventEmitter {
     private debug: Logger;
 
-    private mqtt: mqtt.Client;
+    private mqtt?: mqtt.Client;
+
+    private options: OwlcmsOptions;
 
     private static requiredOptions: Array<keyof OwlcmsOptions> = [
         'mqttUrl',
@@ -111,20 +123,21 @@ export default class Owlcms extends EventEmitter {
         });
 
         this.debug = createLogger('owlcms');
-
-        const mqttOptions: IClientOptions = {
-            connectTimeout: 5_000,
-        };
-        if (options.mqttUsername) {
-            mqttOptions.username = options.mqttUsername;
-        }
-        if (options.mqttPassword) {
-            mqttOptions.password = options.mqttPassword;
-        }
-        this.mqtt = mqtt.connect(options.mqttUrl, mqttOptions);
+        this.options = options;
     }
 
     public async connect() {
+        const mqttOptions: IClientOptions = {
+            connectTimeout: 5_000,
+        };
+        if (this.options.mqttUsername) {
+            mqttOptions.username = this.options.mqttUsername;
+        }
+        if (this.options.mqttPassword) {
+            mqttOptions.password = this.options.mqttPassword;
+        }
+        this.mqtt = mqtt.connect(this.options.mqttUrl, mqttOptions);
+
         this.mqtt.on('message', (topic, _message) => {
             const message = _message.toString();
             this.debug(`${topic}: ${message}`);
@@ -132,7 +145,9 @@ export default class Owlcms extends EventEmitter {
             const [, ,action, platform] = topic.split('/') as ['owlcms', 'fop', string, string];
             let data: OwlcmsEventData;
 
-            if (action === 'decision') {
+            if (action === 'config') {
+                data = JSON.parse(message);
+            } else if (action === 'decision') {
                 const [referee, decision] = message.split(' ') as [string, Decision];
 
                 data = {
@@ -177,10 +192,11 @@ export default class Owlcms extends EventEmitter {
         });
 
         return new Promise<void>((resolve, reject) => {
-            this.mqtt.on('connect', () => {
+            this.mqtt?.on('connect', () => {
                 this.debug('connected');
 
-                this.mqtt.subscribe('owlcms/fop/#', (error) => {
+                this.emit('connect');
+                this.mqtt?.subscribe(FOP_TOPICS, (error) => {
                     if (error) {
                         console.error('Failed to subscribe to owlcms messages.');
                         console.error(error);
@@ -190,22 +206,26 @@ export default class Owlcms extends EventEmitter {
                     this.debug('subscribed to owlcms messages');
                     resolve();
                 });
+
+                this.requestConfig();
             });
 
-            this.mqtt.on('error', (error) => {
+            this.mqtt?.on('error', (error) => {
                 this.debug('client error');
                 reject(error);
             });
 
-            this.mqtt.once('offline', () => {
+            this.mqtt?.once('offline', () => {
                 reject(new Error('MQTT server offline'));
             });
 
-            this.mqtt.on('offline', () => {
+            this.mqtt?.on('offline', () => {
                 this.debug('client offline');
+
+                this.emit('disconnect');
             });
 
-            this.mqtt.on('reconnect', () => {
+            this.mqtt?.on('reconnect', () => {
                 this.debug('reconnect');
             });
         });
@@ -217,7 +237,7 @@ export default class Owlcms extends EventEmitter {
         }
 
         return new Promise<void>((resolve) => {
-            this.mqtt.end(false, undefined, () => {
+            this.mqtt?.end(false, () => {
                 resolve();
             });
         });
@@ -232,7 +252,7 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/clock/${platform}`, '60');
+        this.mqtt?.publish(`owlcms/clock/${platform}`, '60');
     }
 
     public publishJuryDecision({
@@ -242,7 +262,7 @@ export default class Owlcms extends EventEmitter {
         decision: Decision;
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/jurybox/decision/${platform}`, decision);
+        this.mqtt?.publish(`owlcms/jurybox/decision/${platform}`, decision);
     }
 
     public publishJuryMemberDecision({
@@ -254,7 +274,7 @@ export default class Owlcms extends EventEmitter {
         juryMember: JuryMemberNumber;
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/jurybox/juryMember/decision/${platform}`, `${juryMember} ${decision}`);
+        this.mqtt?.publish(`owlcms/jurybox/juryMember/decision/${platform}`, `${juryMember} ${decision}`);
     }
 
     public publishRefereeDecision({
@@ -266,7 +286,11 @@ export default class Owlcms extends EventEmitter {
         platform: string;
         referee: number;
     }) {
-        this.mqtt.publish(`owlcms/refbox/decision/${platform}`, `${referee} ${decision}`);
+        this.mqtt?.publish(`owlcms/refbox/decision/${platform}`, `${referee} ${decision}`);
+    }
+
+    public requestConfig() {
+        this.mqtt?.publish('owlcms/config', '');
     }
 
     public resumeCompetition({
@@ -274,7 +298,7 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'stop');
+        this.mqtt?.publish(`owlcms/jurybox/break/${platform}`, 'stop');
     }
 
     public startChallenge({
@@ -282,7 +306,7 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'challenge');
+        this.mqtt?.publish(`owlcms/jurybox/break/${platform}`, 'challenge');
     }
 
     public startClock({
@@ -290,7 +314,7 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/clock/${platform}`, 'start');
+        this.mqtt?.publish(`owlcms/clock/${platform}`, 'start');
     }
 
     public startDeliberation({
@@ -298,7 +322,7 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'deliberation');
+        this.mqtt?.publish(`owlcms/jurybox/break/${platform}`, 'deliberation');
     }
 
     public startTechnicalBreak({
@@ -306,7 +330,7 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/jurybox/break/${platform}`, 'technical');
+        this.mqtt?.publish(`owlcms/jurybox/break/${platform}`, 'technical');
     }
 
     public stopClock({
@@ -314,7 +338,7 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/clock/${platform}`, 'stop');
+        this.mqtt?.publish(`owlcms/clock/${platform}`, 'stop');
     }
 
     public summon({
@@ -324,7 +348,7 @@ export default class Owlcms extends EventEmitter {
         official: Official;
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/jurybox/summon/${platform}`, official.toString());
+        this.mqtt?.publish(`owlcms/jurybox/summon/${platform}`, official.toString());
     }
 
     public summonAllReferees({
@@ -367,6 +391,6 @@ export default class Owlcms extends EventEmitter {
     }: {
         platform: string;
     }) {
-        this.mqtt.publish(`owlcms/clock/${platform}`, '120');
+        this.mqtt?.publish(`owlcms/clock/${platform}`, '120');
     }
 }

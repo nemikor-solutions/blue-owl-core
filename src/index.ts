@@ -7,6 +7,7 @@ export { default as connectBoard } from '@lib/board';
 export type {
     Official,
     OwlcmsClockStartEvent,
+    OwlcmsConfigEvent,
     OwlcmsDecisionEvent,
     OwlcmsDecisionRequestEvent,
     OwlcmsDownEvent,
