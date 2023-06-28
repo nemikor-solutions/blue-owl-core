@@ -5,6 +5,9 @@ import type {
     IClientOptions,
 } from 'mqtt';
 import type {
+    TimeRemaining,
+} from '@lib/model/down-signal';
+import type {
     JuryMemberNumber,
 } from '@lib/model/jury/index';
 import type {
@@ -73,6 +76,11 @@ export interface OwlcmsSummonEvent {
     referee: RefereeNumber;
 }
 
+export interface OwlcmsTimeRemainingEvent {
+    platform: string;
+    time: TimeRemaining;
+}
+
 interface OwlcmsEvents {
     challenge: (data: OwlcmsChallengeEvent) => void;
     clockStart: (data: OwlcmsClockStartEvent) => void;
@@ -86,6 +94,7 @@ interface OwlcmsEvents {
     juryMemberDecision: (data: OwlcmsJuryMemberDecisionEvent) => void;
     resetDecisions: (data: OwlcmsResetDecisionsEvent) => void;
     summon: (data: OwlcmsSummonEvent) => void;
+    timeRemaining: (data: OwlcmsTimeRemainingEvent) => void;
 }
 
 type OwlcmsEventDataMap = {
@@ -173,6 +182,13 @@ export default class Owlcms extends EventEmitter {
                     decision,
                     juryMember: parseInt(juryMember) as JuryMemberNumber,
                     platform,
+                };
+            } else if (action === 'timeRemaining') {
+                const [time] = message.split(' ') as [string];
+
+                data = {
+                    platform,
+                    time: parseInt(time) as TimeRemaining,
                 };
             } else if (
                 action === 'challenge'

@@ -392,12 +392,21 @@ Publish a decision for the current attempt.
 
 #### Modules
 
+##### clock-relay(options)
+
+Provides functionality for controlling electrical power to a device via a relay when the clock reaches 90, 30, or 0 seconds.
+
+* `options`: Configuration options for the relay.
+    * `board` (optional; `Board`): Which Johnny-Five board the relay is connected to.
+    * `pin` (`number | string`): Which pin the relay is connected to.
+    * `type` (optional; `"NC" | "NO"`): Whether the relay is normally closed (NC) or normally open (NO). Defaults to `"NO"`.
+
 ##### relay(options)
 
 Provides functionality for controlling electrical power to a device via a relay.
 
 * `options`: Configuration options for the relay.
-    * `board` (optional; `Board`): Which Johnny-Five board the buttons are connected to.
+    * `board` (optional; `Board`): Which Johnny-Five board the relay is connected to.
     * `duration` (`number`): The duration (in milliseconds) that the relay is closed when the down signal is given.
     * `pin` (`number | string`): Which pin the relay is connected to.
     * `type` (optional; `"NC" | "NO"`): Whether the relay is normally closed (NC) or normally open (NO). Defaults to `"NO"`.

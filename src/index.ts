@@ -41,8 +41,14 @@ export { default as Model } from '@lib/model/index';
 
 export type {
     DownSignalOptions,
+    TimeRemaining,
 } from '@lib/model/down-signal/index';
 export { default as DownSignal } from '@lib/model/down-signal/index';
+
+export type {
+    DownSignalClockRelayOptions,
+} from '@lib/model/down-signal/clock-relay';
+export { default as downSignalClockRelay } from '@lib/model/down-signal/clock-relay';
 
 export type {
     DownSignalRelayOptions,

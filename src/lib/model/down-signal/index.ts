@@ -7,9 +7,19 @@ import Model from '@lib/model/index';
 
 interface DownSignalEvents extends ModelEvents {
     down: () => void;
+    timeRemaining: (data: DownSignalTimeRemainingEvent) => void;
 }
 
 export type DownSignalOptions = ModelOptions<DownSignal>;
+
+export interface DownSignalTimeRemainingEvent {
+    time: TimeRemaining;
+}
+
+export type TimeRemaining =
+    | 0
+    | 30
+    | 90;
 
 export default class DownSignal extends Model<DownSignalOptions> {
     protected override get debuggerName() {
@@ -29,6 +39,14 @@ export default class DownSignal extends Model<DownSignalOptions> {
 
             this.down();
         });
+
+        this.owlcms.on('timeRemaining', ({ platform, time }) => {
+            if (platform !== this.platform) {
+                return;
+            }
+
+            this.timeRemaining(time);
+        })
     }
 
     private down() {
@@ -38,5 +56,10 @@ export default class DownSignal extends Model<DownSignalOptions> {
 
     public override on<T extends keyof DownSignalEvents>(type: T, listener: DownSignalEvents[T]): this {
         return super.on(type, listener);
+    }
+
+    private timeRemaining(time: TimeRemaining) {
+        this.debug(`time remaining: ${time}`);
+        this.emit('timeRemaining', { time });
     }
 }
