@@ -10,6 +10,7 @@ import {
 
 export interface RefereeVibrationOptions {
     board?: Board;
+    confirmation?: boolean;
     vibrationMotor: LedOption['pin'];
 }
 
@@ -47,5 +48,15 @@ export default (options: RefereeVibrationOptions) => {
         referee.on('summon', () => {
             vibrate([200, 100, 200]);
         });
+
+        if (options.confirmation) {
+            referee.on('decisionConfirmed', ({ decision }) => {
+                if (decision === 'good') {
+                    vibrate([100]);
+                } else {
+                    vibrate([100, 100, 100]);
+                }
+            });
+        }
     };
 };

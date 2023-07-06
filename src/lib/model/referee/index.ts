@@ -35,6 +35,8 @@ export const referees: RefereeNumber[] = [
 ];
 
 export default class Referee extends Model<RefereeOptions> {
+    protected confirmed = false;
+
     protected override get debuggerName(): string {
         return `referee:${this.platform}:${this.number}`
     }
@@ -49,8 +51,16 @@ export default class Referee extends Model<RefereeOptions> {
     }
 
     private decisionConfirmed(decision: Decision) {
-        this.debug(`decision confirmed: ${decision}`);
-        this.emit('decisionConfirmed', { decision });
+        // Each time any referee submits a decision, owlcms will publish
+        // a confirmation for each referee that has already submitted a
+        // decision. We want to ensure that only one confirmation is
+        // published per decision.
+        if (!this.confirmed) {
+            this.debug(`decision confirmed: ${decision}`);
+            this.emit('decisionConfirmed', { decision });
+        }
+
+        this.confirmed = true;
     }
 
     private decisionRequest() {
@@ -89,6 +99,8 @@ export default class Referee extends Model<RefereeOptions> {
     }
 
     public publishDecision(decision: Decision) {
+        this.confirmed = false;
+
         this.debug(decision);
 
         this.owlcms.publishRefereeDecision({
