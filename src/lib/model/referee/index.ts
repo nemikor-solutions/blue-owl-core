@@ -45,11 +45,6 @@ export default class Referee extends Model<RefereeOptions> {
         return this.options.number;
     }
 
-    public constructor(options: RefereeOptions) {
-        super(options);
-        this.initialize();
-    }
-
     private decisionConfirmed(decision: Decision) {
         // Each time any referee submits a decision, owlcms will publish
         // a confirmation for each referee that has already submitted a

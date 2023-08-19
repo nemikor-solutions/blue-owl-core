@@ -26,11 +26,6 @@ export default class DownSignal extends Model<DownSignalOptions> {
         return `down-signal:${this.platform}`;
     }
 
-    public constructor(options: DownSignalOptions) {
-        super(options);
-        this.initialize();
-    }
-
     protected _initialize() {
         this.owlcms.on('down', ({ platform }) => {
             if (platform !== this.platform) {

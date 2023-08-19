@@ -28,11 +28,6 @@ export default class Jury extends Model<JuryOptions> {
         return `jury:${this.platform}`;
     }
 
-    public constructor(options: JuryOptions) {
-        super(options);
-        this.initialize();
-    }
-
     protected _initialize() {
         this.owlcms.on('decision', ({ decision, platform, referee }) => {
             if (platform !== this.platform) {

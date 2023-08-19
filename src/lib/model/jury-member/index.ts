@@ -37,11 +37,6 @@ export default class JuryMember extends Model<JuryMemberOptions> {
         return this.options.number;
     }
 
-    public constructor(options: JuryMemberOptions) {
-        super(options);
-        this.initialize();
-    }
-
     protected _initialize() {
         this.owlcms.on('juryMemberDecision', ({ decision, juryMember, platform }) => {
             if (platform !== this.platform || juryMember !== this.number) {

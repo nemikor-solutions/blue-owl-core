@@ -42,6 +42,8 @@ export default abstract class CoreModel<
             this.modules.forEach((module) => {
                 module(this);
             });
+
+            this.initialize();
         }, 200);
     }
 

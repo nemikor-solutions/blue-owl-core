@@ -13,11 +13,6 @@ export default class Timekeeper extends Model<TimekeeperOptions> {
         return `timekeeper:${this.platform}`;
     }
 
-    public constructor(options: TimekeeperOptions) {
-        super(options);
-        this.initialize();
-    }
-
     protected _initialize() {
         // Do nothing
     }
