@@ -41,6 +41,10 @@ export default (options: RefereeVibrationOptions) => {
     }
 
     return (referee: Referee) => {
+        referee.on('initialized', () => {
+            vibrate([200, 100, 200]);
+        });
+
         referee.on('decisionRequest', () => {
             vibrate([200, 100, 200]);
         });

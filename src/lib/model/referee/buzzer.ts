@@ -32,6 +32,16 @@ export default (options: RefereeBuzzerOptions) => {
     }
 
     return (referee: Referee) => {
+        referee.on('initialized', () => {
+            play([
+                ['c4', 1],
+                [null, 1],
+                ['c5', 1],
+                [null, 1],
+                ['c6', 1],
+            ]);
+        });
+
         referee.on('decisionRequest', () => {
             play([
                 ['c6', 2],
