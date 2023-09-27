@@ -9,12 +9,12 @@ import type {
 
 import Model from '@lib/model/index';
 
-export type JuryMemberNumber = 1 | 2 | 3 | 4 | 5;
-
 interface JuryEvents extends ModelEvents {
     refereeDecision: (data: JuryRefereeDecisionEvent) => void;
     resetRefereeDecisions: () => void;
 }
+
+export type JuryMemberNumber = 1 | 2 | 3 | 4 | 5;
 
 export type JuryOptions = ModelOptions<Jury>;
 

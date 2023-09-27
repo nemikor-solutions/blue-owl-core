@@ -38,6 +38,7 @@ export interface OwlcmsClockStartEvent {
 }
 
 export interface OwlcmsConfigEvent {
+    jurySize: 3 | 5;
     platforms: string[];
     version: string;
 }
