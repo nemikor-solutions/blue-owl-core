@@ -15,12 +15,18 @@ export interface RefereeVibrationOptions {
 }
 
 export default (options: RefereeVibrationOptions) => {
+    let isRefSleeping = false;
+
     // Johnny-Five doesn't have a vibration motor component,
     // but it's functionally equivalent to an LED
     const vibrationMotor = new Led({
         board: options.board,
         pin: options.vibrationMotor,
     });
+
+    function reset() {
+        vibrationMotor.off();
+    }
 
     async function sleep(duration: number) {
         return new Promise((resolve) => {
@@ -30,14 +36,26 @@ export default (options: RefereeVibrationOptions) => {
 
     async function vibrate(pattern: number[], action: 'on' | 'off' = 'on') {
         if (!pattern.length) {
-            vibrationMotor.off();
+            reset();
             return;
         }
 
         const duration = pattern.shift() as number;
         vibrationMotor[action]();
         await sleep(duration);
-        vibrate(pattern, action === 'on' ? 'off' : 'on');
+        await vibrate(pattern, action === 'on' ? 'off' : 'on');
+    }
+
+    async function wakeUp() {
+        isRefSleeping = true;
+
+        do {
+            await vibrate([200, 100, 200]);
+
+            if (isRefSleeping) {
+                await sleep(1_000);
+            }
+        } while (isRefSleeping);
     }
 
     return (referee: Referee) => {
@@ -45,12 +63,17 @@ export default (options: RefereeVibrationOptions) => {
             vibrate([200, 100, 200]);
         });
 
+        referee.on('decisionPublished', () => {
+            isRefSleeping = false;
+            reset();
+        });
+
         referee.on('decisionRequest', () => {
-            vibrate([200, 100, 200]);
+            wakeUp();
         });
 
         referee.on('summon', () => {
-            vibrate([200, 100, 200]);
+            vibrate(Array(15).fill(200));
         });
 
         if (options.confirmation) {

@@ -14,37 +14,63 @@ export interface RefereeWarningLedOptions {
 }
 
 export default (options: RefereeWarningLedOptions) => {
+    let isRefSleeping = false;
+
     const led = new Led({
         board: options.board,
         pin: options.led,
     });
 
-    function flash({
-        duration = 2000,
-        speed = 300,
-    }: {
-        duration?: number;
-        speed?: number;
-    } = {}) {
-        led.blink(speed);
-        setTimeout(reset, duration);
-    }
-
     function reset() {
         led.stop().off();
     }
 
+    async function sleep(duration: number) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, duration);
+        });
+    }
+
+    async function flash(pattern: number[], action: 'on' | 'off' = 'on') {
+        if (!pattern.length) {
+            reset();
+            return;
+        }
+
+        const duration = pattern.shift() as number;
+        led[action]();
+        await sleep(duration);
+        await flash(pattern, action === 'on' ? 'off' : 'on');
+    }
+
+    async function wakeUp() {
+        isRefSleeping = true;
+
+        do {
+            await flash([300]);
+
+            if (isRefSleeping) {
+                await sleep(600);
+            }
+        } while (isRefSleeping);
+    }
+
     return (referee: Referee) => {
         referee.on('initialized', () => {
-            flash();
+            flash([300, 300, 300]);
+        });
+
+        referee.on('decisionPublished', () => {
+            isRefSleeping = false;
+            reset();
         });
 
         referee.on('decisionRequest', () => {
-            flash();
+            wakeUp();
         });
 
         referee.on('summon', () => {
-            flash({ duration: 5000, speed: 100 });
+            flash(Array(50).fill(100));
         });
     };
 };

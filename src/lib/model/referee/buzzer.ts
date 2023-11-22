@@ -15,48 +15,86 @@ export interface RefereeBuzzerOptions {
 }
 
 export default (options: RefereeBuzzerOptions) => {
+    let isRefSleeping = false;
+
     const piezo = new Piezo({
         board: options.board,
         pin: options.piezo,
     });
 
-    function play(song: PiezoTune['song']) {
-        piezo.play({
-            song,
-            tempo: 600,
-        }, () => {
-            // For some reason, the pin tends to go high after playing,
-            // so we manually set it low (off).
-            piezo.off();
+    async function play(song: PiezoTune['song']) {
+        return new Promise<void>((resolve) => {
+            piezo.play({
+                song,
+                tempo: 600,
+            }, () => {
+                // For some reason, the pin tends to go high after playing,
+                // so we manually set it low (off).
+                piezo.off();
+
+                resolve();
+            });
         });
+    }
+
+    function reset() {
+        piezo.stop().off();
+    }
+
+    async function sleep(duration: number) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, duration);
+        });
+    }
+
+    async function wakeUp() {
+        isRefSleeping = true;
+
+        do {
+            await play([
+                ['c5', 2],
+                [null, 1],
+                ['c5', 2],
+            ]);
+
+            if (isRefSleeping) {
+                await sleep(1_000);
+            }
+        } while (isRefSleeping);
     }
 
     return (referee: Referee) => {
         referee.on('initialized', () => {
             play([
-                ['c4', 1],
+                ['c4', 2],
+                ['c5', 2],
                 [null, 1],
-                ['c5', 1],
-                [null, 1],
-                ['c6', 1],
+                ['c5', 2],
             ]);
         });
 
+        referee.on('decisionPublished', () => {
+            isRefSleeping = false;
+            reset();
+        });
+
         referee.on('decisionRequest', () => {
-            play([
-                ['c6', 2],
-                [null, 1],
-                ['c6', 2],
-            ]);
+            wakeUp();
         });
 
         referee.on('summon', () => {
             play([
-                ['c4', 1],
-                ['c5', 1],
+                ['c4', 2],
+                ['c5', 2],
                 [null, 1],
-                ['c4', 1],
-                ['c5', 1],
+                ['c4', 2],
+                ['c5', 2],
+                [null, 4],
+                ['c4', 2],
+                ['c5', 2],
+                [null, 1],
+                ['c4', 2],
+                ['c5', 2],
             ]);
         });
     };

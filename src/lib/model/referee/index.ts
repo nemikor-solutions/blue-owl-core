@@ -13,6 +13,7 @@ export interface RefereeDecisionEvent {
 
 interface RefereeEvents extends ModelEvents {
     decisionConfirmed: (data: RefereeDecisionEvent) => void;
+    decisionPublished: (data: RefereeDecisionEvent) => void;
     decisionRequest: () => void;
     summon: () => void;
 }
@@ -97,6 +98,7 @@ export default class Referee extends Model<RefereeOptions> {
         this.confirmed = false;
 
         this.debug(decision);
+        this.emit('decisionPublished', { decision });
 
         this.owlcms.publishRefereeDecision({
             decision,
