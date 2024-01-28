@@ -105,8 +105,9 @@ type OwlcmsEventDataMap = {
 type OwlcmsEventData = OwlcmsEventDataMap[keyof OwlcmsEvents];
 
 export interface OwlcmsOptions {
+    mqttHost: string;
     mqttPassword?: string | undefined | null;
-    mqttUrl: string;
+    mqttPort?: string;
     mqttUsername?: string | undefined | null;
 }
 
@@ -122,7 +123,7 @@ export default class Owlcms extends EventEmitter {
     private options: OwlcmsOptions;
 
     private static requiredOptions: Array<keyof OwlcmsOptions> = [
-        'mqttUrl',
+        'mqttHost',
     ];
 
     public constructor(options: OwlcmsOptions) {
@@ -148,7 +149,14 @@ export default class Owlcms extends EventEmitter {
         if (this.options.mqttPassword) {
             mqttOptions.password = this.options.mqttPassword;
         }
-        this.mqtt = mqtt.connect(this.options.mqttUrl, mqttOptions);
+
+        const mqttUrl = [
+            'mqtt://',
+            this.options.mqttHost,
+            ':',
+            this.options.mqttPort || '1883',
+        ].join('');
+        this.mqtt = mqtt.connect(mqttUrl, mqttOptions);
 
         this.mqtt.on('message', (topic, _message) => {
             const message = _message.toString();

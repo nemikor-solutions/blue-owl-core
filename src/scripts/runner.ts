@@ -22,8 +22,9 @@ export default async (initializer: Initializer) => {
     const config = parseConfig();
 
     const owlcms = new Owlcms({
+        mqttHost: config.mqttHost,
         mqttPassword: config.mqttPassword,
-        mqttUrl: config.mqttUrl,
+        mqttPort: config.mqttPort,
         mqttUsername: config.mqttUsername,
     });
 

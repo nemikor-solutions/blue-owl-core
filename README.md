@@ -90,7 +90,10 @@ The `Owlcms` class provides the necessary APIs for two way communication between
 #### constructor(options)
 
 * `options`: Configuration options for OWLCMS.
-    * `url`: The URL for the MQTT server that OWLCMS is connected to.
+    * `mqttHost` (`string`): The host for the MQTT server that OWLCMS is connected to.
+    * `mqttPassword` (optional; `string`): The password for authenticating to the MQTT server.
+    * `mqttPort` (optional; `string`): The port for the MQTT server.
+    * `mqttUserName` (optional; `string`): The username for authenticating to the MQTT server.
 
 
 
