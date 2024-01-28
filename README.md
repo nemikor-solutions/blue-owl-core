@@ -1,6 +1,6 @@
 # Blue Owl
 
-Blue Owl provides Technical Official device integration for [OWLCMS](https://owlcms.github.io/owlcms4/) via a microcontroller powered by [Johnny-Five](http://johnny-five.io/).
+Blue Owl provides Technical Official device integration for [owlcms](https://owlcms.github.io/owlcms4/) via a microcontroller powered by [Johnny-Five](http://johnny-five.io/).
 
 ## Overview
 
@@ -55,7 +55,7 @@ The jury control panel and jury control units may be used to fulfill all jury me
 
 ## API
 
-Each technical official is represented by a model, e.g., `Referee`. These models provide the logic and APIs necessary for the official, but do not provide any hardware-specific implementations. Instead, the models provide methods for actions that the official can perform and emits events for information provided by OWLCMS. Each model must be instantiated with a set of modules which provide the hardware-specific implementations.
+Each technical official is represented by a model, e.g., `Referee`. These models provide the logic and APIs necessary for the official, but do not provide any hardware-specific implementations. Instead, the models provide methods for actions that the official can perform and emits events for information provided by owlcms. Each model must be instantiated with a set of modules which provide the hardware-specific implementations.
 
 ### Types
 
@@ -85,12 +85,12 @@ The numbers `1`, `2`, and `3`.
 
 ### Owlcms
 
-The `Owlcms` class provides the necessary APIs for two way communication between the models and OWLCMS. Unless you are building a custom integration with OWLCMS that does not use the provided models, the API provided by `Owlcms` will not be used directly.
+The `Owlcms` class provides the necessary APIs for two way communication between the models and owlcms. Unless you are building a custom integration with owlcms that does not use the provided models, the API provided by `Owlcms` will not be used directly.
 
 #### constructor(options)
 
-* `options`: Configuration options for OWLCMS.
-    * `mqttHost` (`string`): The host for the MQTT server that OWLCMS is connected to.
+* `options`: Configuration options for owlcms.
+    * `mqttHost` (`string`): The host for the MQTT server that owlcms is connected to.
     * `mqttPassword` (optional; `string`): The password for authenticating to the MQTT server.
     * `mqttPort` (optional; `string`): The port for the MQTT server.
     * `mqttUserName` (optional; `string`): The username for authenticating to the MQTT server.
