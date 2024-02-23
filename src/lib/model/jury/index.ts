@@ -76,7 +76,7 @@ export default class Jury extends Model<JuryOptions> {
     }
 
     public resumeCompetition() {
-        this.debug('resume copetition');
+        this.debug('resume competition');
         this.owlcms.resumeCompetition({ platform: this.platform });
     }
 
