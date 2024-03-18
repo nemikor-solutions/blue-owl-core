@@ -68,6 +68,11 @@ export interface OwlcmsJuryMemberDecisionEvent {
     platform: string;
 }
 
+export interface OwlcmsRefereesDecisionEvent {
+    decision: Decision;
+    platform: string;
+}
+
 export interface OwlcmsResetDecisionsEvent {
     platform: string;
 }
@@ -93,6 +98,7 @@ interface OwlcmsEvents {
     down: (data: OwlcmsDownEvent) => void;
     juryDeliberation: (data: OwlcmsJuryDeliberationEvent) => void;
     juryMemberDecision: (data: OwlcmsJuryMemberDecisionEvent) => void;
+    refereesDecision: (data: OwlcmsRefereesDecisionEvent) => void;
     resetDecisions: (data: OwlcmsResetDecisionsEvent) => void;
     summon: (data: OwlcmsSummonEvent) => void;
     timeRemaining: (data: OwlcmsTimeRemainingEvent) => void;
@@ -192,6 +198,13 @@ export default class Owlcms extends EventEmitter {
                 data = {
                     decision,
                     juryMember: parseInt(juryMember) as JuryMemberNumber,
+                    platform,
+                };
+            } else if (action === 'refereesDecision') {
+                const [decision] = message.split(' ') as [Decision];
+
+                data = {
+                    decision,
                     platform,
                 };
             } else if (action === 'startup') {

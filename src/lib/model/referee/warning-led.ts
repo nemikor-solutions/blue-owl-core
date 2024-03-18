@@ -60,6 +60,11 @@ export default (options: RefereeWarningLedOptions) => {
             flash([300, 300, 300]);
         });
 
+        referee.on('decisionDisplayed', () => {
+            isRefSleeping = false;
+            reset();
+        });
+
         referee.on('decisionPublished', () => {
             isRefSleeping = false;
             reset();
@@ -67,6 +72,11 @@ export default (options: RefereeWarningLedOptions) => {
 
         referee.on('decisionRequest', () => {
             wakeUp();
+        });
+
+        referee.on('resetDecision', () => {
+            isRefSleeping = false;
+            reset();
         });
 
         referee.on('summon', () => {

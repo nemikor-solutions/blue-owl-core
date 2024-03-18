@@ -13,8 +13,10 @@ export interface RefereeDecisionEvent {
 
 interface RefereeEvents extends ModelEvents {
     decisionConfirmed: (data: RefereeDecisionEvent) => void;
+    decisionDisplayed: (data: RefereeDecisionEvent) => void;
     decisionPublished: (data: RefereeDecisionEvent) => void;
     decisionRequest: () => void;
+    resetDecision: () => void;
     summon: () => void;
 }
 
@@ -59,6 +61,11 @@ export default class Referee extends Model<RefereeOptions> {
         this.confirmed = true;
     }
 
+    private decisionDisplayed(decision: Decision) {
+        this.debug(`decision displayed: ${decision}`);
+        this.emit('decisionDisplayed', { decision });
+    }
+
     private decisionRequest() {
         this.debug('decision requested');
         this.emit('decisionRequest');
@@ -79,6 +86,22 @@ export default class Referee extends Model<RefereeOptions> {
             }
 
             this.decisionRequest();
+        });
+
+        this.owlcms.on('refereesDecision', ({ decision, platform }) => {
+            if (platform !== this.platform) {
+                return;
+            }
+
+            this.decisionDisplayed(decision);
+        });
+
+        this.owlcms.on('resetDecisions', ({ platform }) => {
+            if (platform !== this.platform) {
+                return;
+            }
+
+            this.resetDecision();
         });
 
         this.owlcms.on('summon', ({ platform, referee }) => {
@@ -105,6 +128,11 @@ export default class Referee extends Model<RefereeOptions> {
             platform: this.platform,
             referee: this.number,
         });
+    }
+
+    private resetDecision() {
+        this.debug('reset decision');
+        this.emit('resetDecision');
     }
 
     private summon() {

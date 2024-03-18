@@ -73,6 +73,11 @@ export default (options: RefereeBuzzerOptions) => {
             ]);
         });
 
+        referee.on('decisionDisplayed', () => {
+            isRefSleeping = false;
+            reset();
+        });
+
         referee.on('decisionPublished', () => {
             isRefSleeping = false;
             reset();
@@ -80,6 +85,11 @@ export default (options: RefereeBuzzerOptions) => {
 
         referee.on('decisionRequest', () => {
             wakeUp();
+        });
+
+        referee.on('resetDecision', () => {
+            isRefSleeping = false;
+            reset();
         });
 
         referee.on('summon', () => {

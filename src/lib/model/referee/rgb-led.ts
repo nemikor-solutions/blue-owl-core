@@ -28,7 +28,7 @@ export default (options: RefereeRgbLedOptions) => {
         referee.on('initialized', () => {
             led.cycle({
                 colors: ['red', 'white', decisionRequestColor, summonColor],
-                duration: 2000,
+                duration: 2_000,
                 interval: 300,
             });
         });
@@ -41,7 +41,11 @@ export default (options: RefereeRgbLedOptions) => {
 
             setTimeout(() => {
                 led.off();
-            }, 5000);
+            }, 5_000);
+        });
+
+        referee.on('decisionDisplayed', () => {
+            led.stop().off();
         });
 
         referee.on('decisionRequest', () => {
@@ -52,7 +56,11 @@ export default (options: RefereeRgbLedOptions) => {
 
             setTimeout(() => {
                 led.stop().off();
-            }, 5000);
+            }, 5_000);
+        });
+
+        referee.on('resetDecision', () => {
+            led.stop().off();
         });
 
         referee.on('summon', () => {
@@ -63,7 +71,7 @@ export default (options: RefereeRgbLedOptions) => {
 
             setTimeout(() => {
                 led.stop().off();
-            }, 5000);
+            }, 5_000);
         });
     };
 };

@@ -30,7 +30,7 @@ export default (options: RefereeConfirmationLedsOptions) => {
     };
 
     function flash({
-        duration = 2000,
+        duration = 2_000,
         speed = 300,
     }: {
         duration?: number;
@@ -58,7 +58,11 @@ export default (options: RefereeConfirmationLedsOptions) => {
             leds[decision].on();
             setTimeout(() => {
                 leds[decision].off();
-            }, 2000);
+            }, 2_000);
+        });
+
+        referee.on('resetDecision', () => {
+            reset();
         });
     };
 };

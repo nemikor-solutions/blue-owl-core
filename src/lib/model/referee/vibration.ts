@@ -63,6 +63,11 @@ export default (options: RefereeVibrationOptions) => {
             vibrate([200, 100, 200]);
         });
 
+        referee.on('decisionDisplayed', () => {
+            isRefSleeping = false;
+            reset();
+        });
+
         referee.on('decisionPublished', () => {
             isRefSleeping = false;
             reset();
@@ -70,6 +75,11 @@ export default (options: RefereeVibrationOptions) => {
 
         referee.on('decisionRequest', () => {
             wakeUp();
+        });
+
+        referee.on('resetDecision', () => {
+            isRefSleeping = false;
+            reset();
         });
 
         referee.on('summon', () => {
