@@ -10,12 +10,16 @@ export type LogSubscriber = (data: LogEventData) => void;
 
 export type Logger = (message: string) => void;
 
+const loggers = new Map<string, Logger>();
 const subscribers: LogSubscriber[] = [];
 
 export function createLogger(name: string): Logger {
-    const debug = createDebugger(`blue-owl:${name}`);
+    if (loggers.has(name)) {
+        return loggers.get(name) as Logger;
+    }
 
-    return (message: string) => {
+    const debug = createDebugger(`blue-owl:${name}`);
+    const logger = (message: string) => {
         const date = new Date();
         debug(message);
 
@@ -26,7 +30,10 @@ export function createLogger(name: string): Logger {
                 name,
             });
         });
-    }
+    };
+
+    loggers.set(name, debug);
+    return logger;
 }
 
 export function onMessage(subscriber: LogSubscriber): void {
