@@ -32,7 +32,7 @@ export function createLogger(name: string): Logger {
         });
     };
 
-    loggers.set(name, debug);
+    loggers.set(name, logger);
     return logger;
 }
 
