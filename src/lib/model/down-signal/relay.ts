@@ -22,20 +22,31 @@ export default (options: DownSignalRelayOptions) => {
         type: options.type || 'NO',
     });
 
-    function toggle() {
-        relay.close();
-        setTimeout(() => {
+    async function sleep(duration: number) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, duration);
+        });
+    }
+
+    async function toggle(pattern: number[], action: 'close' | 'open' = 'close') {
+        if (!pattern.length) {
             relay.open();
-        }, options.duration);
+            return;
+        }
+
+        const duration = pattern.shift() as number;
+        relay[action]();
+        await sleep(duration);
+        await toggle(pattern, action === 'close' ? 'open' : 'close');
     }
 
     return (downSignal: DownSignal) => {
         downSignal.on('initialized', () => {
-            toggle();
+            toggle([200, 200, 200]);
         });
 
         downSignal.on('down', () => {
-            toggle()
+            toggle([options.duration])
         });
     };
 };
