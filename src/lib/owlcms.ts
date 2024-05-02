@@ -120,8 +120,6 @@ export interface OwlcmsOptions {
 const FOP_TOPICS = 'owlcms/fop/#';
 
 export default class Owlcms extends EventEmitter {
-    private configRequestTimeout?: ReturnType<typeof setTimeout>;
-
     private debug: Logger;
 
     private mqtt?: mqtt.Client;
@@ -207,13 +205,6 @@ export default class Owlcms extends EventEmitter {
                     decision,
                     platform,
                 };
-            } else if (action === 'startup') {
-                if (message === 'off') {
-                    return;
-                }
-
-                this.queueConfigRequest();
-                return;
             } else if (action === 'timeRemaining') {
                 const [time] = message.split(' ') as [string];
 
@@ -334,24 +325,6 @@ export default class Owlcms extends EventEmitter {
         referee: number;
     }) {
         this.mqtt?.publish(`owlcms/refbox/decision/${platform}`, `${referee} ${decision}`);
-    }
-
-    private queueConfigRequest() {
-        if (this.configRequestTimeout) {
-            clearTimeout(this.configRequestTimeout);
-        }
-
-        // On startup and platform change, we will receive one event
-        // for each platform. We only need to request the config one
-        // time, so we throttle the request until all of the startup
-        // events have been received.
-        //
-        // Requesting the config too soon after a platform change will
-        // also cause us to get a stale response with old platforms.
-        // https://github.com/jflamy/owlcms4/issues/692
-        this.configRequestTimeout = setTimeout(() => {
-            this.requestConfig();
-        }, 2_000);
     }
 
     public requestConfig() {
