@@ -40,8 +40,14 @@ export const referees: RefereeNumber[] = [
 export default class Referee extends Model<RefereeOptions> {
     protected confirmed = false;
 
+    protected sleeping = false;
+
     protected override get debuggerName(): string {
         return `referee:${this.platform}:${this.number}`
+    }
+
+    public get isSleeping() {
+        return this.sleeping;
     }
 
     private get number() {
@@ -49,6 +55,8 @@ export default class Referee extends Model<RefereeOptions> {
     }
 
     private decisionConfirmed(decision: Decision) {
+        this.sleeping = false;
+
         // Each time any referee submits a decision, owlcms will publish
         // a confirmation for each referee that has already submitted a
         // decision. We want to ensure that only one confirmation is
@@ -62,13 +70,19 @@ export default class Referee extends Model<RefereeOptions> {
     }
 
     private decisionDisplayed(decision: Decision) {
+        this.sleeping = false;
+
         this.debug(`decision displayed: ${decision}`);
         this.emit('decisionDisplayed', { decision });
     }
 
     private decisionRequest() {
-        this.debug('decision requested');
-        this.emit('decisionRequest');
+        if (!this.sleeping) {
+            this.debug('decision requested');
+            this.emit('decisionRequest');
+        }
+
+        this.sleeping = true;
     }
 
     protected _initialize() {
@@ -131,11 +145,15 @@ export default class Referee extends Model<RefereeOptions> {
     }
 
     private resetDecision() {
+        this.sleeping = false;
+
         this.debug('reset decision');
         this.emit('resetDecision');
     }
 
     private summon() {
+        this.sleeping = false;
+
         this.debug('summon');
         this.emit('summon');
     }

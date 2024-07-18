@@ -14,8 +14,6 @@ export interface RefereeWarningLedOptions {
 }
 
 export default (options: RefereeWarningLedOptions) => {
-    let isRefSleeping = false;
-
     const led = new Led({
         board: options.board,
         pin: options.led,
@@ -43,16 +41,14 @@ export default (options: RefereeWarningLedOptions) => {
         await flash(pattern, action === 'on' ? 'off' : 'on');
     }
 
-    async function wakeUp() {
-        isRefSleeping = true;
-
+    async function wakeUp(referee: Referee) {
         do {
             await flash([300]);
 
-            if (isRefSleeping) {
-                await sleep(600);
+            if (referee.isSleeping) {
+                await sleep(900);
             }
-        } while (isRefSleeping);
+        } while (referee.isSleeping);
     }
 
     return (referee: Referee) => {
@@ -61,21 +57,18 @@ export default (options: RefereeWarningLedOptions) => {
         });
 
         referee.on('decisionDisplayed', () => {
-            isRefSleeping = false;
             reset();
         });
 
         referee.on('decisionPublished', () => {
-            isRefSleeping = false;
             reset();
         });
 
         referee.on('decisionRequest', () => {
-            wakeUp();
+            wakeUp(referee);
         });
 
         referee.on('resetDecision', () => {
-            isRefSleeping = false;
             reset();
         });
 

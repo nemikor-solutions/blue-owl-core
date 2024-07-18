@@ -15,8 +15,6 @@ export interface RefereeBuzzerOptions {
 }
 
 export default (options: RefereeBuzzerOptions) => {
-    let isRefSleeping = false;
-
     const piezo = new Piezo({
         board: options.board,
         pin: options.piezo,
@@ -47,9 +45,7 @@ export default (options: RefereeBuzzerOptions) => {
         });
     }
 
-    async function wakeUp() {
-        isRefSleeping = true;
-
+    async function wakeUp(referee: Referee) {
         do {
             await play([
                 ['c5', 2],
@@ -57,10 +53,10 @@ export default (options: RefereeBuzzerOptions) => {
                 ['c5', 2],
             ]);
 
-            if (isRefSleeping) {
-                await sleep(1_000);
+            if (referee.isSleeping) {
+                await sleep(2_000);
             }
-        } while (isRefSleeping);
+        } while (referee.isSleeping);
     }
 
     return (referee: Referee) => {
@@ -74,21 +70,18 @@ export default (options: RefereeBuzzerOptions) => {
         });
 
         referee.on('decisionDisplayed', () => {
-            isRefSleeping = false;
             reset();
         });
 
         referee.on('decisionPublished', () => {
-            isRefSleeping = false;
             reset();
         });
 
         referee.on('decisionRequest', () => {
-            wakeUp();
+            wakeUp(referee);
         });
 
         referee.on('resetDecision', () => {
-            isRefSleeping = false;
             reset();
         });
 
