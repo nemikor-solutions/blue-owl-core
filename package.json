@@ -34,7 +34,7 @@
     "license": "ISC",
     "dependencies": {
         "debug": "^4.3.4",
-        "johnny-five": "scottgonzalez/johnny-five#70fbb78a84f8389ed6fd7de7ae077cf998b6ab46",
+        "johnny-five": "scottgonzalez/johnny-five#f548f9aed5b1992cb8f847e95b5a4583f952fc73",
         "mqtt": "^4.3.7"
     },
     "devDependencies": {

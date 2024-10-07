@@ -1,5 +1,9 @@
-export type {
+export {
     Board,
+    Expander,
+} from 'johnny-five';
+
+export type {
     BoardOptions,
 } from '@lib/board';
 export { default as connectBoard } from '@lib/board';
