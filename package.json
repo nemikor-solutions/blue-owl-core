@@ -33,14 +33,14 @@
     },
     "license": "ISC",
     "dependencies": {
-        "debug": "^4.3.4",
+        "debug": "^4.3.7",
         "johnny-five": "scottgonzalez/johnny-five#f548f9aed5b1992cb8f847e95b5a4583f952fc73",
-        "mqtt": "^4.3.7"
+        "mqtt": "^5.10.2"
     },
     "devDependencies": {
         "@tsconfig/node16-strictest": "^1.0.4",
-        "@types/debug": "^4.1.7",
-        "@types/johnny-five": "^2.1.9",
+        "@types/debug": "^4.1.12",
+        "@types/johnny-five": "^2.1.11",
         "@types/node": "^16.11.66",
         "@typescript-eslint/eslint-plugin": "^5.43.0",
         "@typescript-eslint/parser": "^5.43.0",

@@ -3,6 +3,7 @@ import type {
 } from '@lib/logger';
 import type {
     IClientOptions,
+    MqttClient,
 } from 'mqtt';
 import type {
     TimeRemaining,
@@ -122,7 +123,7 @@ const FOP_TOPICS = 'owlcms/fop/#';
 export default class Owlcms extends EventEmitter {
     private debug: Logger;
 
-    private mqtt?: mqtt.Client;
+    private mqtt?: MqttClient;
 
     private options: OwlcmsOptions;
 
