@@ -3,6 +3,7 @@ import type {
 } from '@lib/logger';
 import type {
     IClientOptions,
+    MqttClient,
 } from 'mqtt';
 import type {
     TimeRemaining,
@@ -122,7 +123,7 @@ const FOP_TOPICS = 'owlcms/fop/#';
 export default class Owlcms extends EventEmitter {
     private debug: Logger;
 
-    private mqtt?: mqtt.Client;
+    private mqtt?: MqttClient;
 
     private options: OwlcmsOptions;
 
@@ -328,7 +329,9 @@ export default class Owlcms extends EventEmitter {
     }
 
     public requestConfig() {
-        this.mqtt?.publish('owlcms/config', '');
+        // Raspberry Pi OS 12 throws EFAULT if trying to publish an empty string
+        // for the message, so we must send a space
+        this.mqtt?.publish('owlcms/config', ' ');
     }
 
     public resumeCompetition({
