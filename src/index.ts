@@ -9,6 +9,7 @@ export type {
 export { default as connectBoard } from '@lib/board';
 
 export type {
+    MqttProtocol,
     Official,
     OwlcmsClockStartEvent,
     OwlcmsConfigEvent,

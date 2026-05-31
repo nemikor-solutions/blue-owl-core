@@ -25,6 +25,16 @@ import type {
 import EventEmitter from 'node:events';
 import mqtt from 'mqtt';
 
+export type MqttProtocol =
+    | 'alis'
+    | 'mqtt'
+    | 'mqtts'
+    | 'tcp'
+    | 'tls'
+    | 'ws'
+    | 'wss'
+    | 'wxs';
+
 export type Official =
     | RefereeNumber
     | 'all'
@@ -112,9 +122,11 @@ type OwlcmsEventDataMap = {
 type OwlcmsEventData = OwlcmsEventDataMap[keyof OwlcmsEvents];
 
 export interface OwlcmsOptions {
-    mqttHost: string;
+    mqttHost?: string;
     mqttPassword?: string | undefined | null;
     mqttPort?: string;
+    mqttProtocol?: MqttProtocol;
+    mqttUrl?: string;
     mqttUsername?: string | undefined | null;
 }
 
@@ -127,18 +139,12 @@ export default class Owlcms extends EventEmitter {
 
     private options: OwlcmsOptions;
 
-    private static requiredOptions: Array<keyof OwlcmsOptions> = [
-        'mqttHost',
-    ];
-
     public constructor(options: OwlcmsOptions) {
         super();
 
-        Owlcms.requiredOptions.forEach((option) => {
-            if (!options[option]) {
-                throw new Error(`Missing required option: ${option}`);
-            }
-        });
+        if (!options.mqttUrl && !options.mqttHost) {
+            throw new Error('Either mqttUrl or mqttHost must be provided');
+        }
 
         this.debug = createLogger('owlcms');
         this.options = options;
@@ -155,8 +161,9 @@ export default class Owlcms extends EventEmitter {
             mqttOptions.password = this.options.mqttPassword;
         }
 
-        const mqttUrl = [
-            'mqtt://',
+        const mqttUrl = this.options.mqttUrl || [
+            this.options.mqttProtocol || 'mqtt',
+            '://',
             this.options.mqttHost,
             ':',
             this.options.mqttPort || '1883',
