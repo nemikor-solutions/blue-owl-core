@@ -90,7 +90,7 @@ export default class JuryMember extends Model<JuryMemberOptions> {
         });
     }
 
-    public resetDecision() {
+    private resetDecision() {
         this.debug('reset');
         this.emit('reset');
     }
