@@ -77,6 +77,10 @@ The strings `bad`, `good`, and `hidden`.
 
 The numbers `1`, `2`, `3`, `4`, and `5`.
 
+#### RefereeDecisionState
+
+The strings `bad`, `good`, and `hidden`. `hidden` means owlcms has received the referee's decision but it must not be revealed yet (e.g. during a panel vote); the jury panel shows it as green.
+
 #### RefereeNumber
 
 The numbers `1`, `2`, and `3`.
@@ -141,20 +145,25 @@ Provides functionality for starting and stopping the competition, including summ
 
 ##### referee-leds(options)
 
-Provides functionality for real-time referee decision LEDs.
+Provides functionality for real-time referee and jury decision LEDs (red, white, green).
 
 * `options`: Configuration options for the LEDs.
     * `board` (optional; `Board`): Which Johnny-Five board the LEDs are connected to.
     * `referee1BadLiftLed` (`number | string`): Which pin the referee 1 bad lift LED is connected to.
     * `referee1GoodLiftLed` (`number | string`): Which pin the referee 1 good lift LED is connected to.
+    * `referee1HiddenLiftLed` (optional; `number | string`): Which pin the referee 1 hidden decision LED (green) is connected to.
     * `referee2BadLiftLed` (`number | string`): Which pin the referee 2 bad lift LED is connected to.
     * `referee2GoodLiftLed` (`number | string`): Which pin the referee 2 good lift LED is connected to.
+    * `referee2HiddenLiftLed` (optional; `number | string`): Which pin the referee 2 hidden decision LED (green) is connected to.
     * `referee3BadLiftLed` (`number | string`): Which pin the referee 3 bad lift LED is connected to.
     * `referee3GoodLiftLed` (`number | string`): Which pin the referee 3 good lift LED is connected to.
+    * `referee3HiddenLiftLed` (optional; `number | string`): Which pin the referee 3 hidden decision LED (green) is connected to.
+
+*NOTE: Without a hidden decision LED, a `hidden` decision turns off the referee's LEDs until the decision is revealed.*
 
 ##### referee-rgb-leds(options)
 
-Provides functionality for real-time referee decision RGB LEDs.
+Provides functionality for real-time referee and jury decision RGB LEDs (red, white, green).
 
 * `options`: Configuration options for the RGB LEDs.
     * `anode` (optional; `boolean`): Whether the RGB LEDs are common anode.
@@ -174,8 +183,8 @@ The model has been initialized.
 A referee decision has been made.
 
 * `data`: Data about the decision.
-    * `decision` (`Decision`): The referee's decision.
-    * `number` (`RefereeNumber`): The number indicating which referee made the decision.
+    * `decision` (`RefereeDecisionState`): The referee's decision, or `hidden` if it must not be revealed yet.
+    * `referee` (`RefereeNumber`): The number indicating which referee made the decision.
 
 ##### resetRefereeDecisions
 

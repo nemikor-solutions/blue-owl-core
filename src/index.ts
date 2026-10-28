@@ -106,6 +106,7 @@ export { default as juryMemberRgbLed } from '@lib/model/jury-member/rgb-led';
 export type {
     Decision,
     RefereeDecisionEvent,
+    RefereeDecisionState,
     RefereeNumber,
     RefereeOptions,
 } from '@lib/model/referee/index';

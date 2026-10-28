@@ -11,6 +11,10 @@ export interface RefereeDecisionEvent {
     decision: Decision;
 }
 
+// A referee decision as received from owlcms. `hidden` means that the
+// decision has been received but must not be revealed yet.
+export type RefereeDecisionState = Decision | 'hidden';
+
 interface RefereeEvents extends ModelEvents {
     decisionConfirmed: (data: RefereeDecisionEvent) => void;
     decisionDisplayed: (data: RefereeDecisionEvent) => void;
@@ -39,6 +43,8 @@ export const referees: RefereeNumber[] = [
 
 export default class Referee extends Model<RefereeOptions> {
     protected confirmed = false;
+
+    protected publishedDecision: Decision | undefined;
 
     protected sleeping = false;
 
@@ -91,6 +97,16 @@ export default class Referee extends Model<RefereeOptions> {
                 return;
             }
 
+            if (decision === 'hidden') {
+                // The decision is received but not revealed (e.g. during a
+                // review vote). Confirm the decision this box published so
+                // that the referee gets the usual feedback.
+                if (this.publishedDecision) {
+                    this.decisionConfirmed(this.publishedDecision);
+                }
+                return;
+            }
+
             this.decisionConfirmed(decision);
         });
 
@@ -133,6 +149,7 @@ export default class Referee extends Model<RefereeOptions> {
 
     public publishDecision(decision: Decision) {
         this.confirmed = false;
+        this.publishedDecision = decision;
 
         this.debug(decision);
         this.emit('decisionPublished', { decision });
@@ -146,6 +163,7 @@ export default class Referee extends Model<RefereeOptions> {
 
     private resetDecision() {
         this.sleeping = false;
+        this.publishedDecision = undefined;
 
         this.debug('reset decision');
         this.emit('resetDecision');

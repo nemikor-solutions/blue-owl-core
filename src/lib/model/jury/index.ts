@@ -4,6 +4,7 @@ import type {
 } from '@lib/model/index';
 import type {
     Decision,
+    RefereeDecisionState,
     RefereeNumber,
 } from '@lib/model/referee/index';
 
@@ -19,7 +20,7 @@ export type JuryMemberNumber = 1 | 2 | 3 | 4 | 5;
 export type JuryOptions = ModelOptions<Jury>;
 
 export interface JuryRefereeDecisionEvent {
-    decision: Decision;
+    decision: RefereeDecisionState;
     referee: RefereeNumber;
 }
 
@@ -63,7 +64,7 @@ export default class Jury extends Model<JuryOptions> {
         decision,
         referee,
     }: {
-        decision: Decision;
+        decision: RefereeDecisionState;
         referee: RefereeNumber;
     }) {
         this.debug(`referee decision ${referee} ${decision}`);

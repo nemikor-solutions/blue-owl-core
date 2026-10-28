@@ -19,6 +19,7 @@ import {
 } from '@lib/logger';
 import type {
     Decision,
+    RefereeDecisionState,
     RefereeNumber,
 } from '@lib/model/referee/index';
 
@@ -49,13 +50,13 @@ export interface OwlcmsClockStartEvent {
 }
 
 export interface OwlcmsConfigEvent {
-    jurySize: 3 | 5;
+    jurySize: 0 | 3 | 4 | 5;
     platforms: string[];
     version: string;
 }
 
 export interface OwlcmsDecisionEvent {
-    decision: Decision;
+    decision: RefereeDecisionState;
     platform: string;
     referee: RefereeNumber;
 }
@@ -180,7 +181,11 @@ export default class Owlcms extends EventEmitter {
             if (action === 'config') {
                 data = JSON.parse(message);
             } else if (action === 'decision') {
-                const [referee, decision] = message.split(' ') as [string, Decision];
+                const [referee, decision] = message.split(' ') as [string, RefereeDecisionState];
+
+                if (decision !== 'good' && decision !== 'bad' && decision !== 'hidden') {
+                    return;
+                }
 
                 data = {
                     decision,

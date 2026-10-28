@@ -1,8 +1,10 @@
 import type Jury from '@lib/model/jury/index';
 import type {
+    Color,
     DigitalRgbLedOptions,
 } from '@lib/johnny-five/digital-rgb-led';
 import type {
+    RefereeDecisionState,
     RefereeNumber,
 } from '@lib/model/referee/index';
 
@@ -20,6 +22,12 @@ export interface JuryRefereeRgbLedsOptions {
 }
 
 type RefereePinsProperty = keyof Omit<JuryRefereeRgbLedsOptions, 'anode' | 'board'>;
+
+const refereeDecisionColor: Record<RefereeDecisionState, Color> = {
+    bad: 'red',
+    good: 'white',
+    hidden: 'green',
+};
 
 export default (options: JuryRefereeRgbLedsOptions) => {
     function refereePinsProperty(referee: RefereeNumber): RefereePinsProperty {
@@ -51,7 +59,7 @@ export default (options: JuryRefereeRgbLedsOptions) => {
 
         jury.on('refereeDecision', ({ decision, referee }) => {
             const ledProperty = refereePinsProperty(referee);
-            leds[ledProperty].color(decision === 'good' ? 'white' : 'red').on();
+            leds[ledProperty].color(refereeDecisionColor[decision]).on();
         });
 
         jury.on('resetRefereeDecisions', () => {
